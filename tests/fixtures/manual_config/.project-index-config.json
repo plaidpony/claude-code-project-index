@@ -1,0 +1,33 @@
+{
+  "monorepo": {
+    "enabled": true,
+    "tool": "manual",
+    "workspaces": {
+      "pattern": "projects/*",
+      "explicit": {
+        "app": "projects/app", 
+        "lib": "projects/lib",
+        "tools": "projects/tools"
+      },
+      "ignore": ["projects/legacy-*"]
+    },
+    "workspace_settings": {
+      "app": {
+        "ignore_patterns": ["*.tmp", "build/*"],
+        "custom_settings": {
+          "entry_point": "src/main.ts"
+        }
+      },
+      "lib": {
+        "ignore_patterns": ["dist/*", "*.log"],
+        "custom_settings": {
+          "library": true
+        }
+      }
+    },
+    "dependencies": {
+      "app": ["lib", "tools"],
+      "tools": ["lib"]
+    }
+  }
+}

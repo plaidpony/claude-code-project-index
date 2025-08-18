@@ -1,0 +1,57 @@
+{
+  "name": "@example/cli",
+  "version": "0.8.4",
+  "private": true,
+  "description": "Command-line interface and development tools",
+  "main": "bin/cli.js",
+  "bin": {
+    "example-cli": "bin/cli.js",
+    "ex": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x bin/cli.js",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:integration": "jest --config jest.integration.config.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf bin coverage",
+    "link": "npm link",
+    "unlink": "npm unlink -g"
+  },
+  "keywords": ["cli", "tools", "development", "commands"],
+  "author": "Example Team",
+  "license": "MIT",
+  "dependencies": {
+    "@example/types": "file:../../shared/types",
+    "@example/utils": "file:../../shared/utils",
+    "@example/build-tools": "file:../build",
+    "commander": "^11.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.0",
+    "inquirer": "^9.2.0",
+    "boxen": "^7.1.0",
+    "update-notifier": "^7.0.0",
+    "conf": "^11.0.0",
+    "cosmiconfig": "^8.3.0",
+    "execa": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/update-notifier": "^6.0.4",
+    "@types/node": "^20.8.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "preferGlobal": true
+}

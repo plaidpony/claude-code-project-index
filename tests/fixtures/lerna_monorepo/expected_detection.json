@@ -1,0 +1,12 @@
+{
+  "monorepo": true,
+  "tool": "lerna",
+  "workspace_registry": {
+    "api": "packages/api",
+    "web": "packages/web",
+    "utils": "packages/utils" 
+  },
+  "config_path": "lerna.json",
+  "detection_method": "auto",
+  "errors": []
+}

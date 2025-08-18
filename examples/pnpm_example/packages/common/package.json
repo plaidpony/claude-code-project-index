@@ -1,0 +1,40 @@
+{
+  "name": "@example/common",
+  "version": "0.9.1",
+  "description": "Common utilities, types, and constants",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit", 
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["utils", "types", "constants", "helpers"],
+  "author": "Example Team",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "date-fns": "^2.30.0",
+    "zod": "^3.22.0",
+    "nanoid": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/node": "catalog:",
+    "@types/jest": "^29.5.0", 
+    "jest": "catalog:",
+    "ts-jest": "^29.1.0",
+    "typescript": "catalog:"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

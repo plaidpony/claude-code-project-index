@@ -1,0 +1,7 @@
+packages:
+  - 'packages/*'
+  - 'services/*'
+  # Exclude test packages
+  - '!**/test/**'
+  # Exclude legacy packages
+  - '!packages/legacy-*'

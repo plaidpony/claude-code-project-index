@@ -1,0 +1,17 @@
+{
+  "name": "@myorg/api",
+  "version": "1.0.0",
+  "description": "API service for the Lerna monorepo",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@myorg/utils": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "jest": "^29.0.0"
+  }
+}

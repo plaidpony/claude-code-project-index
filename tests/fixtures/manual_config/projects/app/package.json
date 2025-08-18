@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Main application package",
+  "main": "src/main.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "dev": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "lib": "workspace:*",
+    "tools": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "jest": "^29.0.0"
+  }
+}

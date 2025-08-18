@@ -31,6 +31,15 @@ from index_utils import (
     infer_directory_purpose, get_language_name, should_index_file
 )
 
+# Import monorepo support (with fallback for backward compatibility)
+try:
+    from workspace_config import WorkspaceConfigManager
+    from workspace_indexer import WorkspaceIndexer
+    from cross_workspace_analyzer import build_cross_workspace_dependencies
+    MONOREPO_SUPPORT = True
+except ImportError:
+    MONOREPO_SUPPORT = False
+
 # Limits to keep it fast and simple
 MAX_FILES = 10000
 MAX_INDEX_SIZE = 1024 * 1024  # 1MB
@@ -105,6 +114,50 @@ def generate_tree_structure(root_path: Path, max_depth: int = MAX_TREE_DEPTH) ->
 
 # These functions are now imported from index_utils
 
+def _generate_monorepo_tree(root_path: Path, registry) -> List[str]:
+    """Generate a high-level tree view for monorepos showing workspaces."""
+    tree_lines = ["."]
+    
+    # Group workspaces by their parent directories
+    workspace_groups = {}
+    for workspace_name, workspace in registry.workspaces.items():
+        workspace_path = Path(workspace.path)
+        parent_dir = workspace_path.parent if len(workspace_path.parts) > 1 else Path(".")
+        
+        if parent_dir not in workspace_groups:
+            workspace_groups[parent_dir] = []
+        workspace_groups[parent_dir].append((workspace_name, workspace_path))
+    
+    # Sort parent directories  
+    sorted_parents = sorted(workspace_groups.keys(), key=lambda x: str(x))
+    
+    for i, parent_dir in enumerate(sorted_parents):
+        is_last_parent = i == len(sorted_parents) - 1
+        parent_prefix = "└── " if is_last_parent else "├── "
+        
+        if str(parent_dir) == ".":
+            # Root-level workspaces
+            workspaces = workspace_groups[parent_dir]
+            for j, (workspace_name, workspace_path) in enumerate(sorted(workspaces)):
+                is_last_workspace = j == len(workspaces) - 1 and is_last_parent
+                workspace_prefix = "└── " if is_last_workspace else "├── "
+                tree_lines.append(workspace_prefix + f"{workspace_path}/ (workspace: {workspace_name})")
+        else:
+            # Workspaces under a parent directory
+            tree_lines.append(parent_prefix + f"{parent_dir}/")
+            
+            workspaces = workspace_groups[parent_dir]
+            for j, (workspace_name, workspace_path) in enumerate(sorted(workspaces)):
+                is_last_workspace = j == len(workspaces) - 1
+                workspace_prefix = "    └── " if is_last_workspace else "    ├── "
+                if not is_last_parent:
+                    workspace_prefix = "│" + workspace_prefix
+                
+                workspace_dir_name = workspace_path.name
+                tree_lines.append(workspace_prefix + f"{workspace_dir_name}/ (workspace: {workspace_name})")
+    
+    return tree_lines
+
 
 def build_index(root_dir: str) -> Tuple[Dict, int]:
     """Build the enhanced index with architectural awareness."""
@@ -129,6 +182,128 @@ def build_index(root_dir: str) -> Tuple[Dict, int]:
         'files': {},
         'dependency_graph': {}
     }
+    
+    # Check for monorepo and add monorepo-specific fields if detected
+    monorepo_registry = None
+    if MONOREPO_SUPPORT:
+        try:
+            config_manager = WorkspaceConfigManager(root)
+            monorepo_registry = config_manager.load_configuration()
+            
+            # If we detected a monorepo, add monorepo-specific fields
+            if monorepo_registry and len(monorepo_registry.workspaces) > 1:
+                print("🏢 Monorepo detected! Building enhanced workspace index...")
+                
+                # Add monorepo metadata to root index
+                index['monorepo'] = {
+                    'enabled': True,
+                    'tool': monorepo_registry.detection_result.tool,
+                    'config_path': monorepo_registry.detection_result.config_path,
+                    'workspace_pattern': getattr(monorepo_registry.detection_result, 'workspace_pattern', None),
+                    'workspaces': {}
+                }
+                
+                # Build workspace registry with metadata
+                for workspace_name, workspace in monorepo_registry.workspaces.items():
+                    workspace_index_path = f"{workspace.path}/PROJECT_INDEX.json"
+                    index['monorepo']['workspaces'][workspace_name] = {
+                        'path': workspace.path,
+                        'index_path': workspace_index_path,
+                        'last_updated': datetime.now().isoformat(),
+                        'dependencies': monorepo_registry.get_dependencies(workspace_name),
+                        'dependents': monorepo_registry.get_dependents(workspace_name),
+                        'package_manager': workspace.package_manager
+                    }
+                
+                # Update global stats to include workspace information
+                index['global_stats'] = {
+                    'total_workspaces': len(monorepo_registry.workspaces),
+                    'total_files': 0,
+                    'total_directories': 0,
+                    'languages': {}
+                }
+                
+                # Generate individual workspace indexes
+                print("📦 Generating individual workspace indexes...")
+                workspace_indexer = WorkspaceIndexer(monorepo_registry)
+                
+                for workspace_name in monorepo_registry.get_workspace_names():
+                    workspace_index = workspace_indexer.index_workspace(workspace_name)
+                    if workspace_index:
+                        # Save individual workspace index
+                        workspace_path = monorepo_registry.workspaces[workspace_name].full_path
+                        workspace_index_file = workspace_path / "PROJECT_INDEX.json"
+                        try:
+                            workspace_index_file.write_text(json.dumps(workspace_index, indent=2))
+                            print(f"  ✅ {workspace_name}: {workspace_index['stats']['total_files']} files indexed")
+                            
+                            # Aggregate stats for global summary
+                            index['global_stats']['total_files'] += workspace_index['stats']['total_files']
+                            index['global_stats']['total_directories'] += workspace_index['stats']['total_directories']
+                            
+                            # Aggregate language stats
+                            for lang_category in ['fully_parsed', 'listed_only']:
+                                if lang_category in workspace_index['stats']:
+                                    for lang, count in workspace_index['stats'][lang_category].items():
+                                        if lang not in index['global_stats']['languages']:
+                                            index['global_stats']['languages'][lang] = 0
+                                        index['global_stats']['languages'][lang] += count
+                        except Exception as e:
+                            print(f"  ⚠️ Failed to save index for {workspace_name}: {e}")
+                            
+                # For monorepos, we focus on the global view in the root index
+                # The detailed file indexing will be in individual workspace indexes
+                print("🌍 Building global monorepo overview...")
+                
+                # Generate a high-level tree that shows workspaces
+                index['project_structure']['tree'] = _generate_monorepo_tree(root, monorepo_registry)
+                
+                # Add comprehensive cross-workspace dependency information
+                print("🔍 Analyzing cross-workspace dependencies...")
+                try:
+                    cross_workspace_analysis = build_cross_workspace_dependencies(monorepo_registry)
+                    
+                    # Add the comprehensive dependency graph
+                    index['cross_workspace_dependencies'] = cross_workspace_analysis['dependency_graph']
+                    
+                    # Add circular dependency information
+                    if cross_workspace_analysis['circular_dependencies']:
+                        index['circular_dependencies'] = cross_workspace_analysis['circular_dependencies']
+                        print(f"  ⚠️ Found {len(cross_workspace_analysis['circular_dependencies'])} circular dependencies")
+                    
+                    # Add shared types information
+                    if cross_workspace_analysis['shared_types']:
+                        index['shared_types'] = cross_workspace_analysis['shared_types']
+                        print(f"  🔗 Tracked {len(cross_workspace_analysis['shared_types'])} shared type relationships")
+                    
+                    # Add bidirectional dependency information for refactoring impact analysis
+                    index['refactoring_impact_analysis'] = cross_workspace_analysis['bidirectional_dependencies']
+                    
+                    # Add analysis metadata
+                    index['dependency_analysis_metadata'] = cross_workspace_analysis['analysis_metadata']
+                    
+                    print(f"  ✅ Cross-workspace analysis complete: {cross_workspace_analysis['analysis_metadata']['total_imports']} imports analyzed")
+                    
+                except Exception as e:
+                    print(f"  ⚠️ Cross-workspace analysis failed: {e}")
+                    # Fallback to basic dependency tracking
+                    index['cross_workspace_dependencies'] = {}
+                    for workspace_name in monorepo_registry.get_workspace_names():
+                        deps = monorepo_registry.get_dependencies(workspace_name)
+                        if deps:
+                            index['cross_workspace_dependencies'][workspace_name] = {
+                                "imports_from": deps,
+                                "imported_by": [],
+                                "shared_types": []
+                            }
+                
+                # Return early for monorepos - we've built the registry-focused index
+                return index, 0
+                
+        except Exception as e:
+            print(f"⚠️ Monorepo detection failed: {e}")
+            print("📁 Falling back to single-repo indexing...")
+            # Continue with normal single-repo indexing
     
     # Generate directory tree
     print("📊 Building directory tree...")
@@ -403,6 +578,12 @@ def compress_index_if_needed(index: Dict) -> Dict:
 
 def print_summary(index: Dict, skipped_count: int):
     """Print a helpful summary of what was indexed."""
+    # Check if this is a monorepo
+    if 'monorepo' in index and index['monorepo'].get('enabled'):
+        print_monorepo_summary(index)
+        return
+    
+    # Original single-repo summary
     stats = index['stats']
     
     # Add warning if no files were found
@@ -447,6 +628,70 @@ def print_summary(index: Dict, skipped_count: int):
     
     if skipped_count > 0:
         print(f"\n   (Skipped {skipped_count} files in ignored directories)")
+
+
+def print_monorepo_summary(index: Dict):
+    """Print a summary for monorepo indexing."""
+    monorepo_info = index['monorepo']
+    global_stats = index.get('global_stats', {})
+    
+    print(f"\n🏢 Monorepo Analysis Complete:")
+    print(f"   🔧 Tool: {monorepo_info['tool'].capitalize()}")
+    print(f"   📦 {global_stats.get('total_workspaces', 0)} workspaces indexed")
+    print(f"   📄 {global_stats.get('total_files', 0)} total files across all workspaces")
+    print(f"   📁 {global_stats.get('total_directories', 0)} total directories")
+    
+    # Show workspace details
+    if monorepo_info['workspaces']:
+        print(f"\n📦 Workspaces:")
+        for workspace_name, workspace_info in monorepo_info['workspaces'].items():
+            deps_info = ""
+            if workspace_info['dependencies']:
+                deps_info = f" → depends on: {', '.join(workspace_info['dependencies'])}"
+            print(f"   • {workspace_name}: {workspace_info['path']}/{deps_info}")
+    
+    # Show language distribution
+    if global_stats.get('languages'):
+        print(f"\n🌍 Global Language Distribution:")
+        for lang, count in sorted(global_stats['languages'].items()):
+            print(f"   • {count} {lang.capitalize()} files")
+    
+    # Show cross-workspace dependencies
+    if 'cross_workspace_dependencies' in index and index['cross_workspace_dependencies']:
+        print(f"\n🔗 Cross-Workspace Dependencies:")
+        for workspace, deps in index['cross_workspace_dependencies'].items():
+            if deps.get('imports_from'):
+                print(f"   • {workspace} → {', '.join(deps['imports_from'])}")
+    
+    # Show circular dependencies if any
+    if 'circular_dependencies' in index and index['circular_dependencies']:
+        print(f"\n🔴 Circular Dependencies Found: {len(index['circular_dependencies'])}")
+        for i, cycle in enumerate(index['circular_dependencies'][:3], 1):  # Show first 3
+            print(f"   {i}. {' → '.join(cycle['cycle'])} (severity: {cycle['severity']})")
+        if len(index['circular_dependencies']) > 3:
+            print(f"   ... and {len(index['circular_dependencies']) - 3} more")
+    
+    # Show shared types summary
+    if 'shared_types' in index and index['shared_types']:
+        print(f"\n🔗 Shared Types: {len(index['shared_types'])} type relationships")
+    
+    # Show dependency analysis metadata
+    if 'dependency_analysis_metadata' in index:
+        metadata = index['dependency_analysis_metadata']
+        print(f"\n📈 Dependency Analysis:")
+        print(f"   • {metadata.get('total_imports', 0)} cross-workspace imports analyzed")
+        if metadata.get('circular_count', 0) == 0:
+            print(f"   • ✅ No circular dependencies detected")
+    
+    print(f"\n✨ Individual workspace indexes saved to:")
+    for workspace_name, workspace_info in monorepo_info['workspaces'].items():
+        print(f"   • {workspace_info['index_path']}")
+    
+    print(f"\n💡 Monorepo Benefits Enabled:")
+    print(f"   • Cross-workspace dependency tracking")
+    print(f"   • Workspace-aware file routing")
+    print(f"   • Hierarchical project structure")
+    print(f"   • Individual workspace context preservation")
 
 
 def main():

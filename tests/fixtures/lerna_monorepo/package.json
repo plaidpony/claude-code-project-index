@@ -1,0 +1,13 @@
+{
+  "name": "lerna-monorepo",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna clean"
+  },
+  "devDependencies": {
+    "lerna": "^6.4.1"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "@example/dashboard-app",
+  "version": "1.8.0",
+  "private": true,
+  "description": "Admin dashboard application with React and Material-UI",
+  "homepage": "https://dashboard.example.com",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix", 
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "analyze": "npm run build -- --analyze"
+  },
+  "dependencies": {
+    "@example/common": "workspace:*",
+    "@example/auth": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^5.14.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@tanstack/react-query": "^4.35.0",
+    "axios": "^1.5.0",
+    "recharts": "^2.8.0",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "@types/node": "catalog:",
+    "@types/jest": "^29.5.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "jest": "catalog:",
+    "jest-environment-jsdom": "^29.5.0",
+    "typescript": "catalog:",
+    "vite": "^4.4.0",
+    "vite-bundle-analyzer": "^0.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

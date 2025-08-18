@@ -1,0 +1,12 @@
+{
+  "monorepo": true,
+  "tool": "nx",
+  "workspace_registry": {
+    "api": "packages/api",
+    "web": "packages/web", 
+    "shared": "packages/shared"
+  },
+  "config_path": "nx.json",
+  "detection_method": "auto",
+  "errors": []
+}

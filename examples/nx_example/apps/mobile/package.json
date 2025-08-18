@@ -1,0 +1,22 @@
+{
+  "name": "@example/mobile",
+  "version": "0.0.1",
+  "description": "Mobile application",
+  "main": "./src/main.tsx",
+  "scripts": {
+    "build": "nx build mobile",
+    "test": "nx test mobile",
+    "lint": "nx lint mobile",
+    "serve": "nx serve mobile"
+  },
+  "dependencies": {
+    "@example/shared": "workspace:*",
+    "react-native": "0.72.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.33",
+    "typescript": "~5.2.2",
+    "metro": "^0.76.0"
+  }
+}

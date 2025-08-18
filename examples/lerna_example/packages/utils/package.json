@@ -1,0 +1,36 @@
+{
+  "name": "@example/utils",
+  "version": "0.8.3",
+  "description": "Shared utility functions",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf lib"
+  },
+  "keywords": ["utils", "helpers", "typescript"],
+  "author": "Example Team",
+  "license": "MIT",
+  "dependencies": {
+    "@example/core": "^1.2.0",
+    "date-fns": "^2.30.0",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "@types/validator": "^13.11.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

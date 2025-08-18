@@ -2,7 +2,15 @@
 
 **⚠️ Early Beta Release** - This tool is in active development. Please report issues and contribute!
 
-A UML-inspired code intelligence system that gives Claude Code comprehensive architectural awareness of your codebase through static analysis and pattern recognition.
+A UML-inspired code intelligence system that gives Claude Code comprehensive architectural awareness of your codebase through static analysis and pattern recognition. **Now with full monorepo support** for complex multi-workspace projects.
+
+## 🌟 New in v0.1.0: Complete Monorepo Support
+
+**Advanced monorepo capabilities for modern development workflows:**
+- **Multi-tool detection** - Supports Nx, Lerna, Yarn Workspaces, PNPM, Rush, and manual configuration
+- **Workspace-aware indexing** - Individual indexes for each workspace with cross-workspace dependency analysis
+- **44x performance improvement** - Selective reindexing updates only changed workspaces in <50ms
+- **Comprehensive tooling** - Complete documentation, examples, and migration guides for all supported tools
 
 ## 🚀 Quick Install
 

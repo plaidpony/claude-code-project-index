@@ -1,0 +1,61 @@
+packages:
+  - 'packages/*'
+  - 'services/*'  
+  - 'apps/*'
+
+# Catalog for shared dependency versions
+catalog:
+  react: ^18.2.0
+  typescript: ^5.2.2
+  eslint: ^8.48.0
+  jest: ^29.5.0
+  '@types/node': ^20.8.0
+
+# PNPM-specific settings
+prefer-workspace-packages: true
+link-workspace-packages: true
+save-workspace-protocol: true
+
+# Hoisting patterns
+hoist-pattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '*typescript*'
+
+# Public hoist pattern for commonly shared deps
+public-hoist-pattern:
+  - '*types*'
+  - 'eslint*'
+
+# Auto install peer dependencies
+auto-install-peers: true
+
+# Resolution settings
+resolution-mode: highest
+
+# Project Index configuration
+project-index-config:
+  performance_mode: "balanced"
+  cross_workspace_analysis: true
+  workspace_overrides:
+    database:
+      language_hints: ["typescript", "sql"]
+      ignore_patterns: ["*.spec.ts", "dist/", "migrations/"]
+    auth:
+      language_hints: ["typescript"]
+      ignore_patterns: ["*.test.ts", "lib/", "__tests__/"]
+    common:
+      language_hints: ["typescript"]
+      ignore_patterns: ["*.spec.ts", "dist/", "coverage/"]
+    api:
+      language_hints: ["typescript", "javascript"]
+      ignore_patterns: ["*.spec.js", "dist/", "logs/"]
+    worker:
+      language_hints: ["typescript", "javascript"]
+      ignore_patterns: ["*.test.js", "dist/", "tmp/"]
+    frontend:
+      language_hints: ["typescript", "javascript", "css", "scss"]
+      ignore_patterns: ["*.test.tsx", "build/", ".next/", "coverage/"]
+    dashboard:
+      language_hints: ["typescript", "javascript", "css"]
+      ignore_patterns: ["*.spec.tsx", "dist/", "storybook-static/"]

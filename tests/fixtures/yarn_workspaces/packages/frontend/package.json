@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend package for Yarn workspace",
+  "main": "src/index.tsx", 
+  "scripts": {
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "dev": "react-scripts start"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shared": "workspace:*"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1",
+    "@types/react": "^18.0.0"
+  }
+}

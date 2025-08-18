@@ -1,16 +1,103 @@
 {
-  "indexed_at": "2025-08-15T17:08:41.385779",
+  "indexed_at": "2025-08-18T11:11:17.868982",
   "root": ".",
   "project_structure": {
     "type": "tree",
     "root": ".",
     "tree": [
       ".",
-      "\u251c\u2500\u2500 scripts/ (8 files)",
+      "\u251c\u2500\u2500 scripts/ (17 files)",
+      "\u251c\u2500\u2500 tests/ (22 files)",
+      "\u2502   \u2514\u2500\u2500 fixtures/ (19 files)",
+      "\u2502       \u251c\u2500\u2500 lerna_monorepo/ (4 files)",
+      "\u2502       \u2502   \u251c\u2500\u2500 packages/ (1 files)",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
+      "\u2502       \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 utils/",
+      "\u2502       \u2502   \u2502   \u2514\u2500\u2500 web/",
+      "\u2502       \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u251c\u2500\u2500 manual_config/ (2 files)",
+      "\u2502       \u2502   \u251c\u2500\u2500 projects/ (1 files)",
+      "\u2502       \u2502   \u2502   \u2514\u2500\u2500 app/ (1 files)",
+      "\u2502       \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502   \u2514\u2500\u2500 {projects/",
+      "\u2502       \u2502       \u251c\u2500\u2500 app}/",
+      "\u2502       \u2502       \u251c\u2500\u2500 lib}/",
+      "\u2502       \u2502       \u2514\u2500\u2500 tools}/",
+      "\u2502       \u251c\u2500\u2500 nx_monorepo/ (7 files)",
+      "\u2502       \u2502   \u251c\u2500\u2500 apps/",
+      "\u2502       \u2502   \u251c\u2500\u2500 libs/",
+      "\u2502       \u2502   \u2514\u2500\u2500 packages/ (5 files)",
+      "\u2502       \u2502       \u251c\u2500\u2500 api/ (2 files)",
+      "\u2502       \u2502       \u2502   \u251c\u2500\u2500 src/ (1 files)",
+      "\u2502       \u2502       \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502       \u251c\u2500\u2500 shared/ (2 files)",
+      "\u2502       \u2502       \u2502   \u251c\u2500\u2500 src/ (1 files)",
+      "\u2502       \u2502       \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502       \u2514\u2500\u2500 web/ (1 files)",
+      "\u2502       \u2502           \u2514\u2500\u2500 package.json",
+      "\u2502       \u251c\u2500\u2500 pnpm_workspaces/ (2 files)",
+      "\u2502       \u2502   \u251c\u2500\u2500 packages/ (1 files)",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 core/ (1 files)",
+      "\u2502       \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 ui/",
+      "\u2502       \u2502   \u2502   \u2514\u2500\u2500 utils/",
+      "\u2502       \u2502   \u251c\u2500\u2500 services/",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 api/",
+      "\u2502       \u2502   \u2502   \u2514\u2500\u2500 auth/",
+      "\u2502       \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502       \u251c\u2500\u2500 rush_monorepo/ (2 files)",
+      "\u2502       \u2502   \u251c\u2500\u2500 apps/ (1 files)",
+      "\u2502       \u2502   \u2502   \u251c\u2500\u2500 admin/",
+      "\u2502       \u2502   \u2502   \u2514\u2500\u2500 website/ (1 files)",
+      "\u2502       \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502       \u2502   \u2514\u2500\u2500 libraries/",
+      "\u2502       \u2502       \u251c\u2500\u2500 shared-utils/",
+      "\u2502       \u2502       \u2514\u2500\u2500 ui-components/",
+      "\u2502       \u2514\u2500\u2500 yarn_workspaces/ (2 files)",
+      "\u2502           \u251c\u2500\u2500 apps/",
+      "\u2502           \u2502   \u251c\u2500\u2500 mobile-app/",
+      "\u2502           \u2502   \u2514\u2500\u2500 web-app/",
+      "\u2502           \u251c\u2500\u2500 packages/ (1 files)",
+      "\u2502           \u2502   \u251c\u2500\u2500 backend/",
+      "\u2502           \u2502   \u251c\u2500\u2500 frontend/ (1 files)",
+      "\u2502           \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502           \u2502   \u2514\u2500\u2500 shared/",
+      "\u2502           \u2514\u2500\u2500 package.json",
       "\u2514\u2500\u2500 README.md"
     ]
   },
   "documentation_map": {
+    "MONOREPO_MCD.md": {
+      "sections": [
+        "Monorepo Support MCD (Main Context Document)",
+        "\ud83c\udfaf Overview & Goals",
+        "Project Vision",
+        "Target Users",
+        "Core Features",
+        "Success Criteria",
+        "Business Context",
+        "\ud83c\udfd7\ufe0f Technical Architecture",
+        "Hierarchical Index Architecture (Option A)",
+        "\ud83d\udccb Detailed Implementation"
+      ],
+      "architecture_hints": []
+    },
+    "PHASE2_IMPLEMENTATION.md": {
+      "sections": [
+        "Phase 2 Implementation: Workspace-Aware Hook System",
+        "Overview",
+        "Key Features Implemented",
+        "1. Workspace-Aware Update Hook (`update_index.py`)",
+        "2. Enhanced Staleness Detection (`reindex_if_needed.py`)",
+        "3. Performance Monitoring System (`performance_monitor.py`)",
+        "4. Comprehensive Test Suite (`tests/test_workspace_hooks.py`)",
+        "Performance Targets Achieved",
+        "Response Time",
+        "Resource Usage"
+      ],
+      "architecture_hints": []
+    },
     "README.md": {
       "sections": [
         "Project Index for Claude Code (v0.1.0)",
@@ -28,31 +115,51 @@
     }
   },
   "directory_purposes": {
-    "scripts": "Build and utility scripts"
+    "scripts": "Build and utility scripts",
+    "tests/fixtures/manual_config": "Configuration files and settings",
+    "tests/fixtures/lerna_monorepo/packages/api": "API endpoints and route handlers",
+    "tests/fixtures/nx_monorepo/packages/api": "API endpoints and route handlers",
+    "tests/fixtures/nx_monorepo/packages/api/src": "Source code root directory",
+    "tests/fixtures/nx_monorepo/packages/shared/src": "Source code root directory"
   },
   "stats": {
-    "total_files": 11,
-    "total_directories": 2,
+    "total_files": 40,
+    "total_directories": 54,
     "fully_parsed": {
-      "python": 5,
-      "shell": 1
+      "python": 12,
+      "shell": 1,
+      "typescript": 2
     },
     "listed_only": {
       "shell": 4,
-      "json": 1
+      "json": 21
     },
-    "markdown_files": 1
+    "markdown_files": 3
   },
   "files": {
     "install.sh": {
       "language": "shell",
       "parsed": false
     },
+    ".mcp.json": {
+      "language": "json",
+      "parsed": false
+    },
     "uninstall.sh": {
       "language": "shell",
       "parsed": false
     },
-    "scripts/reindex_if_needed.py": {
+    ".agent/config.json": {
+      "language": "json",
+      "parsed": false,
+      "purpose": "Configuration"
+    },
+    ".claude/settings.local.json": {
+      "language": "json",
+      "parsed": false,
+      "purpose": "Configuration"
+    },
+    "scripts/reindex_if_needed_enhanced.py": {
       "language": "python",
       "parsed": true,
       "imports": [
@@ -60,73 +167,488 @@
         "sys",
         "os",
         "subprocess",
+        "time",
         "pathlib",
-        "datetime"
+        "datetime",
+        "typing",
+        "workspace_config",
+        "workspace_indexer"
       ],
       "functions": {
+        "find_project_modules": {
+          "doc": "Find project modules in project or system location.",
+          "signature": "()"
+        },
+        "get_workspace_config_cached": {
+          "doc": "Get workspace configuration with caching.",
+          "signature": "(project_root: Path) -> Optional[Dict]",
+          "called_by": [
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "update_root_index_workspace_registry",
+            "handle_file_update",
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
         "check_index_features": {
           "doc": "Check if index has all required features.",
-          "signature": "(index_path)",
+          "signature": "(index_path: Path) -> Tuple[bool, Optional[str]]",
           "called_by": [
-            "main"
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
           ]
         },
         "check_index_staleness": {
           "doc": "Check if index is older than threshold.",
-          "signature": "(index_path, threshold_hours=24)",
+          "signature": "(index_path: Path, threshold_hours: int = 24) -> bool",
           "called_by": [
-            "main"
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
           ]
         },
-        "check_missing_documentation": {
-          "doc": "Check if important documentation files are missing from index.",
-          "signature": "(index_path, project_root)",
-          "called_by": [
-            "main"
-          ]
-        },
-        "check_structural_changes": {
-          "doc": "Check if directory structure has significantly changed.",
-          "signature": "(index_path, project_root)",
-          "called_by": [
-            "main"
-          ]
-        },
-        "count_hook_updates": {
-          "doc": "Count how many files were updated by hooks vs full index.",
-          "signature": "(index_path)",
-          "called_by": [
-            "main"
-          ]
-        },
-        "run_reindex": {
-          "doc": "Run the project_index.py script to perform full reindex.",
-          "signature": "(project_root)",
-          "called_by": [
-            "main"
-          ]
-        },
-        "main": {
-          "doc": "Main hook entry point.",
+        "check_workspace_staleness": {
+          "doc": "Check if a specific workspace is stale.",
           "calls": [
             "check_index_features",
             "check_index_staleness",
             "check_missing_documentation",
             "check_structural_changes",
             "count_hook_updates",
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> Tuple[bool, Optional[str]]",
+          "called_by": [
+            "handle_workspace_aware_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "check_missing_documentation": {
+          "doc": "Check if important documentation files are missing from index.",
+          "signature": "(index_path: Path, workspace_root: Path) -> bool",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_structural_changes": {
+          "doc": "Check if directory structure has significantly changed.",
+          "signature": "(index_path: Path, workspace_root: Path) -> bool",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "count_hook_updates": {
+          "doc": "Count how many files were updated by hooks vs full index.",
+          "signature": "(index_path: Path) -> Tuple[int, int]",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_workspace_configuration_changes": {
+          "doc": "Check if workspace configuration has changed.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(project_root: Path) -> Tuple[bool, List[str]]",
+          "called_by": [
+            "handle_workspace_aware_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "run_workspace_reindex": {
+          "doc": "Run reindex for a specific workspace.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> bool",
+          "called_by": [
+            "run_reindex",
             "run_reindex"
+          ]
+        },
+        "run_reindex": {
+          "doc": "Run reindexing with workspace awareness.",
+          "calls": [
+            "get_workspace_config_cached",
+            "run_reindex",
+            "run_single_repo_reindex",
+            "run_workspace_reindex",
+            "update_root_index_after_workspace_reindex"
+          ],
+          "signature": "(project_root: Path, selective_workspaces: Optional[List[str]] = None) -> bool",
+          "called_by": [
+            "run_reindex",
+            "handle_workspace_aware_reindex",
+            "run_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "run_single_repo_reindex": {
+          "doc": "Run traditional single-repo reindex.",
+          "signature": "(project_root: Path) -> bool",
+          "called_by": [
+            "run_reindex",
+            "handle_single_repo_reindex",
+            "run_reindex",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "update_root_index_after_workspace_reindex": {
+          "doc": "Update root index after workspace reindexing.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(project_root: Path, reindexed_workspaces: List[str]) -> None",
+          "called_by": [
+            "run_reindex",
+            "run_reindex"
+          ]
+        },
+        "main": {
+          "doc": "Main hook entry point with workspace awareness.",
+          "calls": [
+            "get_workspace_config_cached",
+            "handle_single_repo_reindex",
+            "handle_workspace_aware_reindex"
           ],
           "signature": "()"
+        },
+        "handle_single_repo_reindex": {
+          "doc": "Handle single-repo reindexing logic.",
+          "calls": [
+            "check_index_features",
+            "check_index_staleness",
+            "check_missing_documentation",
+            "check_structural_changes",
+            "count_hook_updates",
+            "run_single_repo_reindex"
+          ],
+          "signature": "(root_index_path: Path, project_root: Path) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
+        },
+        "handle_workspace_aware_reindex": {
+          "doc": "Handle workspace-aware reindexing logic.",
+          "calls": [
+            "check_workspace_configuration_changes",
+            "check_workspace_staleness",
+            "run_reindex"
+          ],
+          "signature": "(project_root: Path, workspace_config: Dict) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
         }
       },
       "classes": {},
+      "constants": {
+        "CACHE_TTL": "number"
+      },
       "call_graph": {}
     },
-    "scripts/find_python.sh": {
-      "language": "shell",
+    "scripts/cross_workspace_analyzer.py": {
+      "language": "python",
       "parsed": true,
+      "imports": [
+        "json",
+        "re",
+        "ast",
+        "os",
+        "pathlib",
+        "typing",
+        "collections",
+        "dataclasses",
+        "workspace_config",
+        "sys",
+        "workspace_config"
+      ],
       "functions": {
-        "find_python": "()"
+        "build_cross_workspace_dependencies": {
+          "calls": [
+            "analyze_all_workspaces"
+          ],
+          "signature": "(registry: WorkspaceRegistry) -> Dict[str, Dict]"
+        }
+      },
+      "classes": {
+        "ImportInfo": {
+          "methods": {
+            "__post_init__": "(self)"
+          },
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Information about a cross-workspace import.",
+          "properties": [
+            "source_workspace",
+            "target_workspace",
+            "source_file",
+            "import_statement",
+            "import_type",
+            "shared_types"
+          ]
+        },
+        "CircularDependency": {
+          "methods": {},
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Information about a circular dependency.",
+          "properties": [
+            "cycle",
+            "imports",
+            "severity"
+          ]
+        },
+        "CrossWorkspaceAnalyzer": {
+          "methods": {
+            "__init__": {
+              "calls": [
+                "_load_typescript_references",
+                "_load_workspace_packages"
+              ],
+              "signature": "(self, registry: WorkspaceRegistry)"
+            },
+            "_load_workspace_packages": {
+              "doc": "Load package.json from each workspace to understand package names and dependencies.",
+              "signature": "(self) -> Dict[str, Dict]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.__init__",
+                "CrossWorkspaceDependencyAnalyzer.__init__"
+              ]
+            },
+            "_load_typescript_references": {
+              "doc": "Load TypeScript project references from tsconfig.json files.",
+              "signature": "(self) -> Dict[str, List[str]]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.__init__"
+              ]
+            },
+            "analyze_all_workspaces": {
+              "calls": [
+                "_analyze_workspace_imports",
+                "_build_bidirectional_relationships",
+                "_build_dependency_graph",
+                "_circular_dep_to_dict",
+                "_detect_circular_dependencies",
+                "_extract_shared_types"
+              ],
+              "signature": "(self) -> Dict[str, Dict]",
+              "called_by": [
+                "build_cross_workspace_dependencies"
+              ]
+            },
+            "_analyze_workspace_imports": {
+              "doc": "Analyze all imports in a workspace for cross-workspace dependencies.",
+              "calls": [
+                "_analyze_file_imports",
+                "_analyze_package_dependencies"
+              ],
+              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            },
+            "_analyze_file_imports": {
+              "doc": "Analyze imports in a single file.",
+              "calls": [
+                "_analyze_javascript_imports",
+                "_analyze_python_imports"
+              ],
+              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_workspace_imports"
+              ]
+            },
+            "_analyze_python_imports": {
+              "doc": "Analyze Python imports for cross-workspace dependencies with AST parsing.",
+              "calls": [
+                "_analyze_python_imports_regex",
+                "_extract_python_types_from_import",
+                "_filter_type_names",
+                "_resolve_python_import"
+              ],
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
+                "CrossWorkspaceAnalyzer._analyze_file_imports"
+              ]
+            },
+            "_analyze_python_imports_regex": {
+              "doc": "Fallback regex-based Python import analysis.",
+              "calls": [
+                "_filter_type_names",
+                "_resolve_python_import"
+              ],
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_python_imports"
+              ]
+            },
+            "_analyze_javascript_imports": {
+              "doc": "Analyze JavaScript/TypeScript imports for cross-workspace dependencies.",
+              "calls": [
+                "_filter_type_names",
+                "_resolve_javascript_import"
+              ],
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
+                "CrossWorkspaceAnalyzer._analyze_file_imports"
+              ]
+            },
+            "_resolve_python_import": {
+              "doc": "Resolve a Python import to a workspace name.",
+              "calls": [
+                "_resolve_relative_python_import"
+              ],
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_python_imports_regex",
+                "CrossWorkspaceAnalyzer._analyze_python_imports"
+              ]
+            },
+            "_resolve_javascript_import": {
+              "doc": "Resolve a JavaScript/TypeScript import to a workspace name and import type.",
+              "calls": [
+                "_resolve_relative_javascript_import"
+              ],
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_javascript_imports"
+              ]
+            },
+            "_resolve_relative_python_import": {
+              "doc": "Resolve relative Python imports that might cross workspace boundaries.",
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._resolve_python_import"
+              ]
+            },
+            "_resolve_relative_javascript_import": {
+              "doc": "Resolve relative JavaScript/TypeScript imports that might cross workspace boundaries.",
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._resolve_javascript_import"
+              ]
+            },
+            "_analyze_package_dependencies": {
+              "doc": "Analyze package.json dependencies for cross-workspace references.",
+              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_workspace_imports"
+              ]
+            },
+            "_build_dependency_graph": {
+              "doc": "Build the cross-workspace dependency graph.",
+              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, Dict]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            },
+            "_detect_circular_dependencies": {
+              "doc": "Detect circular dependencies using DFS algorithm.",
+              "calls": [
+                "_determine_cycle_severity",
+                "dfs"
+              ],
+              "signature": "(self, dependency_graph: Dict[str, Dict]) -> List[CircularDependency]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            },
+            "dfs": {
+              "calls": [
+                "_determine_cycle_severity",
+                "dfs"
+              ],
+              "signature": "(node: str, path: List[str]) -> None",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._detect_circular_dependencies",
+                "CrossWorkspaceAnalyzer.dfs"
+              ]
+            },
+            "_determine_cycle_severity": {
+              "doc": "Determine the severity of a circular dependency.",
+              "signature": "(self, cycle: List[str]) -> str",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._detect_circular_dependencies",
+                "CrossWorkspaceAnalyzer.dfs"
+              ]
+            },
+            "_extract_shared_types": {
+              "doc": "Extract shared types and interfaces from imports.",
+              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, List[str]]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            },
+            "_build_bidirectional_relationships": {
+              "doc": "Build bidirectional relationship mapping for refactoring impact analysis.",
+              "signature": "(self, dependency_graph: Dict[str, Dict]) -> Dict[str, Dict]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            },
+            "_extract_python_types_from_import": {
+              "doc": "Extract type names from Python imports.",
+              "signature": "(self, import_name: str, content: str) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_python_imports"
+              ]
+            },
+            "_filter_type_names": {
+              "doc": "Filter a list of names to likely type/interface names.",
+              "signature": "(self, names: List[str]) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer._analyze_javascript_imports",
+                "CrossWorkspaceAnalyzer._analyze_python_imports_regex",
+                "CrossWorkspaceAnalyzer._analyze_python_imports"
+              ]
+            },
+            "_circular_dep_to_dict": {
+              "doc": "Convert CircularDependency to dictionary for serialization.",
+              "signature": "(self, circular_dep: CircularDependency) -> Dict",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
+              ]
+            }
+          }
+        }
       },
       "call_graph": {}
     },
@@ -141,6 +663,9 @@
         "pathlib",
         "typing",
         "index_utils",
+        "workspace_config",
+        "workspace_indexer",
+        "cross_workspace_analyzer",
         "sys"
       ],
       "functions": {
@@ -155,9 +680,17 @@
             "build_index"
           ]
         },
+        "_generate_monorepo_tree": {
+          "doc": "Generate a high-level tree view for monorepos showing workspaces.",
+          "signature": "(root_path: Path, registry) -> List[str]",
+          "called_by": [
+            "build_index"
+          ]
+        },
         "build_index": {
           "doc": "Build the enhanced index with architectural awareness.",
           "calls": [
+            "_generate_monorepo_tree",
             "generate_tree_structure"
           ],
           "signature": "(root_dir: str) -> Tuple[Dict, int]",
@@ -174,9 +707,19 @@
         },
         "print_summary": {
           "doc": "Print a helpful summary of what was indexed.",
+          "calls": [
+            "print_monorepo_summary"
+          ],
           "signature": "(index: Dict, skipped_count: int)",
           "called_by": [
             "main"
+          ]
+        },
+        "print_monorepo_summary": {
+          "doc": "Print a summary for monorepo indexing.",
+          "signature": "(index: Dict)",
+          "called_by": [
+            "print_summary"
           ]
         },
         "main": {
@@ -195,49 +738,6 @@
         "MAX_INDEX_SIZE": "value",
         "MAX_TREE_DEPTH": "number"
       },
-      "call_graph": {}
-    },
-    "scripts/run_python.sh": {
-      "language": "shell",
-      "parsed": false
-    },
-    "scripts/project-index-helper.sh": {
-      "language": "shell",
-      "parsed": false,
-      "purpose": "Utility functions"
-    },
-    "scripts/update_index.py": {
-      "language": "python",
-      "parsed": true,
-      "imports": [
-        "json",
-        "sys",
-        "os",
-        "pathlib",
-        "datetime",
-        "index_utils"
-      ],
-      "functions": {
-        "find_index_utils": {
-          "doc": "Find index_utils.py in the project directory or system location.",
-          "signature": "()"
-        },
-        "update_file_in_index": {
-          "doc": "Update a single file's entry in the enhanced index.",
-          "signature": "(index_path, file_path, project_root)",
-          "called_by": [
-            "main"
-          ]
-        },
-        "main": {
-          "doc": "Process PostToolUse hook input and update index.",
-          "calls": [
-            "update_file_in_index"
-          ],
-          "signature": "()"
-        }
-      },
-      "classes": {},
       "call_graph": {}
     },
     "scripts/index_utils.py": {
@@ -356,6 +856,396 @@
       },
       "call_graph": {}
     },
+    "scripts/update_index_enhanced.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "sys",
+        "os",
+        "pathlib",
+        "datetime",
+        "typing",
+        "time",
+        "index_utils",
+        "workspace_config",
+        "workspace_indexer"
+      ],
+      "functions": {
+        "find_project_modules": {
+          "doc": "Find project modules (index_utils, workspace_config, etc.) in project or system location.",
+          "signature": "()"
+        },
+        "get_workspace_config_cached": {
+          "doc": "Get workspace configuration with caching.",
+          "signature": "(project_root: Path) -> Optional[Dict]",
+          "called_by": [
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "update_root_index_workspace_registry",
+            "handle_file_update",
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
+        "get_workspace_for_file": {
+          "doc": "Determine which workspace a file belongs to.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(file_path: Path, project_root: Path) -> Optional[str]",
+          "called_by": [
+            "handle_file_update",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
+        "get_workspace_index_path": {
+          "doc": "Get the path to a workspace's index file.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> Optional[Path]",
+          "called_by": [
+            "update_workspace_index",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "update_workspace_index",
+            "handle_basic_cross_workspace_dependencies",
+            "update_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_cross_workspace_file_move"
+          ]
+        },
+        "get_dependent_workspaces": {
+          "doc": "Get list of workspaces that depend on the given workspace.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> List[str]",
+          "called_by": [
+            "handle_cross_workspace_dependencies",
+            "handle_basic_cross_workspace_dependencies"
+          ]
+        },
+        "update_workspace_index": {
+          "doc": "Update a specific workspace index.",
+          "calls": [
+            "get_workspace_index_path",
+            "update_file_in_index"
+          ],
+          "signature": "(workspace_name: str, file_path: Path, project_root: Path) -> bool",
+          "called_by": [
+            "handle_file_update",
+            "handle_file_update"
+          ]
+        },
+        "handle_cross_workspace_dependencies": {
+          "doc": "Handle cascade updates for dependent workspaces.",
+          "calls": [
+            "get_dependent_workspaces",
+            "get_workspace_index_path"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> None",
+          "called_by": [
+            "handle_file_update",
+            "handle_cross_workspace_file_move",
+            "handle_file_update"
+          ]
+        },
+        "update_root_index_workspace_registry": {
+          "doc": "Update the root index workspace registry when workspace relationships change.",
+          "calls": [
+            "get_workspace_config_cached",
+            "get_workspace_index_path"
+          ],
+          "signature": "(project_root: Path) -> None",
+          "called_by": [
+            "handle_file_update",
+            "handle_cross_workspace_file_move",
+            "handle_file_update"
+          ]
+        },
+        "update_file_in_index": {
+          "doc": "Update a single file's entry in the enhanced index.",
+          "signature": "(index_path: str, file_path: str, project_root: str) -> bool",
+          "called_by": [
+            "update_workspace_index",
+            "handle_file_update",
+            "update_workspace_index",
+            "handle_file_update"
+          ]
+        },
+        "handle_file_update": {
+          "doc": "Handle a file update with workspace awareness.",
+          "calls": [
+            "get_workspace_config_cached",
+            "get_workspace_for_file",
+            "handle_cross_workspace_dependencies",
+            "update_file_in_index",
+            "update_root_index_workspace_registry",
+            "update_workspace_index"
+          ],
+          "signature": "(file_path: Path, project_root: Path) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
+        },
+        "main": {
+          "doc": "Process PostToolUse hook input and update index with workspace awareness.",
+          "calls": [
+            "handle_file_update"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {},
+      "constants": {
+        "CACHE_TTL": "number"
+      },
+      "call_graph": {}
+    },
+    "scripts/reindex_if_needed.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "sys",
+        "os",
+        "subprocess",
+        "time",
+        "pathlib",
+        "datetime",
+        "typing",
+        "workspace_config",
+        "workspace_indexer"
+      ],
+      "functions": {
+        "find_project_modules": {
+          "doc": "Find project modules in project or system location.",
+          "signature": "()"
+        },
+        "get_workspace_config_cached": {
+          "doc": "Get workspace configuration with caching.",
+          "signature": "(project_root: Path) -> Optional[Dict]",
+          "called_by": [
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "update_root_index_workspace_registry",
+            "handle_file_update",
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
+        "check_index_features": {
+          "doc": "Check if index has all required features.",
+          "signature": "(index_path: Path) -> Tuple[bool, Optional[str]]",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_index_staleness": {
+          "doc": "Check if index is older than threshold.",
+          "signature": "(index_path: Path, threshold_hours: int = 24) -> bool",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_workspace_staleness": {
+          "doc": "Check if a specific workspace is stale.",
+          "calls": [
+            "check_index_features",
+            "check_index_staleness",
+            "check_missing_documentation",
+            "check_structural_changes",
+            "count_hook_updates",
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> Tuple[bool, Optional[str]]",
+          "called_by": [
+            "handle_workspace_aware_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "check_missing_documentation": {
+          "doc": "Check if important documentation files are missing from index.",
+          "signature": "(index_path: Path, workspace_root: Path) -> bool",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_structural_changes": {
+          "doc": "Check if directory structure has significantly changed.",
+          "signature": "(index_path: Path, workspace_root: Path) -> bool",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "count_hook_updates": {
+          "doc": "Count how many files were updated by hooks vs full index.",
+          "signature": "(index_path: Path) -> Tuple[int, int]",
+          "called_by": [
+            "check_workspace_staleness",
+            "handle_single_repo_reindex",
+            "check_workspace_staleness",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "check_workspace_configuration_changes": {
+          "doc": "Check if workspace configuration has changed.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(project_root: Path) -> Tuple[bool, List[str]]",
+          "called_by": [
+            "handle_workspace_aware_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "run_workspace_reindex": {
+          "doc": "Run reindex for a specific workspace.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> bool",
+          "called_by": [
+            "run_reindex",
+            "run_reindex"
+          ]
+        },
+        "run_reindex": {
+          "doc": "Run reindexing with workspace awareness.",
+          "calls": [
+            "get_workspace_config_cached",
+            "run_reindex",
+            "run_single_repo_reindex",
+            "run_workspace_reindex",
+            "update_root_index_after_workspace_reindex"
+          ],
+          "signature": "(project_root: Path, selective_workspaces: Optional[List[str]] = None) -> bool",
+          "called_by": [
+            "run_reindex",
+            "handle_workspace_aware_reindex",
+            "run_reindex",
+            "handle_workspace_aware_reindex"
+          ]
+        },
+        "run_single_repo_reindex": {
+          "doc": "Run traditional single-repo reindex.",
+          "signature": "(project_root: Path) -> bool",
+          "called_by": [
+            "run_reindex",
+            "handle_single_repo_reindex",
+            "run_reindex",
+            "handle_single_repo_reindex"
+          ]
+        },
+        "update_root_index_after_workspace_reindex": {
+          "doc": "Update root index after workspace reindexing.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(project_root: Path, reindexed_workspaces: List[str]) -> None",
+          "called_by": [
+            "run_reindex",
+            "run_reindex"
+          ]
+        },
+        "main": {
+          "doc": "Main hook entry point with workspace awareness.",
+          "calls": [
+            "get_workspace_config_cached",
+            "handle_single_repo_reindex",
+            "handle_workspace_aware_reindex"
+          ],
+          "signature": "()"
+        },
+        "handle_single_repo_reindex": {
+          "doc": "Handle single-repo reindexing logic.",
+          "calls": [
+            "check_index_features",
+            "check_index_staleness",
+            "check_missing_documentation",
+            "check_structural_changes",
+            "count_hook_updates",
+            "run_single_repo_reindex"
+          ],
+          "signature": "(root_index_path: Path, project_root: Path) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
+        },
+        "handle_workspace_aware_reindex": {
+          "doc": "Handle workspace-aware reindexing logic.",
+          "calls": [
+            "check_workspace_configuration_changes",
+            "check_workspace_staleness",
+            "run_reindex"
+          ],
+          "signature": "(project_root: Path, workspace_config: Dict) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
+        }
+      },
+      "classes": {},
+      "constants": {
+        "CACHE_TTL": "number"
+      },
+      "call_graph": {}
+    },
     "scripts/detect_external_changes.py": {
       "language": "python",
       "parsed": true,
@@ -386,20 +1276,1262 @@
       "classes": {},
       "call_graph": {}
     },
-    ".claude/settings.local.json": {
+    "scripts/monorepo_detector.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "re",
+        "yaml",
+        "pathlib",
+        "typing",
+        "sys"
+      ],
+      "functions": {
+        "detect_monorepo": {
+          "calls": [
+            "detect",
+            "to_dict"
+          ],
+          "signature": "(root_path: Union[str, Path]) -> Dict"
+        }
+      },
+      "classes": {
+        "DetectionResult": {
+          "methods": {
+            "__init__": "(self, monorepo: bool = False, tool: Optional[str] = None, workspace_registry: Optional[Dict[str, str]] = None, config_path: Optional[str] = None, detection_method: str = \"none\", errors: Optional[List[str]] = None)",
+            "to_dict": {
+              "doc": "Convert to dictionary for JSON serialization.",
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "doc": "Standardized detection result structure."
+        },
+        "BaseDetector": {
+          "methods": {
+            "__init__": "(self, root_path: Path)",
+            "detect": {
+              "doc": "Detect workspaces. Override in subclasses.",
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            },
+            "_safe_read_json": {
+              "doc": "Safely read and parse JSON file.",
+              "signature": "(self, file_path: Path) -> Optional[Dict]",
+              "called_by": [
+                "ManualConfigDetector.detect",
+                "LernaDetector.detect",
+                "RushDetector.detect",
+                "NxDetector.detect",
+                "YarnWorkspacesDetector.detect"
+              ]
+            },
+            "_safe_read_yaml": {
+              "doc": "Safely read and parse YAML file.",
+              "signature": "(self, file_path: Path) -> Optional[Dict]",
+              "called_by": [
+                "PnpmWorkspacesDetector.detect"
+              ]
+            },
+            "_resolve_workspace_paths": {
+              "doc": "Resolve workspace patterns to actual directories.",
+              "signature": "(self, patterns: List[str]) -> Dict[str, str]",
+              "called_by": [
+                "PnpmWorkspacesDetector.detect",
+                "ManualConfigDetector.detect",
+                "LernaDetector.detect",
+                "NxDetector.detect",
+                "YarnWorkspacesDetector.detect"
+              ]
+            }
+          },
+          "doc": "Base class for tool-specific detectors."
+        },
+        "NxDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_resolve_workspace_paths",
+                "_safe_read_json"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect Nx monorepo configuration."
+        },
+        "LernaDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_resolve_workspace_paths",
+                "_safe_read_json"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect Lerna monorepo configuration."
+        },
+        "YarnWorkspacesDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_resolve_workspace_paths",
+                "_safe_read_json"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect Yarn Workspaces configuration."
+        },
+        "PnpmWorkspacesDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_resolve_workspace_paths",
+                "_safe_read_yaml"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect PNPM Workspaces configuration."
+        },
+        "RushDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_safe_read_json"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect Rush monorepo configuration."
+        },
+        "ManualConfigDetector": {
+          "methods": {
+            "detect": {
+              "calls": [
+                "_resolve_workspace_paths",
+                "_safe_read_json"
+              ],
+              "signature": "(self) -> Optional[DetectionResult]",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "inherits": [
+            "BaseDetector"
+          ],
+          "doc": "Detect manual configuration override."
+        },
+        "MonorepoDetector": {
+          "methods": {
+            "__init__": "(self, root_path: Union[str, Path])",
+            "detect": {
+              "doc": "Run detection with all available detectors.",
+              "calls": [
+                "_heuristic_detection",
+                "detect"
+              ],
+              "signature": "(self) -> DetectionResult",
+              "called_by": [
+                "detect_monorepo",
+                "MonorepoDetector.detect"
+              ]
+            },
+            "_heuristic_detection": {
+              "doc": "Fallback heuristic analysis for edge cases.",
+              "signature": "(self) -> DetectionResult",
+              "called_by": [
+                "MonorepoDetector.detect"
+              ]
+            }
+          },
+          "doc": "Main monorepo detection orchestrator."
+        }
+      },
+      "call_graph": {}
+    },
+    "scripts/workspace_config.py": {
+      "language": "python",
+      "parsed": true,
+      "purpose": "Configuration",
+      "imports": [
+        "json",
+        "re",
+        "pathlib",
+        "typing",
+        "datetime",
+        "monorepo_detector",
+        "sys"
+      ],
+      "functions": {
+        "load_workspace_config": {
+          "calls": [
+            "load_configuration"
+          ],
+          "signature": "(root_path: Union[str, Path]) -> WorkspaceRegistry"
+        }
+      },
+      "classes": {
+        "WorkspaceConfig": {
+          "methods": {
+            "__init__": {
+              "calls": [
+                "_detect_package_manager"
+              ],
+              "signature": "(self, name: str, path: str, root_path: Path, ignore_patterns: Optional[List[str]] = None, custom_settings: Optional[Dict] = None)"
+            },
+            "_detect_package_manager": {
+              "doc": "Detect the package manager used in this workspace.",
+              "signature": "(self) -> str",
+              "called_by": [
+                "WorkspaceConfig.__init__"
+              ]
+            },
+            "get_ignore_patterns": {
+              "doc": "Get all ignore patterns for this workspace.",
+              "signature": "(self) -> Set[str]",
+              "called_by": [
+                "WorkspaceConfig.to_dict"
+              ]
+            },
+            "to_dict": {
+              "doc": "Convert to dictionary for serialization.",
+              "calls": [
+                "get_ignore_patterns"
+              ],
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "doc": "Represents configuration for a single workspace."
+        },
+        "WorkspaceRegistry": {
+          "methods": {
+            "__init__": {
+              "calls": [
+                "_load_workspaces"
+              ],
+              "signature": "(self, root_path: Path, detection_result: DetectionResult)"
+            },
+            "_load_workspaces": {
+              "doc": "Load workspace configurations from detection result.",
+              "signature": "(self)",
+              "called_by": [
+                "WorkspaceRegistry.__init__"
+              ]
+            },
+            "get_workspace": {
+              "doc": "Get workspace configuration by name.",
+              "signature": "(self, name: str) -> Optional[WorkspaceConfig]",
+              "called_by": [
+                "WorkspaceConfigManager._apply_manual_overrides"
+              ]
+            },
+            "get_workspace_by_path": {
+              "doc": "Determine which workspace a file belongs to.",
+              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]",
+              "called_by": [
+                "WorkspaceConfigManager.get_workspace_for_file"
+              ]
+            },
+            "get_all_workspaces": {
+              "doc": "Get all workspace configurations.",
+              "signature": "(self) -> List[WorkspaceConfig]"
+            },
+            "get_workspace_names": {
+              "doc": "Get all workspace names.",
+              "signature": "(self) -> List[str]",
+              "called_by": [
+                "WorkspaceConfigManager.get_monorepo_info"
+              ]
+            },
+            "set_dependencies": {
+              "doc": "Set dependencies for a workspace.",
+              "signature": "(self, workspace_name: str, dependencies: List[str])",
+              "called_by": [
+                "WorkspaceConfigManager._apply_manual_overrides"
+              ]
+            },
+            "get_dependencies": {
+              "doc": "Get dependencies for a workspace.",
+              "signature": "(self, workspace_name: str) -> List[str]",
+              "called_by": [
+                "WorkspaceRegistry.check_circular",
+                "WorkspaceRegistry.validate"
+              ]
+            },
+            "get_dependents": {
+              "doc": "Get workspaces that depend on this one.",
+              "signature": "(self, workspace_name: str) -> List[str]"
+            },
+            "validate": {
+              "doc": "Validate the workspace configuration.",
+              "calls": [
+                "check_circular",
+                "get_dependencies"
+              ],
+              "signature": "(self) -> List[str]",
+              "called_by": [
+                "WorkspaceConfigManager.validate_configuration"
+              ]
+            },
+            "check_circular": {
+              "calls": [
+                "check_circular",
+                "get_dependencies"
+              ],
+              "signature": "(workspace_name: str, visited: Set[str], path: List[str]) -> bool",
+              "called_by": [
+                "WorkspaceRegistry.check_circular",
+                "WorkspaceRegistry.validate"
+              ]
+            },
+            "to_dict": {
+              "doc": "Convert to dictionary for serialization.",
+              "calls": [
+                "to_dict"
+              ],
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "doc": "Registry of all workspaces in the monorepo."
+        },
+        "WorkspaceConfigManager": {
+          "methods": {
+            "__init__": "(self, root_path: Union[str, Path])",
+            "load_configuration": {
+              "calls": [
+                "_apply_manual_overrides"
+              ],
+              "signature": "(self, force_refresh: bool = False) -> WorkspaceRegistry",
+              "called_by": [
+                "WorkspaceConfigManager.validate_configuration",
+                "load_workspace_config",
+                "WorkspaceConfigManager.is_monorepo",
+                "WorkspaceConfigManager.get_monorepo_info",
+                "WorkspaceConfigManager.get_workspace_for_file"
+              ]
+            },
+            "_apply_manual_overrides": {
+              "doc": "Apply manual configuration overrides.",
+              "calls": [
+                "get_workspace",
+                "set_dependencies"
+              ],
+              "signature": "(self, registry: WorkspaceRegistry) -> WorkspaceRegistry",
+              "called_by": [
+                "WorkspaceConfigManager.load_configuration"
+              ]
+            },
+            "get_workspace_for_file": {
+              "doc": "Get the workspace that contains the given file.",
+              "calls": [
+                "get_workspace_by_path",
+                "load_configuration"
+              ],
+              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]",
+              "called_by": [
+                "handle_file_update",
+                "detect_file_move"
+              ]
+            },
+            "validate_configuration": {
+              "doc": "Validate the current workspace configuration.",
+              "calls": [
+                "load_configuration",
+                "validate"
+              ],
+              "signature": "(self) -> List[str]"
+            },
+            "clear_cache": {
+              "doc": "Clear the configuration cache.",
+              "signature": "(self)"
+            },
+            "is_monorepo": {
+              "doc": "Check if the current project is a monorepo.",
+              "calls": [
+                "load_configuration"
+              ],
+              "signature": "(self) -> bool"
+            },
+            "get_monorepo_info": {
+              "doc": "Get comprehensive monorepo information.",
+              "calls": [
+                "get_workspace_names",
+                "load_configuration"
+              ],
+              "signature": "(self) -> Dict"
+            }
+          },
+          "doc": "Main workspace configuration manager with caching and validation.",
+          "properties": [
+            "force_refresh"
+          ]
+        }
+      },
+      "call_graph": {}
+    },
+    "scripts/project-index-helper.sh": {
+      "language": "shell",
+      "parsed": false,
+      "purpose": "Utility functions"
+    },
+    "scripts/performance_monitor.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "time",
+        "pathlib",
+        "datetime",
+        "typing",
+        "dataclasses",
+        "collections",
+        "threading",
+        "psutil",
+        "os",
+        "sys"
+      ],
+      "functions": {
+        "get_performance_monitor": {
+          "doc": "Get the global performance monitor instance.",
+          "signature": "() -> PerformanceMonitor"
+        },
+        "performance_timing": {
+          "doc": "Decorator for timing hook operations.",
+          "calls": [
+            "decorator",
+            "end_hook_timing",
+            "record_error",
+            "start_hook_timing",
+            "wrapper"
+          ],
+          "signature": "(hook_name: str, operation: str = \"unknown\")"
+        }
+      },
+      "classes": {
+        "HookTiming": {
+          "methods": {
+            "to_dict": {
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Track timing data for hook executions.",
+          "properties": [
+            "hook_name",
+            "start_time",
+            "end_time",
+            "duration",
+            "workspace",
+            "file_path",
+            "operation",
+            "success",
+            "error_message"
+          ]
+        },
+        "CacheStats": {
+          "methods": {
+            "to_dict": {
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Track cache performance statistics.",
+          "properties": [
+            "cache_name",
+            "hits",
+            "misses",
+            "evictions",
+            "size",
+            "max_size",
+            "hit_rate"
+          ]
+        },
+        "ResourceUsage": {
+          "methods": {
+            "to_dict": {
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "detect_monorepo",
+                "WorkspaceRegistry.to_dict",
+                "PerformanceMonitor._log_performance_data"
+              ]
+            }
+          },
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Track system resource usage during operations.",
+          "properties": [
+            "timestamp",
+            "cpu_percent",
+            "memory_mb",
+            "disk_io_read",
+            "disk_io_write",
+            "process_id"
+          ]
+        },
+        "PerformanceMonitor": {
+          "methods": {
+            "__init__": "(self)",
+            "set_performance_log_path": {
+              "doc": "Set the path for performance logging.",
+              "signature": "(self, project_root: Path)"
+            },
+            "start_hook_timing": {
+              "doc": "Start timing a hook operation.",
+              "calls": [
+                "_record_resource_usage"
+              ],
+              "signature": "(self, hook_name: str, operation: str, workspace: Optional[str] = None, file_path: Optional[str] = None) -> str",
+              "called_by": [
+                "performance_timing"
+              ]
+            },
+            "end_hook_timing": {
+              "doc": "End timing a hook operation and record performance data.",
+              "calls": [
+                "_check_performance_thresholds",
+                "_log_performance_data",
+                "_record_resource_usage"
+              ],
+              "signature": "(self, timing_id: str, success: bool = True, error_message: Optional[str] = None)",
+              "called_by": [
+                "performance_timing"
+              ]
+            },
+            "record_cache_hit": {
+              "doc": "Record a cache hit.",
+              "signature": "(self, cache_name: str)"
+            },
+            "record_cache_miss": {
+              "doc": "Record a cache miss.",
+              "signature": "(self, cache_name: str)"
+            },
+            "record_cache_eviction": {
+              "doc": "Record a cache eviction.",
+              "signature": "(self, cache_name: str)"
+            },
+            "record_error": {
+              "doc": "Record an error occurrence.",
+              "signature": "(self, error_type: str)",
+              "called_by": [
+                "performance_timing"
+              ]
+            },
+            "get_performance_summary": {
+              "doc": "Get performance summary for the last N hours.",
+              "calls": [
+                "_get_cache_statistics",
+                "_get_hook_breakdown",
+                "_get_workspace_breakdown",
+                "_percentile"
+              ],
+              "signature": "(self, hours: int = 24) -> Dict"
+            },
+            "optimize_caches": {
+              "doc": "Analyze and optimize cache configurations.",
+              "signature": "(self, project_root: Path) -> Dict"
+            },
+            "_record_resource_usage": {
+              "doc": "Record current resource usage.",
+              "signature": "(self)",
+              "called_by": [
+                "PerformanceMonitor.start_hook_timing",
+                "PerformanceMonitor.end_hook_timing"
+              ]
+            },
+            "_check_performance_thresholds": {
+              "doc": "Check if performance thresholds are violated.",
+              "signature": "(self, timing: HookTiming)",
+              "called_by": [
+                "PerformanceMonitor.end_hook_timing"
+              ]
+            },
+            "_log_performance_data": {
+              "doc": "Log performance data to file.",
+              "calls": [
+                "to_dict"
+              ],
+              "signature": "(self, timing: HookTiming)",
+              "called_by": [
+                "PerformanceMonitor.end_hook_timing"
+              ]
+            },
+            "_percentile": {
+              "doc": "Calculate percentile of values.",
+              "signature": "(self, values: List[float], percentile: float) -> float",
+              "called_by": [
+                "PerformanceMonitor.get_performance_summary",
+                "PerformanceMonitor._get_hook_breakdown"
+              ]
+            },
+            "_get_hook_breakdown": {
+              "doc": "Get performance breakdown by hook type.",
+              "calls": [
+                "_percentile"
+              ],
+              "signature": "(self, timings: List[HookTiming]) -> Dict",
+              "called_by": [
+                "PerformanceMonitor.get_performance_summary"
+              ]
+            },
+            "_get_workspace_breakdown": {
+              "doc": "Get performance breakdown by workspace.",
+              "signature": "(self, timings: List[HookTiming]) -> Dict",
+              "called_by": [
+                "PerformanceMonitor.get_performance_summary"
+              ]
+            },
+            "_get_cache_statistics": {
+              "doc": "Get cache performance statistics.",
+              "signature": "(self) -> Dict",
+              "called_by": [
+                "PerformanceMonitor.get_performance_summary"
+              ]
+            }
+          },
+          "doc": "Central performance monitoring and optimization system."
+        }
+      },
+      "call_graph": {}
+    },
+    "scripts/update_index.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "sys",
+        "os",
+        "pathlib",
+        "datetime",
+        "typing",
+        "time",
+        "performance_monitor",
+        "index_utils",
+        "workspace_config",
+        "workspace_indexer",
+        "cross_workspace_analyzer"
+      ],
+      "functions": {
+        "find_project_modules": {
+          "doc": "Find project modules (index_utils, workspace_config, etc.) in project or system location.",
+          "signature": "()"
+        },
+        "get_workspace_config_cached": {
+          "doc": "Get workspace configuration with caching.",
+          "signature": "(project_root: Path) -> Optional[Dict]",
+          "called_by": [
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "update_root_index_workspace_registry",
+            "handle_file_update",
+            "check_workspace_staleness",
+            "check_workspace_configuration_changes",
+            "run_workspace_reindex",
+            "run_reindex",
+            "update_root_index_after_workspace_reindex",
+            "main",
+            "get_workspace_for_file",
+            "get_workspace_index_path",
+            "get_dependent_workspaces",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
+        "get_workspace_for_file": {
+          "doc": "Determine which workspace a file belongs to.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(file_path: Path, project_root: Path) -> Optional[str]",
+          "called_by": [
+            "handle_file_update",
+            "detect_file_move",
+            "handle_file_update"
+          ]
+        },
+        "get_workspace_index_path": {
+          "doc": "Get the path to a workspace's index file.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> Optional[Path]",
+          "called_by": [
+            "update_workspace_index",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "update_workspace_index",
+            "handle_basic_cross_workspace_dependencies",
+            "update_workspace_dependencies",
+            "update_root_index_workspace_registry",
+            "detect_file_move",
+            "handle_cross_workspace_file_move"
+          ]
+        },
+        "get_dependent_workspaces": {
+          "doc": "Get list of workspaces that depend on the given workspace.",
+          "calls": [
+            "get_workspace_config_cached"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> List[str]",
+          "called_by": [
+            "handle_cross_workspace_dependencies",
+            "handle_basic_cross_workspace_dependencies"
+          ]
+        },
+        "update_workspace_index": {
+          "doc": "Update a specific workspace index.",
+          "calls": [
+            "get_workspace_index_path",
+            "update_file_in_index"
+          ],
+          "signature": "(workspace_name: str, file_path: Path, project_root: Path) -> bool",
+          "called_by": [
+            "handle_file_update",
+            "handle_file_update"
+          ]
+        },
+        "handle_cross_workspace_dependencies": {
+          "doc": "Handle cascade updates for dependent workspaces with enhanced analysis.",
+          "calls": [
+            "get_workspace_config_cached",
+            "handle_basic_cross_workspace_dependencies",
+            "update_root_index_dependencies",
+            "update_workspace_dependencies"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> None",
+          "called_by": [
+            "handle_file_update",
+            "handle_cross_workspace_file_move",
+            "handle_file_update"
+          ]
+        },
+        "handle_basic_cross_workspace_dependencies": {
+          "doc": "Basic cross-workspace dependency handling (fallback).",
+          "calls": [
+            "get_dependent_workspaces",
+            "get_workspace_index_path"
+          ],
+          "signature": "(workspace_name: str, project_root: Path) -> None",
+          "called_by": [
+            "handle_cross_workspace_dependencies"
+          ]
+        },
+        "update_root_index_dependencies": {
+          "doc": "Update the root index with enhanced cross-workspace dependency information.",
+          "signature": "(project_root: Path, cross_workspace_results: Dict) -> None",
+          "called_by": [
+            "handle_cross_workspace_dependencies"
+          ]
+        },
+        "update_workspace_dependencies": {
+          "doc": "Update a workspace index with enhanced dependency information.",
+          "calls": [
+            "get_workspace_index_path"
+          ],
+          "signature": "(workspace_name: str, project_root: Path, workspace_deps: Dict) -> None",
+          "called_by": [
+            "handle_cross_workspace_dependencies"
+          ]
+        },
+        "update_root_index_workspace_registry": {
+          "doc": "Update the root index workspace registry when workspace relationships change.",
+          "calls": [
+            "get_workspace_config_cached",
+            "get_workspace_index_path"
+          ],
+          "signature": "(project_root: Path) -> None",
+          "called_by": [
+            "handle_file_update",
+            "handle_cross_workspace_file_move",
+            "handle_file_update"
+          ]
+        },
+        "update_file_in_index": {
+          "doc": "Update a single file's entry in the enhanced index.",
+          "signature": "(index_path: str, file_path: str, project_root: str) -> bool",
+          "called_by": [
+            "update_workspace_index",
+            "handle_file_update",
+            "update_workspace_index",
+            "handle_file_update"
+          ]
+        },
+        "detect_file_move": {
+          "doc": "Detect if this is a cross-workspace file move by checking for stale entries.",
+          "calls": [
+            "get_workspace_config_cached",
+            "get_workspace_for_file",
+            "get_workspace_index_path"
+          ],
+          "signature": "(file_path: Path, project_root: Path) -> Optional[Dict]",
+          "called_by": [
+            "handle_file_update"
+          ]
+        },
+        "handle_cross_workspace_file_move": {
+          "doc": "Handle a file that has moved between workspaces.",
+          "calls": [
+            "get_workspace_index_path",
+            "handle_cross_workspace_dependencies",
+            "update_root_index_workspace_registry"
+          ],
+          "signature": "(move_info: Dict, project_root: Path) -> None",
+          "called_by": [
+            "handle_file_update"
+          ]
+        },
+        "handle_file_update": {
+          "decorators": [
+            "performance_timing"
+          ],
+          "doc": "Handle a file update with workspace awareness.",
+          "calls": [
+            "detect_file_move",
+            "get_workspace_config_cached",
+            "get_workspace_for_file",
+            "handle_cross_workspace_dependencies",
+            "handle_cross_workspace_file_move",
+            "update_file_in_index",
+            "update_root_index_workspace_registry",
+            "update_workspace_index"
+          ],
+          "signature": "(file_path: Path, project_root: Path) -> None",
+          "called_by": [
+            "main",
+            "main"
+          ]
+        },
+        "main": {
+          "doc": "Process PostToolUse hook input and update index with workspace awareness.",
+          "calls": [
+            "handle_file_update"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {},
+      "constants": {
+        "CACHE_TTL": "number"
+      },
+      "call_graph": {}
+    },
+    "scripts/run_python.sh": {
+      "language": "shell",
+      "parsed": false
+    },
+    "scripts/find_python.sh": {
+      "language": "shell",
+      "parsed": true,
+      "functions": {
+        "find_python": "()"
+      },
+      "call_graph": {}
+    },
+    "scripts/workspace_indexer.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "re",
+        "ast",
+        "pathlib",
+        "typing",
+        "datetime",
+        "workspace_config",
+        "index_utils",
+        "cross_workspace_analyzer",
+        "sys"
+      ],
+      "functions": {
+        "index_workspace": {
+          "calls": [
+            "index_workspace"
+          ],
+          "signature": "(root_path: Union[str, Path], workspace_name: str) -> Optional[Dict]",
+          "called_by": [
+            "index_workspace",
+            "WorkspaceIndexer.index_all_workspaces"
+          ]
+        },
+        "index_all_workspaces": {
+          "calls": [
+            "index_all_workspaces"
+          ],
+          "signature": "(root_path: Union[str, Path]) -> Dict[str, Dict]",
+          "called_by": [
+            "index_all_workspaces"
+          ]
+        }
+      },
+      "classes": {
+        "CrossWorkspaceDependencyAnalyzer": {
+          "methods": {
+            "__init__": {
+              "calls": [
+                "_load_workspace_packages"
+              ],
+              "signature": "(self, registry: WorkspaceRegistry)"
+            },
+            "_load_workspace_packages": {
+              "doc": "Load package.json from each workspace to understand package names.",
+              "signature": "(self) -> Dict[str, Dict]",
+              "called_by": [
+                "CrossWorkspaceAnalyzer.__init__",
+                "CrossWorkspaceDependencyAnalyzer.__init__"
+              ]
+            },
+            "get_workspace_dependencies": {
+              "doc": "Get comprehensive dependency information for a workspace.",
+              "calls": [
+                "analyze_file_imports"
+              ],
+              "signature": "(self, workspace_name: str) -> Dict[str, List[str]]",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "analyze_file_imports": {
+              "doc": "Analyze imports in a file to find cross-workspace dependencies.",
+              "calls": [
+                "_analyze_javascript_imports",
+                "_analyze_package_json_deps",
+                "_analyze_python_imports"
+              ],
+              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.get_workspace_dependencies",
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "_analyze_python_imports": {
+              "doc": "Analyze Python imports for cross-workspace dependencies.",
+              "calls": [
+                "_resolve_python_import_to_workspace"
+              ],
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
+                "CrossWorkspaceAnalyzer._analyze_file_imports"
+              ]
+            },
+            "_analyze_javascript_imports": {
+              "doc": "Analyze JavaScript/TypeScript imports for cross-workspace dependencies.",
+              "calls": [
+                "_resolve_javascript_import_to_workspace"
+              ],
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
+                "CrossWorkspaceAnalyzer._analyze_file_imports"
+              ]
+            },
+            "_analyze_package_json_deps": {
+              "doc": "Analyze package.json dependencies for cross-workspace dependencies.",
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
+              ]
+            },
+            "_resolve_python_import_to_workspace": {
+              "doc": "Resolve a Python import to a workspace name.",
+              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer._analyze_python_imports"
+              ]
+            },
+            "_resolve_javascript_import_to_workspace": {
+              "doc": "Resolve a JavaScript/TypeScript import to a workspace name.",
+              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]",
+              "called_by": [
+                "CrossWorkspaceDependencyAnalyzer._analyze_javascript_imports"
+              ]
+            }
+          }
+        },
+        "WorkspaceIndexer": {
+          "methods": {
+            "__init__": "(self, registry: WorkspaceRegistry)",
+            "index_workspace": {
+              "calls": [
+                "_build_workspace_dependency_graph",
+                "_generate_workspace_tree",
+                "_matches_ignore_patterns",
+                "_parse_file_content",
+                "analyze_file_imports",
+                "get_workspace_dependencies"
+              ],
+              "signature": "(self, workspace_name: str) -> Optional[Dict]",
+              "called_by": [
+                "WorkspaceIndexer.index_all_workspaces",
+                "index_workspace"
+              ]
+            },
+            "_matches_ignore_patterns": {
+              "doc": "Check if a file path matches any ignore pattern.",
+              "signature": "(self, file_path: str, patterns: Set[str]) -> bool",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "_generate_workspace_tree": {
+              "doc": "Generate ASCII tree structure for workspace.",
+              "calls": [
+                "add_tree_level"
+              ],
+              "signature": "(self, workspace_path: Path, workspace_root: str) -> List[str]",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "add_tree_level": {
+              "calls": [
+                "add_tree_level"
+              ],
+              "signature": "(path: Path, prefix: str = \"\", depth: int = 0, max_depth: int = 3)",
+              "called_by": [
+                "generate_tree_structure",
+                "WorkspaceIndexer._generate_workspace_tree",
+                "WorkspaceIndexer.add_tree_level"
+              ]
+            },
+            "_parse_file_content": {
+              "doc": "Parse file content based on its extension.",
+              "signature": "(self, content: str, file_extension: str) -> Optional[Dict]",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "_build_workspace_dependency_graph": {
+              "doc": "Build dependency graph for the workspace.",
+              "signature": "(self, files: Dict) -> Dict",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "index_all_workspaces": {
+              "doc": "Index all workspaces in the registry.",
+              "calls": [
+                "index_workspace"
+              ],
+              "signature": "(self) -> Dict[str, Dict]",
+              "called_by": [
+                "index_all_workspaces"
+              ]
+            }
+          },
+          "doc": "Indexes individual workspaces with cross-workspace awareness.",
+          "properties": [
+            "workspace_name"
+          ]
+        }
+      },
+      "call_graph": {}
+    },
+    "tests/fixtures/pnpm_workspaces/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/rush_monorepo/rush.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/yarn_workspaces/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/manual_config/.project-index-config.json": {
       "language": "json",
       "parsed": false,
       "purpose": "Configuration"
+    },
+    "tests/fixtures/nx_monorepo/expected_detection.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/nx_monorepo/nx.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/lerna_monorepo/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/lerna_monorepo/expected_detection.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/lerna_monorepo/lerna.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/lerna_monorepo/packages/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/nx_monorepo/packages/web/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/nx_monorepo/packages/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/nx_monorepo/packages/shared/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/nx_monorepo/packages/shared/src/index.ts": {
+      "language": "typescript",
+      "parsed": true,
+      "purpose": "Application entry point",
+      "imports": [
+        "lodash"
+      ],
+      "functions": {
+        "validateUser": "(userData: any): userData is User",
+        "formatUserName": "(user: User): string"
+      },
+      "classes": {},
+      "constants": {
+        "API_ENDPOINTS": "collection"
+      },
+      "interfaces": {
+        "User": {}
+      },
+      "call_graph": {}
+    },
+    "tests/fixtures/nx_monorepo/packages/api/src/index.ts": {
+      "language": "typescript",
+      "parsed": false,
+      "purpose": "Application entry point"
+    },
+    "tests/fixtures/manual_config/projects/app/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/yarn_workspaces/packages/frontend/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/rush_monorepo/apps/website/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tests/fixtures/pnpm_workspaces/packages/core/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    ".agent/logs/2025-08-18.json": {
+      "language": "json",
+      "parsed": false
     }
   },
   "dependency_graph": {
-    "scripts/reindex_if_needed.py": [
+    "scripts/reindex_if_needed_enhanced.py": [
       "json",
       "sys",
       "os",
       "subprocess",
+      "time",
       "pathlib",
-      "datetime"
+      "datetime",
+      "typing",
+      "workspace_config",
+      "workspace_indexer"
+    ],
+    "scripts/cross_workspace_analyzer.py": [
+      "json",
+      "re",
+      "ast",
+      "os",
+      "pathlib",
+      "typing",
+      "collections",
+      "dataclasses",
+      "workspace_config",
+      "sys",
+      "workspace_config"
     ],
     "scripts/project_index.py": [
       "json",
@@ -409,21 +2541,40 @@
       "pathlib",
       "typing",
       "index_utils",
+      "workspace_config",
+      "workspace_indexer",
+      "cross_workspace_analyzer",
       "sys"
-    ],
-    "scripts/update_index.py": [
-      "json",
-      "sys",
-      "os",
-      "pathlib",
-      "datetime",
-      "index_utils"
     ],
     "scripts/index_utils.py": [
       "re",
       "fnmatch",
       "pathlib",
       "typing"
+    ],
+    "scripts/update_index_enhanced.py": [
+      "json",
+      "sys",
+      "os",
+      "pathlib",
+      "datetime",
+      "typing",
+      "time",
+      "index_utils",
+      "workspace_config",
+      "workspace_indexer"
+    ],
+    "scripts/reindex_if_needed.py": [
+      "json",
+      "sys",
+      "os",
+      "subprocess",
+      "time",
+      "pathlib",
+      "datetime",
+      "typing",
+      "workspace_config",
+      "workspace_indexer"
     ],
     "scripts/detect_external_changes.py": [
       "os",
@@ -432,7 +2583,66 @@
       "datetime",
       "subprocess",
       "sys"
+    ],
+    "scripts/monorepo_detector.py": [
+      "json",
+      "re",
+      "yaml",
+      "pathlib",
+      "typing",
+      "sys"
+    ],
+    "scripts/workspace_config.py": [
+      "json",
+      "re",
+      "pathlib",
+      "typing",
+      "datetime",
+      "monorepo_detector",
+      "sys"
+    ],
+    "scripts/performance_monitor.py": [
+      "json",
+      "time",
+      "pathlib",
+      "datetime",
+      "typing",
+      "dataclasses",
+      "collections",
+      "threading",
+      "psutil",
+      "os",
+      "sys"
+    ],
+    "scripts/update_index.py": [
+      "json",
+      "sys",
+      "os",
+      "pathlib",
+      "datetime",
+      "typing",
+      "time",
+      "performance_monitor",
+      "index_utils",
+      "workspace_config",
+      "workspace_indexer",
+      "cross_workspace_analyzer"
+    ],
+    "scripts/workspace_indexer.py": [
+      "json",
+      "re",
+      "ast",
+      "pathlib",
+      "typing",
+      "datetime",
+      "workspace_config",
+      "index_utils",
+      "cross_workspace_analyzer",
+      "sys"
+    ],
+    "tests/fixtures/nx_monorepo/packages/shared/src/index.ts": [
+      "lodash"
     ]
   },
-  "staleness_check": 1754690921.403226
+  "staleness_check": 1754925078.125579
 }

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
+  "rushVersion": "5.77.0",
+  "pnpmVersion": "8.6.12",
+  "nodeSupportPolicy": {
+    "nodeLtsVersions": ["18.x", "20.x"]
+  },
+  "projects": [
+    {
+      "packageName": "website",
+      "projectFolder": "apps/website",
+      "reviewCategory": "production"
+    },
+    {
+      "packageName": "admin",
+      "projectFolder": "apps/admin", 
+      "reviewCategory": "production"
+    },
+    {
+      "packageName": "@company/ui-components",
+      "projectFolder": "libraries/ui-components",
+      "reviewCategory": "production"
+    },
+    {
+      "packageName": "@company/shared-utils",
+      "projectFolder": "libraries/shared-utils",
+      "reviewCategory": "production"
+    }
+  ]
+}

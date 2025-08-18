@@ -1,0 +1,47 @@
+{
+  "name": "@example/utils",
+  "version": "1.2.8",
+  "description": "Shared utility functions and helpers",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf lib coverage"
+  },
+  "keywords": ["utils", "helpers", "functions", "typescript"],
+  "author": "Example Team",
+  "license": "MIT",
+  "dependencies": {
+    "@example/types": "file:../types",
+    "lodash": "^4.17.21",
+    "date-fns": "^2.30.0",
+    "validator": "^13.11.0",
+    "nanoid": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/validator": "^13.11.0",
+    "@types/node": "^20.8.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

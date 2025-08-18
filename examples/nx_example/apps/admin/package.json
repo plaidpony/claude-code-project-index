@@ -1,0 +1,24 @@
+{
+  "name": "@example/admin",
+  "version": "0.0.1",
+  "description": "Admin dashboard application",
+  "main": "./src/main.tsx",
+  "scripts": {
+    "build": "nx build admin",
+    "test": "nx test admin",
+    "lint": "nx lint admin",
+    "serve": "nx serve admin"
+  },
+  "dependencies": {
+    "@example/shared": "workspace:*",
+    "@example/web": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@mui/material": "^5.14.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
+    "typescript": "~5.2.2"
+  }
+}

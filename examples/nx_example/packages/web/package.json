@@ -1,0 +1,25 @@
+{
+  "name": "@example/web",
+  "version": "0.0.1",
+  "description": "Web frontend application",
+  "main": "./src/main.tsx",
+  "scripts": {
+    "build": "nx build web",
+    "test": "nx test web",
+    "lint": "nx lint web",
+    "serve": "nx serve web"
+  },
+  "dependencies": {
+    "@example/shared": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "~5.2.2",
+    "vite": "^4.0.0"
+  }
+}

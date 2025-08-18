@@ -1,0 +1,51 @@
+{
+  "version": "independent",
+  "npmClient": "npm",
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ],
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "registry": "https://registry.npmjs.org/"
+    },
+    "bootstrap": {
+      "ignore": "component-*",
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "run": {
+      "npmClient": "npm"
+    },
+    "version": {
+      "allowBranch": ["main", "develop"],
+      "conventionalCommits": true
+    }
+  },
+  "projectIndexConfig": {
+    "performance_mode": "balanced",
+    "cross_workspace_analysis": true,
+    "workspace_overrides": {
+      "core": {
+        "language_hints": ["typescript"],
+        "ignore_patterns": ["*.spec.ts", "dist/"]
+      },
+      "utils": {
+        "language_hints": ["typescript"],
+        "ignore_patterns": ["*.test.ts", "lib/"]
+      },
+      "ui": {
+        "language_hints": ["typescript", "css", "scss"],
+        "ignore_patterns": ["*.stories.tsx", "dist/"]
+      },
+      "web": {
+        "language_hints": ["typescript", "javascript", "css"],
+        "ignore_patterns": ["build/", "*.test.tsx"]
+      },
+      "api": {
+        "language_hints": ["typescript", "javascript"],
+        "ignore_patterns": ["*.spec.js", "dist/"]
+      }
+    }
+  }
+}

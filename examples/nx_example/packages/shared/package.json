@@ -1,0 +1,22 @@
+{
+  "name": "@example/shared",
+  "version": "0.0.1",
+  "description": "Shared utilities and types",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "nx build shared",
+    "test": "nx test shared",
+    "lint": "nx lint shared"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "date-fns": "^2.29.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "typescript": "~5.2.2"
+  },
+  "peerDependencies": {
+    "typescript": "~5.2.2"
+  }
+}

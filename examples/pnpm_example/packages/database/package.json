@@ -1,0 +1,44 @@
+{
+  "name": "@example/database",
+  "version": "2.1.0",
+  "description": "Database layer with TypeORM and migrations",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate",
+    "migration:run": "typeorm-ts-node-commonjs migration:run",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert"
+  },
+  "keywords": ["database", "typeorm", "postgresql"],
+  "author": "Example Team",
+  "license": "MIT",
+  "dependencies": {
+    "typeorm": "^0.3.17",
+    "pg": "^8.11.0",
+    "reflect-metadata": "^0.1.13",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.10.2",
+    "@types/node": "catalog:",
+    "@types/jest": "^29.5.0",
+    "jest": "catalog:",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "catalog:"
+  },
+  "files": [
+    "dist",
+    "migrations",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

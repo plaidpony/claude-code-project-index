@@ -1,0 +1,218 @@
+{
+  "monorepo": true,
+  "tool": "manual",
+  "description": "Custom monorepo structure with manual workspace configuration",
+  "workspaces": {
+    "api": {
+      "path": "backend/api",
+      "description": "Main API server with REST and GraphQL endpoints",
+      "language_hints": ["typescript", "javascript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.spec.ts",
+        "*.test.js", 
+        "dist/",
+        "coverage/",
+        "logs/",
+        "*.log"
+      ],
+      "indexing_depth": 6,
+      "include_tests": false,
+      "custom_settings": {
+        "entry_points": ["src/server.ts", "src/app.ts"],
+        "build_outputs": ["dist/"],
+        "test_patterns": ["**/*.spec.ts", "**/*.test.js"]
+      }
+    },
+    "auth": {
+      "path": "backend/auth",
+      "description": "Authentication and authorization microservice",
+      "language_hints": ["typescript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.spec.ts",
+        "lib/",
+        "coverage/",
+        "__tests__/",
+        "*.test.ts"
+      ],
+      "indexing_depth": 5,
+      "include_tests": true,
+      "custom_settings": {
+        "entry_points": ["src/index.ts"],
+        "build_outputs": ["lib/"],
+        "security_critical": true
+      }
+    },
+    "web": {
+      "path": "frontend/web", 
+      "description": "Web application built with React and Next.js",
+      "language_hints": ["typescript", "javascript", "css", "scss"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.test.tsx",
+        "*.spec.jsx",
+        "build/",
+        ".next/",
+        "coverage/",
+        "storybook-static/",
+        "*.stories.tsx"
+      ],
+      "indexing_depth": 7,
+      "include_tests": false,
+      "custom_settings": {
+        "entry_points": ["src/pages/_app.tsx", "src/app/page.tsx"],
+        "build_outputs": ["build/", ".next/"],
+        "static_assets": ["public/", "assets/"]
+      }
+    },
+    "mobile": {
+      "path": "frontend/mobile",
+      "description": "React Native mobile application",
+      "language_hints": ["typescript", "javascript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.test.tsx",
+        "*.spec.js",
+        "ios/build/",
+        "android/build/",
+        "node_modules/",
+        ".expo/",
+        "coverage/"
+      ],
+      "indexing_depth": 6,
+      "include_tests": false,
+      "custom_settings": {
+        "entry_points": ["App.tsx", "src/navigation/index.tsx"],
+        "build_outputs": ["ios/build/", "android/build/"],
+        "platforms": ["ios", "android"]
+      }
+    },
+    "types": {
+      "path": "shared/types",
+      "description": "Shared TypeScript type definitions and interfaces",
+      "language_hints": ["typescript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.spec.ts",
+        "dist/",
+        "coverage/"
+      ],
+      "indexing_depth": 4,
+      "include_tests": true,
+      "custom_settings": {
+        "entry_points": ["src/index.ts"],
+        "build_outputs": ["dist/"],
+        "type_definitions_only": true
+      }
+    },
+    "utils": {
+      "path": "shared/utils",
+      "description": "Shared utility functions and helpers",
+      "language_hints": ["typescript", "javascript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.test.ts",
+        "*.spec.js",
+        "lib/",
+        "coverage/",
+        "__tests__/"
+      ],
+      "indexing_depth": 5,
+      "include_tests": true,
+      "custom_settings": {
+        "entry_points": ["src/index.ts"],
+        "build_outputs": ["lib/"],
+        "pure_functions": true
+      }
+    },
+    "build-tools": {
+      "path": "tools/build",
+      "description": "Build scripts and configuration tools",
+      "language_hints": ["javascript", "typescript", "shell"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.test.js",
+        "dist/",
+        "tmp/",
+        "*.log"
+      ],
+      "indexing_depth": 4,
+      "include_tests": false,
+      "custom_settings": {
+        "entry_points": ["src/build.js", "src/deploy.js"],
+        "build_outputs": ["dist/"],
+        "executable": true
+      }
+    },
+    "cli": {
+      "path": "tools/cli",
+      "description": "Command-line interface and development tools",
+      "language_hints": ["typescript", "javascript"],
+      "package_manager": "npm",
+      "ignore_patterns": [
+        "*.spec.ts",
+        "bin/",
+        "coverage/",
+        "*.test.js"
+      ],
+      "indexing_depth": 5,
+      "include_tests": true,
+      "custom_settings": {
+        "entry_points": ["src/cli.ts", "src/commands/index.ts"],
+        "build_outputs": ["bin/"],
+        "executable": true,
+        "global_install": true
+      }
+    }
+  },
+  "global_ignore_patterns": [
+    "node_modules/",
+    ".git/",
+    "*.log",
+    ".env*",
+    ".DS_Store",
+    "Thumbs.db",
+    "*.tmp",
+    "*.temp",
+    ".cache/",
+    ".nyc_output/"
+  ],
+  "performance_mode": "balanced",
+  "cross_workspace_analysis": true,
+  "detect_circular_deps": true,
+  "extract_shared_types": true,
+  "parallel_workers": 4,
+  "cache_ttl": 300,
+  "indexing_options": {
+    "max_file_size": 1048576,
+    "enable_detailed_parsing": true,
+    "include_hidden_files": false,
+    "follow_symlinks": false
+  },
+  "dependency_analysis": {
+    "include_dev_dependencies": true,
+    "typescript_references": true,
+    "resolve_path_mapping": true,
+    "detect_monorepo_imports": true
+  },
+  "output_options": {
+    "include_file_hashes": true,
+    "include_dependency_graph": true,
+    "compress_large_indexes": true,
+    "max_index_size": 10485760
+  },
+  "hooks": {
+    "enable_workspace_routing": true,
+    "cascade_updates": true,
+    "performance_monitoring": true
+  },
+  "metadata": {
+    "project_name": "Custom Monorepo Example",
+    "version": "1.0.0",
+    "created_by": "manual_configuration",
+    "last_updated": "2025-01-18",
+    "documentation_url": "https://example.com/docs",
+    "repository_url": "https://github.com/example/monorepo"
+  }
+}

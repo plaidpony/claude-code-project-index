@@ -6,6 +6,7 @@ Used by Stop hook to trigger incremental updates
 
 import os
 import json
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
@@ -86,7 +87,6 @@ def check_git_changes(project_root):
     Returns True if working directory has changes.
     """
     try:
-        import subprocess
         result = subprocess.run(
             ['git', 'status', '--porcelain'],
             cwd=project_root,

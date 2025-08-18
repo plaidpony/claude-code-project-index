@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "packages/api",
+    "web": "packages/web",
+    "shared": "packages/shared",
+    "mobile": "apps/mobile",
+    "admin": "apps/admin"
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/.eslintrc.json"
+    ],
+    "sharedGlobals": []
+  },
+  "generators": {
+    "@nx/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "bundler": "webpack"
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "projectIndexConfig": {
+    "performance_mode": "balanced",
+    "cross_workspace_analysis": true,
+    "workspace_overrides": {
+      "api": {
+        "language_hints": ["typescript", "javascript"],
+        "ignore_patterns": ["*.spec.ts", "coverage/"]
+      },
+      "web": {
+        "language_hints": ["typescript", "javascript", "css"],
+        "ignore_patterns": ["dist/", ".next/", "*.test.tsx"]
+      },
+      "shared": {
+        "language_hints": ["typescript"],
+        "ignore_patterns": ["*.spec.ts"]
+      }
+    }
+  }
+}
