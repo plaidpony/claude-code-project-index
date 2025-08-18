@@ -1,13 +1,112 @@
 {
-  "indexed_at": "2025-08-18T11:11:17.868982",
+  "indexed_at": "2025-08-18T13:50:01.278150",
   "root": ".",
   "project_structure": {
     "type": "tree",
     "root": ".",
     "tree": [
       ".",
-      "\u251c\u2500\u2500 scripts/ (17 files)",
-      "\u251c\u2500\u2500 tests/ (22 files)",
+      "\u251c\u2500\u2500 docs/",
+      "\u251c\u2500\u2500 examples/ (32 files)",
+      "\u2502   \u251c\u2500\u2500 lerna_example/ (7 files)",
+      "\u2502   \u2502   \u251c\u2500\u2500 apps/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 web/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 packages/ (3 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 core/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 ui/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 utils/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2514\u2500\u2500 README.md",
+      "\u2502   \u251c\u2500\u2500 manual_config_example/ (10 files)",
+      "\u2502   \u2502   \u251c\u2500\u2500 backend/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 auth/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 frontend/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 mobile/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 web/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 shared/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 types/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 utils/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 tools/ (2 files)",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 cli/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2514\u2500\u2500 README.md",
+      "\u2502   \u251c\u2500\u2500 nx_example/ (7 files)",
+      "\u2502   \u2502   \u251c\u2500\u2500 apps/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 admin/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 mobile/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 packages/ (3 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 shared/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 web/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2514\u2500\u2500 README.md",
+      "\u2502   \u251c\u2500\u2500 pnpm_example/ (8 files)",
+      "\u2502   \u2502   \u251c\u2500\u2500 apps/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 dashboard/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 frontend/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 packages/ (3 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 auth/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 common/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 database/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 services/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502   \u2502   \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 worker/ (1 files)",
+      "\u2502   \u2502   \u2502       \u251c\u2500\u2500 src/",
+      "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
+      "\u2502   \u2502   \u251c\u2500\u2500 package.json",
+      "\u2502   \u2502   \u2514\u2500\u2500 README.md",
+      "\u2502   \u251c\u2500\u2500 rush_example/",
+      "\u2502   \u2514\u2500\u2500 yarn_example/",
+      "\u251c\u2500\u2500 scripts/ (20 files)",
+      "\u251c\u2500\u2500 tests/ (35 files)",
       "\u2502   \u2514\u2500\u2500 fixtures/ (19 files)",
       "\u2502       \u251c\u2500\u2500 lerna_monorepo/ (4 files)",
       "\u2502       \u2502   \u251c\u2500\u2500 packages/ (1 files)",
@@ -83,24 +182,10 @@
       ],
       "architecture_hints": []
     },
-    "PHASE2_IMPLEMENTATION.md": {
-      "sections": [
-        "Phase 2 Implementation: Workspace-Aware Hook System",
-        "Overview",
-        "Key Features Implemented",
-        "1. Workspace-Aware Update Hook (`update_index.py`)",
-        "2. Enhanced Staleness Detection (`reindex_if_needed.py`)",
-        "3. Performance Monitoring System (`performance_monitor.py`)",
-        "4. Comprehensive Test Suite (`tests/test_workspace_hooks.py`)",
-        "Performance Targets Achieved",
-        "Response Time",
-        "Resource Usage"
-      ],
-      "architecture_hints": []
-    },
     "README.md": {
       "sections": [
         "Project Index for Claude Code (v0.1.0)",
+        "\ud83c\udf1f New in v0.1.0: Complete Monorepo Support",
         "\ud83d\ude80 Quick Install",
         "\ud83d\udcd6 Usage",
         "Create an Index for Your Project",
@@ -108,14 +193,168 @@
         "Ask architectural questions",
         "Or auto-load in every session by adding to CLAUDE.md:",
         "Add @PROJECT_INDEX.json to your CLAUDE.md file",
-        "\ud83d\udce6 Updating",
-        "\ud83d\udd27 Highly Recommended: Claude Code Docs"
+        "\ud83d\udce6 Updating"
+      ],
+      "architecture_hints": []
+    },
+    "docs/configuration-reference.md": {
+      "sections": [
+        "Configuration Reference",
+        "Configuration Files",
+        "Manual Configuration File",
+        "Global Configuration Options",
+        "Basic Settings",
+        "Performance Settings",
+        "Analysis Settings",
+        "Workspace Configuration",
+        "Workspace Options",
+        "Performance Modes"
+      ],
+      "architecture_hints": []
+    },
+    "docs/monorepo-setup.md": {
+      "sections": [
+        "Monorepo Setup Guide",
+        "Quick Start",
+        "Install the project indexer",
+        "Index your monorepo (automatic detection)",
+        "Supported Monorepo Tools",
+        "Nx Monorepo",
+        "1. Ensure nx.json exists with project configurations",
+        "Should contain projects configuration",
+        "2. Run indexing",
+        "3. Verify detection"
+      ],
+      "architecture_hints": []
+    },
+    "docs/performance-guide.md": {
+      "sections": [
+        "Performance Guide",
+        "Performance Targets",
+        "Performance Modes",
+        "Overview",
+        "Fast Mode",
+        "Balanced Mode (Default)",
+        "Comprehensive Mode",
+        "Optimization Strategies",
+        "1. Ignore Pattern Optimization",
+        "2. Parallel Processing Optimization"
+      ],
+      "architecture_hints": []
+    },
+    "docs/troubleshooting.md": {
+      "sections": [
+        "Troubleshooting Guide",
+        "Quick Diagnostics",
+        "Check basic system health",
+        "Validate configuration",
+        "Test workspace detection",
+        "Performance check",
+        "Common Issues and Solutions",
+        "1. Monorepo Not Detected",
+        "Check for configuration files",
+        "Test detection manually"
+      ],
+      "architecture_hints": []
+    },
+    "docs/migration-guide.md": {
+      "sections": [
+        "Migration Guide: Single-Repo to Monorepo",
+        "Overview",
+        "Pre-Migration Checklist",
+        "Migration Scenarios",
+        "Scenario 1: Existing Monorepo, No Index",
+        "1. Install Project Index",
+        "2. Run automatic detection",
+        "3. Verify monorepo detection",
+        "4. Add to CLAUDE.md",
+        "Scenario 2: Single Repo \u2192 Monorepo Conversion"
+      ],
+      "architecture_hints": []
+    },
+    "docs/api-reference.md": {
+      "sections": [
+        "API Reference",
+        "Core Modules",
+        "`monorepo_detector.py`",
+        "`workspace_config.py`",
+        "`workspace_indexer.py`"
+      ],
+      "architecture_hints": []
+    },
+    "examples/nx_example/README.md": {
+      "sections": [
+        "Nx Monorepo Example",
+        "Structure",
+        "Workspaces",
+        "Dependencies",
+        "Setup Instructions",
+        "Expected Output",
+        "Commands",
+        "Index specific workspace",
+        "View dependencies",
+        "Performance check"
+      ],
+      "architecture_hints": []
+    },
+    "examples/lerna_example/README.md": {
+      "sections": [
+        "Lerna Monorepo Example",
+        "Structure",
+        "Workspaces",
+        "Packages (Published)",
+        "Apps (Private)",
+        "Key Features",
+        "Setup Instructions",
+        "Expected Output",
+        "Lerna Commands",
+        "Development Workflow"
+      ],
+      "architecture_hints": []
+    },
+    "examples/manual_config_example/README.md": {
+      "sections": [
+        "Manual Configuration Example",
+        "Structure",
+        "Key Features",
+        "Manual Workspace Configuration",
+        "Advanced Configuration Options",
+        "Multi-Language Support",
+        "Workspaces",
+        "Backend Services",
+        "Frontend Applications  ",
+        "Shared Libraries"
+      ],
+      "architecture_hints": []
+    },
+    "examples/pnpm_example/README.md": {
+      "sections": [
+        "PNPM Workspace Example",
+        "Structure",
+        "Workspaces",
+        "Packages (Published)",
+        "Services (Private)",
+        "Apps (Private)",
+        "Key PNPM Features Demonstrated",
+        "Dependency Catalog",
+        "Workspace Protocol",
+        "Filtering and Targeting"
       ],
       "architecture_hints": []
     }
   },
   "directory_purposes": {
     "scripts": "Build and utility scripts",
+    "docs": "Project documentation",
+    "examples/manual_config_example": "Configuration files and settings",
+    "examples/pnpm_example/packages/auth": "Authentication and authorization logic",
+    "examples/pnpm_example/services/api": "API endpoints and route handlers",
+    "examples/manual_config_example/backend/api": "API endpoints and route handlers",
+    "examples/manual_config_example/backend/auth": "Authentication and authorization logic",
+    "examples/manual_config_example/shared/utils": "Shared utility functions and helpers",
+    "examples/lerna_example/packages/utils": "Shared utility functions and helpers",
+    "examples/lerna_example/apps/api": "API endpoints and route handlers",
+    "examples/nx_example/packages/api": "API endpoints and route handlers",
     "tests/fixtures/manual_config": "Configuration files and settings",
     "tests/fixtures/lerna_monorepo/packages/api": "API endpoints and route handlers",
     "tests/fixtures/nx_monorepo/packages/api": "API endpoints and route handlers",
@@ -123,18 +362,18 @@
     "tests/fixtures/nx_monorepo/packages/shared/src": "Source code root directory"
   },
   "stats": {
-    "total_files": 40,
-    "total_directories": 54,
+    "total_files": 74,
+    "total_directories": 121,
     "fully_parsed": {
-      "python": 12,
+      "python": 15,
       "shell": 1,
       "typescript": 2
     },
     "listed_only": {
       "shell": 4,
-      "json": 21
+      "json": 52
     },
-    "markdown_files": 3
+    "markdown_files": 12
   },
   "files": {
     "install.sh": {
@@ -148,6 +387,34 @@
     "uninstall.sh": {
       "language": "shell",
       "parsed": false
+    },
+    "run_coverage.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "sys",
+        "subprocess",
+        "time",
+        "pathlib"
+      ],
+      "functions": {
+        "run_test_file": {
+          "doc": "Run a single test file and return results.",
+          "signature": "(test_file)",
+          "called_by": [
+            "main"
+          ]
+        },
+        "main": {
+          "doc": "Run all test files and summarize results.",
+          "calls": [
+            "run_test_file"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {},
+      "call_graph": {}
     },
     ".agent/config.json": {
       "language": "json",
@@ -447,8 +714,8 @@
               "doc": "Load package.json from each workspace to understand package names and dependencies.",
               "signature": "(self) -> Dict[str, Dict]",
               "called_by": [
-                "CrossWorkspaceAnalyzer.__init__",
-                "CrossWorkspaceDependencyAnalyzer.__init__"
+                "CrossWorkspaceDependencyAnalyzer.__init__",
+                "CrossWorkspaceAnalyzer.__init__"
               ]
             },
             "_load_typescript_references": {
@@ -504,8 +771,8 @@
               ],
               "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
               "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
-                "CrossWorkspaceAnalyzer._analyze_file_imports"
+                "CrossWorkspaceAnalyzer._analyze_file_imports",
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
               ]
             },
             "_analyze_python_imports_regex": {
@@ -527,8 +794,8 @@
               ],
               "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
               "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
-                "CrossWorkspaceAnalyzer._analyze_file_imports"
+                "CrossWorkspaceAnalyzer._analyze_file_imports",
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
               ]
             },
             "_resolve_python_import": {
@@ -538,8 +805,8 @@
               ],
               "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]",
               "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_python_imports_regex",
-                "CrossWorkspaceAnalyzer._analyze_python_imports"
+                "CrossWorkspaceAnalyzer._analyze_python_imports",
+                "CrossWorkspaceAnalyzer._analyze_python_imports_regex"
               ]
             },
             "_resolve_javascript_import": {
@@ -598,16 +865,16 @@
               ],
               "signature": "(node: str, path: List[str]) -> None",
               "called_by": [
-                "CrossWorkspaceAnalyzer._detect_circular_dependencies",
-                "CrossWorkspaceAnalyzer.dfs"
+                "CrossWorkspaceAnalyzer.dfs",
+                "CrossWorkspaceAnalyzer._detect_circular_dependencies"
               ]
             },
             "_determine_cycle_severity": {
               "doc": "Determine the severity of a circular dependency.",
               "signature": "(self, cycle: List[str]) -> str",
               "called_by": [
-                "CrossWorkspaceAnalyzer._detect_circular_dependencies",
-                "CrossWorkspaceAnalyzer.dfs"
+                "CrossWorkspaceAnalyzer.dfs",
+                "CrossWorkspaceAnalyzer._detect_circular_dependencies"
               ]
             },
             "_extract_shared_types": {
@@ -635,9 +902,9 @@
               "doc": "Filter a list of names to likely type/interface names.",
               "signature": "(self, names: List[str]) -> List[str]",
               "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_javascript_imports",
+                "CrossWorkspaceAnalyzer._analyze_python_imports",
                 "CrossWorkspaceAnalyzer._analyze_python_imports_regex",
-                "CrossWorkspaceAnalyzer._analyze_python_imports"
+                "CrossWorkspaceAnalyzer._analyze_javascript_imports"
               ]
             },
             "_circular_dep_to_dict": {
@@ -1252,9 +1519,9 @@
       "imports": [
         "os",
         "json",
+        "subprocess",
         "pathlib",
         "datetime",
-        "subprocess",
         "sys"
       ],
       "functions": {
@@ -1304,9 +1571,9 @@
               "doc": "Convert to dictionary for JSON serialization.",
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1319,17 +1586,17 @@
               "doc": "Detect workspaces. Override in subclasses.",
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             },
             "_safe_read_json": {
               "doc": "Safely read and parse JSON file.",
               "signature": "(self, file_path: Path) -> Optional[Dict]",
               "called_by": [
-                "ManualConfigDetector.detect",
                 "LernaDetector.detect",
                 "RushDetector.detect",
+                "ManualConfigDetector.detect",
                 "NxDetector.detect",
                 "YarnWorkspacesDetector.detect"
               ]
@@ -1345,10 +1612,10 @@
               "doc": "Resolve workspace patterns to actual directories.",
               "signature": "(self, patterns: List[str]) -> Dict[str, str]",
               "called_by": [
-                "PnpmWorkspacesDetector.detect",
-                "ManualConfigDetector.detect",
                 "LernaDetector.detect",
+                "ManualConfigDetector.detect",
                 "NxDetector.detect",
+                "PnpmWorkspacesDetector.detect",
                 "YarnWorkspacesDetector.detect"
               ]
             }
@@ -1364,8 +1631,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1383,8 +1650,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1402,8 +1669,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1421,8 +1688,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1439,8 +1706,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1458,8 +1725,8 @@
               ],
               "signature": "(self) -> Optional[DetectionResult]",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             }
           },
@@ -1479,8 +1746,8 @@
               ],
               "signature": "(self) -> DetectionResult",
               "called_by": [
-                "detect_monorepo",
-                "MonorepoDetector.detect"
+                "MonorepoDetector.detect",
+                "detect_monorepo"
               ]
             },
             "_heuristic_detection": {
@@ -1492,6 +1759,259 @@
             }
           },
           "doc": "Main monorepo detection orchestrator."
+        }
+      },
+      "call_graph": {}
+    },
+    "scripts/parallel_workspace_processor.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "time",
+        "threading",
+        "concurrent.futures",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "typing",
+        "queue",
+        "traceback",
+        "os",
+        "psutil",
+        "workspace_config",
+        "workspace_indexer",
+        "cross_workspace_analyzer",
+        "performance_monitor",
+        "sys",
+        "argparse"
+      ],
+      "functions": {
+        "process_workspaces_parallel": {
+          "calls": [
+            "process_workspaces_parallel"
+          ],
+          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Dict]",
+          "called_by": [
+            "process_workspaces_parallel",
+            "ParallelWorkspaceProcessor.process_workspaces_with_analysis"
+          ]
+        },
+        "process_workspaces_with_analysis": {
+          "calls": [
+            "process_workspaces_with_analysis"
+          ],
+          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Any]",
+          "called_by": [
+            "process_workspaces_with_analysis"
+          ]
+        }
+      },
+      "classes": {
+        "ProcessingProgress": {
+          "methods": {
+            "percentage_complete": {
+              "decorators": [
+                "property"
+              ],
+              "doc": "Calculate completion percentage.",
+              "signature": "(self) -> float"
+            },
+            "elapsed_time": {
+              "decorators": [
+                "property"
+              ],
+              "doc": "Calculate elapsed time in seconds.",
+              "signature": "(self) -> float"
+            },
+            "estimated_remaining": {
+              "decorators": [
+                "property"
+              ],
+              "doc": "Estimate remaining time in seconds.",
+              "signature": "(self) -> float"
+            }
+          },
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Track progress of workspace processing operations.",
+          "properties": [
+            "total_workspaces",
+            "completed",
+            "failed",
+            "in_progress",
+            "completed_workspaces",
+            "failed_workspaces",
+            "start_time"
+          ]
+        },
+        "WorkspaceTask": {
+          "methods": {},
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Represents a workspace processing task.",
+          "properties": [
+            "workspace_name",
+            "priority",
+            "dependencies",
+            "estimated_duration",
+            "task_id"
+          ]
+        },
+        "SharedResourceManager": {
+          "methods": {
+            "__init__": "(self)",
+            "get_file_lock": {
+              "doc": "Get a thread-safe lock for a specific file.",
+              "signature": "(self, file_path: str) -> threading.Lock"
+            },
+            "cache_workspace_result": {
+              "doc": "Thread-safe caching of workspace results.",
+              "signature": "(self, workspace_name: str, result: Dict)",
+              "called_by": [
+                "ParallelWorkspaceProcessor._index_single_workspace"
+              ]
+            },
+            "get_cached_workspace_result": {
+              "doc": "Get cached workspace result if available.",
+              "signature": "(self, workspace_name: str) -> Optional[Dict]",
+              "called_by": [
+                "ParallelWorkspaceProcessor._index_single_workspace"
+              ]
+            },
+            "update_cross_workspace_results": {
+              "doc": "Thread-safe update of cross-workspace analysis results.",
+              "signature": "(self, results: Dict)",
+              "called_by": [
+                "ParallelWorkspaceProcessor.analyze_cross_workspace_dependencies"
+              ]
+            },
+            "get_cross_workspace_results": {
+              "doc": "Get current cross-workspace analysis results.",
+              "signature": "(self) -> Dict"
+            }
+          },
+          "doc": "Thread-safe manager for shared resources and caches."
+        },
+        "ParallelWorkspaceProcessor": {
+          "methods": {
+            "__init__": "(self, registry: WorkspaceRegistry, max_workers: Optional[int] = None, memory_limit_mb: int = 100, enable_throttling: bool = True)",
+            "add_progress_callback": {
+              "doc": "Add a callback function to receive progress updates.",
+              "signature": "(self, callback: Callable[[ProcessingProgress], None])"
+            },
+            "_notify_progress": {
+              "doc": "Notify all progress callbacks of updates.",
+              "signature": "(self, progress: ProcessingProgress)",
+              "called_by": [
+                "ParallelWorkspaceProcessor.process_workspaces_parallel"
+              ]
+            },
+            "_check_memory_usage": {
+              "doc": "Check if memory usage is within limits.",
+              "signature": "(self) -> bool",
+              "called_by": [
+                "ParallelWorkspaceProcessor._wait_for_memory"
+              ]
+            },
+            "_wait_for_memory": {
+              "doc": "Wait for memory usage to drop below limits.",
+              "calls": [
+                "_check_memory_usage"
+              ],
+              "signature": "(self, timeout: float = 5.0) -> bool",
+              "called_by": [
+                "ParallelWorkspaceProcessor._index_single_workspace"
+              ]
+            },
+            "_create_workspace_indexer": {
+              "doc": "Create a new WorkspaceIndexer for the current thread.",
+              "signature": "(self) -> WorkspaceIndexer",
+              "called_by": [
+                "ParallelWorkspaceProcessor._index_single_workspace"
+              ]
+            },
+            "_create_cross_workspace_analyzer": {
+              "doc": "Create a new CrossWorkspaceAnalyzer for the current thread.",
+              "signature": "(self) -> CrossWorkspaceAnalyzer",
+              "called_by": [
+                "ParallelWorkspaceProcessor.analyze_cross_workspace_dependencies"
+              ]
+            },
+            "_index_single_workspace": {
+              "decorators": [
+                "performance_timing"
+              ],
+              "calls": [
+                "_create_workspace_indexer",
+                "_wait_for_memory",
+                "cache_workspace_result",
+                "get_cached_workspace_result"
+              ],
+              "signature": "(self, workspace_name: str, progress: ProcessingProgress) -> Dict"
+            },
+            "_sort_workspaces_by_dependencies": {
+              "signature": "(self, workspace_names: List[str]) -> List[WorkspaceTask]",
+              "called_by": [
+                "ParallelWorkspaceProcessor.process_workspaces_parallel"
+              ]
+            },
+            "process_workspaces_parallel": {
+              "calls": [
+                "_notify_progress",
+                "_sort_workspaces_by_dependencies"
+              ],
+              "signature": "(self, workspace_names: Optional[List[str]] = None, show_progress: bool = True) -> Dict[str, Dict]",
+              "called_by": [
+                "ParallelWorkspaceProcessor.process_workspaces_with_analysis",
+                "process_workspaces_parallel"
+              ]
+            },
+            "analyze_cross_workspace_dependencies": {
+              "decorators": [
+                "performance_timing"
+              ],
+              "calls": [
+                "_create_cross_workspace_analyzer",
+                "update_cross_workspace_results"
+              ],
+              "signature": "(self, workspace_results: Dict[str, Dict]) -> Dict",
+              "called_by": [
+                "ParallelWorkspaceProcessor.process_workspaces_with_analysis"
+              ]
+            },
+            "process_workspaces_with_analysis": {
+              "calls": [
+                "analyze_cross_workspace_dependencies",
+                "process_workspaces_parallel"
+              ],
+              "signature": "(self, workspace_names: Optional[List[str]] = None, include_cross_analysis: bool = True, show_progress: bool = True) -> Dict[str, Any]",
+              "called_by": [
+                "process_workspaces_with_analysis"
+              ]
+            },
+            "shutdown": {
+              "doc": "Request graceful shutdown of the processor.",
+              "signature": "(self)"
+            }
+          },
+          "properties": [
+            "registry",
+            "max_workers",
+            "memory_limit_mb",
+            "enable_throttling",
+            "workspace_name",
+            "progress",
+            "workspace_names",
+            "workspace_names",
+            "show_progress",
+            "workspace_results",
+            "workspace_names",
+            "include_cross_analysis",
+            "show_progress"
+          ]
         }
       },
       "call_graph": {}
@@ -1522,15 +2042,51 @@
           "methods": {
             "__init__": {
               "calls": [
+                "_apply_performance_profile",
                 "_detect_package_manager"
               ],
-              "signature": "(self, name: str, path: str, root_path: Path, ignore_patterns: Optional[List[str]] = None, custom_settings: Optional[Dict] = None)"
+              "signature": "(self, name: str, path: str, root_path: Path, ignore_patterns: Optional[List[str]] = None, custom_settings: Optional[Dict] = None, performance_profile: str = \"balanced\", include: bool = True, indexing_depth: Optional[int] = None, max_files: Optional[int] = None)"
             },
             "_detect_package_manager": {
               "doc": "Detect the package manager used in this workspace.",
               "signature": "(self) -> str",
               "called_by": [
                 "WorkspaceConfig.__init__"
+              ]
+            },
+            "_apply_performance_profile": {
+              "doc": "Apply performance profile defaults if not explicitly set.",
+              "signature": "(self)",
+              "called_by": [
+                "WorkspaceConfigManager._apply_manual_overrides",
+                "WorkspaceConfig.__init__"
+              ]
+            },
+            "get_performance_profile": {
+              "doc": "Get the current performance profile settings.",
+              "signature": "(self) -> Dict"
+            },
+            "should_skip_dependency_analysis": {
+              "doc": "Check if dependency analysis should be skipped.",
+              "signature": "(self) -> bool"
+            },
+            "should_skip_cross_workspace_analysis": {
+              "doc": "Check if cross-workspace analysis should be skipped.",
+              "signature": "(self) -> bool"
+            },
+            "get_max_files": {
+              "doc": "Get the maximum number of files to index.",
+              "signature": "(self) -> Optional[int]"
+            },
+            "get_indexing_depth": {
+              "doc": "Get the maximum indexing depth.",
+              "signature": "(self) -> Optional[int]"
+            },
+            "get_file_size_limit_mb": {
+              "doc": "Get the file size limit in MB.",
+              "signature": "(self) -> float",
+              "called_by": [
+                "WorkspaceConfigManager.create_interactive_config"
               ]
             },
             "get_ignore_patterns": {
@@ -1547,9 +2103,9 @@
               ],
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1574,7 +2130,8 @@
               "doc": "Get workspace configuration by name.",
               "signature": "(self, name: str) -> Optional[WorkspaceConfig]",
               "called_by": [
-                "WorkspaceConfigManager._apply_manual_overrides"
+                "WorkspaceConfigManager._apply_manual_overrides",
+                "WorkspaceConfigManager.validate_config_file"
               ]
             },
             "get_workspace_by_path": {
@@ -1586,7 +2143,11 @@
             },
             "get_all_workspaces": {
               "doc": "Get all workspace configurations.",
-              "signature": "(self) -> List[WorkspaceConfig]"
+              "signature": "(self) -> List[WorkspaceConfig]",
+              "called_by": [
+                "WorkspaceConfigManager.create_interactive_config",
+                "WorkspaceConfigManager.get_workspace_by_performance_profile"
+              ]
             },
             "get_workspace_names": {
               "doc": "Get all workspace names.",
@@ -1606,8 +2167,8 @@
               "doc": "Get dependencies for a workspace.",
               "signature": "(self, workspace_name: str) -> List[str]",
               "called_by": [
-                "WorkspaceRegistry.check_circular",
-                "WorkspaceRegistry.validate"
+                "WorkspaceRegistry.validate",
+                "WorkspaceRegistry.check_circular"
               ]
             },
             "get_dependents": {
@@ -1632,8 +2193,8 @@
               ],
               "signature": "(workspace_name: str, visited: Set[str], path: List[str]) -> bool",
               "called_by": [
-                "WorkspaceRegistry.check_circular",
-                "WorkspaceRegistry.validate"
+                "WorkspaceRegistry.validate",
+                "WorkspaceRegistry.check_circular"
               ]
             },
             "to_dict": {
@@ -1643,9 +2204,9 @@
               ],
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1660,16 +2221,20 @@
               ],
               "signature": "(self, force_refresh: bool = False) -> WorkspaceRegistry",
               "called_by": [
-                "WorkspaceConfigManager.validate_configuration",
                 "load_workspace_config",
+                "WorkspaceConfigManager.create_interactive_config",
+                "WorkspaceConfigManager.validate_config_file",
                 "WorkspaceConfigManager.is_monorepo",
-                "WorkspaceConfigManager.get_monorepo_info",
-                "WorkspaceConfigManager.get_workspace_for_file"
+                "WorkspaceConfigManager.get_workspace_by_performance_profile",
+                "WorkspaceConfigManager.get_workspace_for_file",
+                "WorkspaceConfigManager.validate_configuration",
+                "WorkspaceConfigManager.get_monorepo_info"
               ]
             },
             "_apply_manual_overrides": {
               "doc": "Apply manual configuration overrides.",
               "calls": [
+                "_apply_performance_profile",
                 "get_workspace",
                 "set_dependencies"
               ],
@@ -1686,8 +2251,8 @@
               ],
               "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]",
               "called_by": [
-                "handle_file_update",
-                "detect_file_move"
+                "detect_file_move",
+                "handle_file_update"
               ]
             },
             "validate_configuration": {
@@ -1716,11 +2281,151 @@
                 "load_configuration"
               ],
               "signature": "(self) -> Dict"
+            },
+            "get_workspace_by_performance_profile": {
+              "doc": "Get all workspaces using a specific performance profile.",
+              "calls": [
+                "get_all_workspaces",
+                "load_configuration"
+              ],
+              "signature": "(self, profile: str) -> List[WorkspaceConfig]"
+            },
+            "validate_performance_profile": {
+              "doc": "Validate that a performance profile is valid.",
+              "signature": "(self, profile: str) -> bool",
+              "called_by": [
+                "WorkspaceConfigManager.validate_config_file"
+              ]
+            },
+            "get_available_performance_profiles": {
+              "doc": "Get all available performance profiles with their descriptions.",
+              "signature": "(self) -> Dict[str, Dict]"
+            },
+            "create_interactive_config": {
+              "doc": "Create an interactive configuration template.",
+              "calls": [
+                "get_all_workspaces",
+                "get_file_size_limit_mb",
+                "load_configuration"
+              ],
+              "signature": "(self) -> Dict"
+            },
+            "validate_config_file": {
+              "doc": "Validate configuration file format and values.",
+              "calls": [
+                "get_workspace",
+                "load_configuration",
+                "validate_performance_profile"
+              ],
+              "signature": "(self, config_path: Optional[Path] = None) -> List[str]"
+            },
+            "get_global_settings": {
+              "doc": "Get global configuration settings.",
+              "signature": "(self) -> Dict"
             }
           },
           "doc": "Main workspace configuration manager with caching and validation.",
           "properties": [
             "force_refresh"
+          ]
+        }
+      },
+      "constants": {
+        "PERFORMANCE_PROFILES": "collection"
+      },
+      "call_graph": {}
+    },
+    "scripts/monorepo_commands.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "sys",
+        "time",
+        "argparse",
+        "pathlib",
+        "typing",
+        "datetime",
+        "workspace_config",
+        "parallel_workspace_processor",
+        "performance_monitor",
+        "project_index"
+      ],
+      "functions": {
+        "main": {
+          "doc": "CLI entry point for monorepo commands.",
+          "calls": [
+            "dependencies",
+            "index_monorepo",
+            "index_workspace",
+            "interactive_config",
+            "migrate",
+            "stats",
+            "status"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {
+        "MonorepoCommands": {
+          "methods": {
+            "__init__": "(self, root_path: str = \".\")",
+            "index_workspace": {
+              "signature": "(self, workspace_name: Optional[str] = None, **kwargs) -> Dict",
+              "called_by": [
+                "WorkspaceIndexer.index_all_workspaces",
+                "index_workspace",
+                "main"
+              ]
+            },
+            "index_monorepo": {
+              "signature": "(self, force: bool = False, selective: Optional[List[str]] = None, **kwargs) -> Dict",
+              "called_by": [
+                "MonorepoCommands.migrate",
+                "main"
+              ]
+            },
+            "interactive_config": {
+              "signature": "(self, **kwargs) -> Dict",
+              "called_by": [
+                "main"
+              ]
+            },
+            "status": {
+              "signature": "(self, **kwargs) -> Dict",
+              "called_by": [
+                "main"
+              ]
+            },
+            "stats": {
+              "signature": "(self, **kwargs) -> Dict",
+              "called_by": [
+                "main"
+              ]
+            },
+            "dependencies": {
+              "signature": "(self, format: str = \"text\", **kwargs) -> Dict",
+              "called_by": [
+                "main"
+              ]
+            },
+            "migrate": {
+              "calls": [
+                "index_monorepo"
+              ],
+              "signature": "(self, **kwargs) -> Dict",
+              "called_by": [
+                "main"
+              ]
+            }
+          },
+          "doc": "Main command handler for monorepo operations.",
+          "properties": [
+            "workspace_name",
+            "force",
+            "selective",
+            "format",
+            "else"
           ]
         }
       },
@@ -1743,8 +2448,8 @@
         "dataclasses",
         "collections",
         "threading",
-        "psutil",
         "os",
+        "psutil",
         "sys"
       ],
       "functions": {
@@ -1770,9 +2475,9 @@
             "to_dict": {
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1797,9 +2502,9 @@
             "to_dict": {
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1822,9 +2527,9 @@
             "to_dict": {
               "signature": "(self) -> Dict",
               "called_by": [
-                "detect_monorepo",
                 "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data"
+                "PerformanceMonitor._log_performance_data",
+                "detect_monorepo"
               ]
             }
           },
@@ -1932,8 +2637,8 @@
               "doc": "Calculate percentile of values.",
               "signature": "(self, values: List[float], percentile: float) -> float",
               "called_by": [
-                "PerformanceMonitor.get_performance_summary",
-                "PerformanceMonitor._get_hook_breakdown"
+                "PerformanceMonitor._get_hook_breakdown",
+                "PerformanceMonitor.get_performance_summary"
               ]
             },
             "_get_hook_breakdown": {
@@ -2230,6 +2935,7 @@
           ],
           "signature": "(root_path: Union[str, Path], workspace_name: str) -> Optional[Dict]",
           "called_by": [
+            "main",
             "index_workspace",
             "WorkspaceIndexer.index_all_workspaces"
           ]
@@ -2257,8 +2963,8 @@
               "doc": "Load package.json from each workspace to understand package names.",
               "signature": "(self) -> Dict[str, Dict]",
               "called_by": [
-                "CrossWorkspaceAnalyzer.__init__",
-                "CrossWorkspaceDependencyAnalyzer.__init__"
+                "CrossWorkspaceDependencyAnalyzer.__init__",
+                "CrossWorkspaceAnalyzer.__init__"
               ]
             },
             "get_workspace_dependencies": {
@@ -2291,8 +2997,8 @@
               ],
               "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
               "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
-                "CrossWorkspaceAnalyzer._analyze_file_imports"
+                "CrossWorkspaceAnalyzer._analyze_file_imports",
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
               ]
             },
             "_analyze_javascript_imports": {
@@ -2302,8 +3008,8 @@
               ],
               "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
               "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports",
-                "CrossWorkspaceAnalyzer._analyze_file_imports"
+                "CrossWorkspaceAnalyzer._analyze_file_imports",
+                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
               ]
             },
             "_analyze_package_json_deps": {
@@ -2344,7 +3050,8 @@
               "signature": "(self, workspace_name: str) -> Optional[Dict]",
               "called_by": [
                 "WorkspaceIndexer.index_all_workspaces",
-                "index_workspace"
+                "index_workspace",
+                "main"
               ]
             },
             "_matches_ignore_patterns": {
@@ -2371,8 +3078,8 @@
               "signature": "(path: Path, prefix: str = \"\", depth: int = 0, max_depth: int = 3)",
               "called_by": [
                 "generate_tree_structure",
-                "WorkspaceIndexer._generate_workspace_tree",
-                "WorkspaceIndexer.add_tree_level"
+                "WorkspaceIndexer.add_tree_level",
+                "WorkspaceIndexer._generate_workspace_tree"
               ]
             },
             "_parse_file_content": {
@@ -2407,6 +3114,131 @@
         }
       },
       "call_graph": {}
+    },
+    "examples/nx_example/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/nx.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/lerna.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/.project-index-config.json": {
+      "language": "json",
+      "parsed": false,
+      "purpose": "Configuration"
+    },
+    "examples/pnpm_example/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/services/worker/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/services/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/apps/dashboard/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/apps/frontend/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/packages/database/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/packages/common/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/pnpm_example/packages/auth/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/shared/types/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/shared/utils/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/frontend/web/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/frontend/mobile/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/tools/cli/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/backend/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/manual_config_example/backend/auth/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/apps/web/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/apps/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/packages/core/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/packages/ui/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/lerna_example/packages/utils/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/apps/admin/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/apps/mobile/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/packages/web/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/packages/api/package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "examples/nx_example/packages/shared/package.json": {
+      "language": "json",
+      "parsed": false
     },
     "tests/fixtures/pnpm_workspaces/package.json": {
       "language": "json",
@@ -2508,6 +3340,12 @@
     }
   },
   "dependency_graph": {
+    "run_coverage.py": [
+      "sys",
+      "subprocess",
+      "time",
+      "pathlib"
+    ],
     "scripts/reindex_if_needed_enhanced.py": [
       "json",
       "sys",
@@ -2579,9 +3417,9 @@
     "scripts/detect_external_changes.py": [
       "os",
       "json",
+      "subprocess",
       "pathlib",
       "datetime",
-      "subprocess",
       "sys"
     ],
     "scripts/monorepo_detector.py": [
@@ -2592,6 +3430,26 @@
       "typing",
       "sys"
     ],
+    "scripts/parallel_workspace_processor.py": [
+      "json",
+      "time",
+      "threading",
+      "concurrent.futures",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "queue",
+      "traceback",
+      "os",
+      "psutil",
+      "workspace_config",
+      "workspace_indexer",
+      "cross_workspace_analyzer",
+      "performance_monitor",
+      "sys",
+      "argparse"
+    ],
     "scripts/workspace_config.py": [
       "json",
       "re",
@@ -2600,6 +3458,19 @@
       "datetime",
       "monorepo_detector",
       "sys"
+    ],
+    "scripts/monorepo_commands.py": [
+      "json",
+      "sys",
+      "time",
+      "argparse",
+      "pathlib",
+      "typing",
+      "datetime",
+      "workspace_config",
+      "parallel_workspace_processor",
+      "performance_monitor",
+      "project_index"
     ],
     "scripts/performance_monitor.py": [
       "json",
@@ -2610,8 +3481,8 @@
       "dataclasses",
       "collections",
       "threading",
-      "psutil",
       "os",
+      "psutil",
       "sys"
     ],
     "scripts/update_index.py": [
@@ -2644,5 +3515,5 @@
       "lodash"
     ]
   },
-  "staleness_check": 1754925078.125579
+  "staleness_check": 1754934601.743771
 }

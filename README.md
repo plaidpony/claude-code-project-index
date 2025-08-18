@@ -58,6 +58,22 @@ curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index
 
 **Note**: This will remove and reinstall the tool completely. Your PROJECT_INDEX.json files in projects remain untouched.
 
+## 📚 Documentation
+
+### Complete Project Index Documentation
+- **[Monorepo Setup Guide](docs/monorepo-setup.md)** - Complete setup for Nx, Lerna, Yarn Workspaces, PNPM, Rush
+- **[Configuration Reference](docs/configuration-reference.md)** - All configuration options and customization
+- **[Performance Guide](docs/performance-guide.md)** - Optimization for large codebases and performance tuning
+- **[Migration Guide](docs/migration-guide.md)** - Upgrading from previous versions and migration paths
+- **[API Reference](docs/api-reference.md)** - Complete API documentation for advanced usage
+- **[Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions
+
+### Examples Directory
+- **[Nx Example](examples/nx_example/)** - Complete Nx monorepo setup
+- **[Lerna Example](examples/lerna_example/)** - Lerna configuration and usage
+- **[PNPM Example](examples/pnpm_example/)** - PNPM workspaces setup
+- **[Manual Config Example](examples/manual_config_example/)** - Custom workspace configuration
+
 ## 🔧 Highly Recommended: Claude Code Docs
 
 For the best experience, also install [Claude Code Docs](https://github.com/ericbuess/claude-code-docs) - a companion tool that gives Claude deep understanding of its own capabilities through automatically updated documentation. It provides a `/docs` command that loads the latest Claude Code documentation directly into context, helping Claude use its features more effectively.
