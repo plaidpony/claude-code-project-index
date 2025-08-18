@@ -24,10 +24,11 @@ That's it! The tool is installed with automatic hooks for maintaining the index.
 
 ### Create an Index for Your Project
 
-Navigate to any project directory and run:
-```bash
+Navigate to any project directory **in Claude Code** and run:
+```
 /index
 ```
+*Note: This is a Claude Code command, not a terminal command*
 
 This creates `PROJECT_INDEX.json` with:
 - Complete function/class signatures
@@ -40,8 +41,8 @@ This creates `PROJECT_INDEX.json` with:
 
 ### Using the Index
 
-Once created, reference it when you need architectural awareness:
-```bash
+Once created, reference it when you need architectural awareness **in Claude Code**:
+```
 # Ask architectural questions
 @PROJECT_INDEX.json what functions call authenticate_user?
 
@@ -380,8 +381,8 @@ curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index
 ## How It Works
 
 ### One-Time Setup Per Project
-Run `/index` **once** in any project where you want architectural awareness:
-```bash
+Run `/index` **once** in any project where you want architectural awareness (in Claude Code):
+```
 /index
 ```
 
