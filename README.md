@@ -639,8 +639,8 @@ The system automatically compresses large indexes, but you can:
 - Reduce `MAX_TREE_DEPTH` (default: 5) in `~/.claude-code-project-index/scripts/project_index.py`
 
 ### External changes not detected?
-The system checks for changes every time Claude stops. If needed, manually run:
-```bash
+The system checks for changes every time Claude stops. If needed, manually run **in Claude Code**:
+```
 /index
 ```
 Or from the command line:
