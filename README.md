@@ -15,7 +15,7 @@ A UML-inspired code intelligence system that gives Claude Code comprehensive arc
 ## 🚀 Quick Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/install.sh | bash
 ```
 
 That's it! The tool is installed with automatic hooks for maintaining the index.
@@ -53,7 +53,7 @@ Once created, reference it when you need architectural awareness:
 
 To update to the latest version, simply run the installer again:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/install.sh | bash
 ```
 
 **Note**: This will remove and reinstall the tool completely. Your PROJECT_INDEX.json files in projects remain untouched.
@@ -68,7 +68,7 @@ For the best experience, also install [Claude Code Docs](https://github.com/eric
 
 ### What This Means for You
 
-- **Fork it!** - Make it your own: `git clone https://github.com/ericbuess/claude-code-project-index.git`
+- **Fork it!** - Make it your own: `git clone https://github.com/plaidpony/claude-code-project-index.git`
 - **Let Claude customize it** - Claude Code can modify the tool to fit your exact needs
 - **No waiting for updates** - Don't wait for me to add features, ask Claude to add them for you
 - **Share your improvements** - Fork and share your enhanced versions with others
@@ -328,7 +328,7 @@ Example output:
 Run this single command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/install.sh | bash
 ```
 
 This will:
@@ -342,7 +342,7 @@ This will:
 If you prefer to install manually:
 
 ```bash
-git clone https://github.com/ericbuess/claude-code-project-index.git ~/.claude-code-project-index
+git clone https://github.com/plaidpony/claude-code-project-index.git ~/.claude-code-project-index
 cd ~/.claude-code-project-index
 ./install.sh
 ```
@@ -358,7 +358,7 @@ To completely remove PROJECT_INDEX:
 Or if the directory is already gone:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/uninstall.sh | bash
 ```
 
 ## How It Works
@@ -589,7 +589,7 @@ To use a specific Python version instead of the newest:
 ```bash
 # During installation
 export PYTHON_CMD=python3.11
-curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/install.sh | bash
 
 # Or for a specific path
 export PYTHON_CMD=/usr/local/bin/python3.12
@@ -614,7 +614,7 @@ If hooks aren't working or you see Python errors:
 1. Check that hooks are enabled: `cat ~/.claude/settings.json`
 2. Verify installation: `ls -la ~/.claude-code-project-index/`
 3. Look for errors in Claude's output
-4. Reinstall if needed: `curl -fsSL https://raw.githubusercontent.com/ericbuess/claude-code-project-index/main/install.sh | bash`
+4. Reinstall if needed: `curl -fsSL https://raw.githubusercontent.com/plaidpony/claude-code-project-index/main/install.sh | bash`
 
 ### Index too large?
 The system automatically compresses large indexes, but you can:
@@ -775,7 +775,5 @@ MIT License - See LICENSE file for details
 
 ## Author
 
-Created by [Eric Buess](https://github.com/ericbuess)
-- 🐦 [Twitter/X](https://x.com/EricBuess)
-- 📺 [YouTube](https://www.youtube.com/@EricBuess)
-- 💼 [GitHub](https://github.com/ericbuess)
+Originally created by [Eric Buess](https://github.com/ericbuess), now maintained by [plaidpony](https://github.com/plaidpony)
+- 💼 [GitHub](https://github.com/plaidpony)
