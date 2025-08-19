@@ -122,13 +122,15 @@ class ParallelWorkspaceProcessor:
     """
     Main parallel processing engine for workspace operations.
     Provides concurrent indexing with thread safety and resource management.
+    Extended with task management hooks for integration_worker_phase2.
     """
     
     def __init__(self, 
                  registry: WorkspaceRegistry,
                  max_workers: Optional[int] = None,
                  memory_limit_mb: int = 100,
-                 enable_throttling: bool = True):
+                 enable_throttling: bool = True,
+                 workflow_integration: bool = False):
         """
         Initialize the parallel processor.
         
@@ -137,11 +139,13 @@ class ParallelWorkspaceProcessor:
             max_workers: Maximum number of worker threads (None = auto-detect)
             memory_limit_mb: Maximum additional memory usage in MB
             enable_throttling: Whether to enable resource throttling
+            workflow_integration: Whether to enable integration workflow features
         """
         self.registry = registry
         self.max_workers = max_workers or min(8, (os.cpu_count() or 4) + 2)
         self.memory_limit_mb = memory_limit_mb
         self.enable_throttling = enable_throttling
+        self.workflow_integration = workflow_integration
         
         # Shared resources
         self.shared_resources = SharedResourceManager()
@@ -159,11 +163,58 @@ class ParallelWorkspaceProcessor:
         self.workspace_indexer = None
         self.cross_workspace_analyzer = None
         
+        # Workflow integration hooks
+        self.workflow_hooks: Dict[str, Callable] = {}
+        self.task_context: Dict[str, Any] = {}
+        
+        if self.workflow_integration:
+            print(f"Workflow integration enabled for ParallelWorkspaceProcessor")
+        
         print(f"Initialized ParallelWorkspaceProcessor with {self.max_workers} workers")
     
     def add_progress_callback(self, callback: Callable[[ProcessingProgress], None]):
         """Add a callback function to receive progress updates."""
         self.progress_callbacks.append(callback)
+    
+    def register_workflow_hook(self, hook_name: str, callback: Callable):
+        """
+        Register a workflow integration hook.
+        
+        Args:
+            hook_name: Name of the hook (e.g., 'task_started', 'task_completed', 'workspace_indexed')
+            callback: Function to call when the hook is triggered
+        """
+        if self.workflow_integration:
+            self.workflow_hooks[hook_name] = callback
+            print(f"Registered workflow hook: {hook_name}")
+    
+    def trigger_workflow_hook(self, hook_name: str, **kwargs):
+        """
+        Trigger a workflow integration hook.
+        
+        Args:
+            hook_name: Name of the hook to trigger
+            **kwargs: Arguments to pass to the hook callback
+        """
+        if self.workflow_integration and hook_name in self.workflow_hooks:
+            try:
+                self.workflow_hooks[hook_name](**kwargs)
+            except Exception as e:
+                print(f"Warning: Workflow hook '{hook_name}' failed: {e}")
+    
+    def set_task_context(self, context: Dict[str, Any]):
+        """
+        Set task context for workflow integration.
+        
+        Args:
+            context: Context information for current task/workflow
+        """
+        if self.workflow_integration:
+            self.task_context.update(context)
+    
+    def get_task_context(self) -> Dict[str, Any]:
+        """Get current task context."""
+        return self.task_context.copy() if self.workflow_integration else {}
     
     def _notify_progress(self, progress: ProcessingProgress):
         """Notify all progress callbacks of updates."""
@@ -214,10 +265,18 @@ class ParallelWorkspaceProcessor:
         Returns:
             Workspace index result
         """
+        # Trigger workflow hook for task start
+        self.trigger_workflow_hook('workspace_indexing_started', 
+                                 workspace_name=workspace_name, 
+                                 context=self.get_task_context())
+        
         try:
             # Check for cached result first
             cached_result = self.shared_resources.get_cached_workspace_result(workspace_name)
             if cached_result:
+                self.trigger_workflow_hook('workspace_indexing_cached', 
+                                         workspace_name=workspace_name, 
+                                         result=cached_result)
                 return cached_result
             
             # Wait for memory if needed
@@ -240,9 +299,20 @@ class ParallelWorkspaceProcessor:
                     progress.completed_workspaces.append(workspace_name)
                     progress.in_progress.discard(workspace_name)
                 
+                # Trigger workflow hook for successful completion
+                self.trigger_workflow_hook('workspace_indexing_completed', 
+                                         workspace_name=workspace_name, 
+                                         result=result,
+                                         context=self.get_task_context())
+                
                 return result
             else:
-                raise ValueError(f"Failed to index workspace {workspace_name}")
+                error_msg = f"Failed to index workspace {workspace_name}"
+                self.trigger_workflow_hook('workspace_indexing_failed', 
+                                         workspace_name=workspace_name, 
+                                         error=error_msg,
+                                         context=self.get_task_context())
+                raise ValueError(error_msg)
                 
         except Exception as e:
             # Update progress with error
@@ -250,6 +320,12 @@ class ParallelWorkspaceProcessor:
                 progress.failed += 1
                 progress.failed_workspaces.append((workspace_name, str(e)))
                 progress.in_progress.discard(workspace_name)
+            
+            # Trigger workflow hook for error
+            self.trigger_workflow_hook('workspace_indexing_failed', 
+                                     workspace_name=workspace_name, 
+                                     error=str(e),
+                                     context=self.get_task_context())
             
             print(f"Error indexing workspace {workspace_name}: {e}")
             traceback.print_exc()
@@ -385,6 +461,11 @@ class ParallelWorkspaceProcessor:
         Returns:
             Cross-workspace analysis results
         """
+        # Trigger workflow hook for analysis start
+        self.trigger_workflow_hook('cross_workspace_analysis_started', 
+                                 workspace_count=len(workspace_results),
+                                 context=self.get_task_context())
+        
         try:
             analyzer = self._create_cross_workspace_analyzer()
             analysis_results = analyzer.analyze_all_workspaces()
@@ -392,9 +473,19 @@ class ParallelWorkspaceProcessor:
             # Cache the results
             self.shared_resources.update_cross_workspace_results(analysis_results)
             
+            # Trigger workflow hook for analysis completion
+            self.trigger_workflow_hook('cross_workspace_analysis_completed', 
+                                     analysis_results=analysis_results,
+                                     context=self.get_task_context())
+            
             return analysis_results
             
         except Exception as e:
+            # Trigger workflow hook for analysis failure
+            self.trigger_workflow_hook('cross_workspace_analysis_failed', 
+                                     error=str(e),
+                                     context=self.get_task_context())
+            
             print(f"Warning: Cross-workspace analysis failed: {e}")
             return {}
     

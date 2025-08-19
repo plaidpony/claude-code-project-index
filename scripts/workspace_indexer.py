@@ -222,12 +222,60 @@ class CrossWorkspaceDependencyAnalyzer:
 
 
 class WorkspaceIndexer:
-    """Indexes individual workspaces with cross-workspace awareness."""
+    """Indexes individual workspaces with cross-workspace awareness and workflow integration."""
     
-    def __init__(self, registry: WorkspaceRegistry):
+    def __init__(self, registry: WorkspaceRegistry, workflow_integration: bool = False):
         self.registry = registry
         self.root_path = registry.root_path
         self.dependency_analyzer = CrossWorkspaceDependencyAnalyzer(registry)
+        self.workflow_integration = workflow_integration
+        
+        # Workflow integration hooks
+        self.workflow_hooks: Dict[str, callable] = {}
+        self.task_context: Dict[str, any] = {}
+        
+        if self.workflow_integration:
+            print("Workflow integration enabled for WorkspaceIndexer")
+    
+    def register_workflow_hook(self, hook_name: str, callback: callable):
+        """
+        Register a workflow integration hook.
+        
+        Args:
+            hook_name: Name of the hook (e.g., 'indexing_started', 'file_processed', 'indexing_completed')
+            callback: Function to call when the hook is triggered
+        """
+        if self.workflow_integration:
+            self.workflow_hooks[hook_name] = callback
+            print(f"WorkspaceIndexer: Registered workflow hook: {hook_name}")
+    
+    def trigger_workflow_hook(self, hook_name: str, **kwargs):
+        """
+        Trigger a workflow integration hook.
+        
+        Args:
+            hook_name: Name of the hook to trigger
+            **kwargs: Arguments to pass to the hook callback
+        """
+        if self.workflow_integration and hook_name in self.workflow_hooks:
+            try:
+                self.workflow_hooks[hook_name](**kwargs)
+            except Exception as e:
+                print(f"Warning: WorkspaceIndexer workflow hook '{hook_name}' failed: {e}")
+    
+    def set_task_context(self, context: Dict[str, any]):
+        """
+        Set task context for workflow integration.
+        
+        Args:
+            context: Context information for current task/workflow
+        """
+        if self.workflow_integration:
+            self.task_context.update(context)
+    
+    def get_task_context(self) -> Dict[str, any]:
+        """Get current task context."""
+        return self.task_context.copy() if self.workflow_integration else {}
     
     def index_workspace(self, workspace_name: str) -> Optional[Dict]:
         """
@@ -239,11 +287,24 @@ class WorkspaceIndexer:
         Returns:
             Dictionary containing the workspace index
         """
+        # Trigger workflow hook for indexing start
+        self.trigger_workflow_hook('indexing_started', 
+                                 workspace_name=workspace_name,
+                                 context=self.get_task_context())
+        
         workspace = self.registry.get_workspace(workspace_name)
         if not workspace:
+            self.trigger_workflow_hook('indexing_failed', 
+                                     workspace_name=workspace_name,
+                                     error="Workspace not found in registry",
+                                     context=self.get_task_context())
             return None
         
         if not workspace.full_path.exists():
+            self.trigger_workflow_hook('indexing_failed', 
+                                     workspace_name=workspace_name,
+                                     error="Workspace path does not exist",
+                                     context=self.get_task_context())
             return None
         
         # Build the index structure (compatible with existing schema)
@@ -301,6 +362,10 @@ class WorkspaceIndexer:
             pass
         
         # Update workspace dependencies using enhanced analysis
+        self.trigger_workflow_hook('dependency_analysis_started', 
+                                 workspace_name=workspace_name,
+                                 context=self.get_task_context())
+        
         enhanced_deps = self.dependency_analyzer.get_workspace_dependencies(workspace_name)
         
         # Set dependencies in registry for backward compatibility
@@ -312,11 +377,22 @@ class WorkspaceIndexer:
         index["workspace"]["shared_types"] = enhanced_deps["shared_types"]
         index["workspace"]["analysis_quality"] = enhanced_deps["analysis_quality"]
         
+        self.trigger_workflow_hook('dependency_analysis_completed', 
+                                 workspace_name=workspace_name,
+                                 dependencies=enhanced_deps,
+                                 context=self.get_task_context())
+        
         # Generate tree structure
         index["project_structure"]["tree"] = self._generate_workspace_tree(workspace.full_path, workspace.path)
         
+        # Trigger workflow hook for file processing start
+        self.trigger_workflow_hook('file_processing_started', 
+                                 workspace_name=workspace_name,
+                                 total_files=len(all_files),
+                                 context=self.get_task_context())
+        
         # Process files
-        for file_path in all_files:
+        for file_idx, file_path in enumerate(all_files):
             relative_path = file_path.relative_to(self.root_path)
             file_key = str(relative_path)
             
@@ -369,6 +445,16 @@ class WorkspaceIndexer:
                 index["stats"]["listed_only"][lang] += 1
             
             index["files"][file_key] = file_info
+            
+            # Trigger workflow hook for file processing progress (every 10% of files)
+            if file_idx % max(1, len(all_files) // 10) == 0:
+                progress = (file_idx + 1) / len(all_files) * 100
+                self.trigger_workflow_hook('file_processing_progress', 
+                                         workspace_name=workspace_name,
+                                         progress_percent=progress,
+                                         files_processed=file_idx + 1,
+                                         total_files=len(all_files),
+                                         context=self.get_task_context())
         
         # Update final stats
         index["stats"]["total_files"] = len(all_files)
@@ -376,6 +462,12 @@ class WorkspaceIndexer:
         
         # Generate dependency graph for workspace
         index["dependency_graph"] = self._build_workspace_dependency_graph(index["files"])
+        
+        # Trigger workflow hook for successful completion
+        self.trigger_workflow_hook('indexing_completed', 
+                                 workspace_name=workspace_name,
+                                 index_stats=index["stats"],
+                                 context=self.get_task_context())
         
         return index
     

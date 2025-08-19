@@ -1,5 +1,5 @@
 {
-  "indexed_at": "2025-08-18T13:50:01.278150",
+  "indexed_at": "2025-08-19T09:43:01.539086",
   "root": ".",
   "project_structure": {
     "type": "tree",
@@ -7,7 +7,7 @@
     "tree": [
       ".",
       "\u251c\u2500\u2500 docs/",
-      "\u251c\u2500\u2500 examples/ (32 files)",
+      "\u251c\u2500\u2500 examples/ (33 files)",
       "\u2502   \u251c\u2500\u2500 lerna_example/ (7 files)",
       "\u2502   \u2502   \u251c\u2500\u2500 apps/ (2 files)",
       "\u2502   \u2502   \u2502   \u251c\u2500\u2500 api/ (1 files)",
@@ -76,7 +76,7 @@
       "\u2502   \u2502   \u2502       \u2514\u2500\u2500 package.json",
       "\u2502   \u2502   \u251c\u2500\u2500 package.json",
       "\u2502   \u2502   \u2514\u2500\u2500 README.md",
-      "\u2502   \u251c\u2500\u2500 pnpm_example/ (8 files)",
+      "\u2502   \u251c\u2500\u2500 pnpm_example/ (9 files)",
       "\u2502   \u2502   \u251c\u2500\u2500 apps/ (2 files)",
       "\u2502   \u2502   \u2502   \u251c\u2500\u2500 dashboard/ (1 files)",
       "\u2502   \u2502   \u2502   \u2502   \u251c\u2500\u2500 src/",
@@ -105,7 +105,7 @@
       "\u2502   \u2502   \u2514\u2500\u2500 README.md",
       "\u2502   \u251c\u2500\u2500 rush_example/",
       "\u2502   \u2514\u2500\u2500 yarn_example/",
-      "\u251c\u2500\u2500 scripts/ (20 files)",
+      "\u251c\u2500\u2500 scripts/ (23 files)",
       "\u251c\u2500\u2500 tests/ (35 files)",
       "\u2502   \u2514\u2500\u2500 fixtures/ (19 files)",
       "\u2502       \u251c\u2500\u2500 lerna_monorepo/ (4 files)",
@@ -194,6 +194,21 @@
         "Or auto-load in every session by adding to CLAUDE.md:",
         "Add @PROJECT_INDEX.json to your CLAUDE.md file",
         "\ud83d\udce6 Updating"
+      ],
+      "architecture_hints": []
+    },
+    "LIGHTWEIGHT_ROOT_INDEX_MCD.md": {
+      "sections": [
+        "Lightweight Root Index Architecture MCD (Main Context Document)",
+        "\ud83c\udfaf Overview & Goals",
+        "Project Vision",
+        "Target Users",
+        "Core Features",
+        "Success Criteria",
+        "Business Context",
+        "\ud83c\udfd7\ufe0f Technical Architecture",
+        "Current Architecture Issues",
+        "Proposed Hierarchical Architecture"
       ],
       "architecture_hints": []
     },
@@ -362,18 +377,18 @@
     "tests/fixtures/nx_monorepo/packages/shared/src": "Source code root directory"
   },
   "stats": {
-    "total_files": 74,
+    "total_files": 78,
     "total_directories": 121,
     "fully_parsed": {
-      "python": 15,
+      "python": 18,
       "shell": 1,
       "typescript": 2
     },
     "listed_only": {
       "shell": 4,
-      "json": 52
+      "json": 53
     },
-    "markdown_files": 16
+    "markdown_files": 13
   },
   "files": {
     "install.sh": {
@@ -650,25 +665,12 @@
     "scripts/cross_workspace_analyzer.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "re",
-        "ast",
-        "os",
-        "pathlib",
-        "typing",
-        "collections",
-        "dataclasses",
-        "workspace_config",
-        "sys",
-        "workspace_config"
-      ],
       "functions": {
         "build_cross_workspace_dependencies": {
           "calls": [
             "analyze_all_workspaces"
           ],
-          "signature": "(registry: WorkspaceRegistry) -> Dict[str, Dict]"
+          "signature": "(registry: WorkspaceRegistry, hierarchical_manager: Optional['HierarchicalIndexManager'] = None, for_root_index: bool = False, lazy_loader: Optional['LazyIndexLoader'] = None, compressor: Optional['SmartCompressor'] = None) -> Dict[str, Dict]"
         }
       },
       "classes": {
@@ -708,47 +710,36 @@
                 "_load_typescript_references",
                 "_load_workspace_packages"
               ],
-              "signature": "(self, registry: WorkspaceRegistry)"
+              "signature": "(self, registry: WorkspaceRegistry, hierarchical_manager: Optional['HierarchicalIndexManager'] = None, lazy_loader: Optional['LazyIndexLoader'] = None, compressor: Optional['SmartCompressor'] = None)"
             },
             "_load_workspace_packages": {
               "doc": "Load package.json from each workspace to understand package names and dependencies.",
-              "signature": "(self) -> Dict[str, Dict]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.__init__",
-                "CrossWorkspaceAnalyzer.__init__"
-              ]
+              "signature": "(self) -> Dict[str, Dict]"
             },
             "_load_typescript_references": {
               "doc": "Load TypeScript project references from tsconfig.json files.",
-              "signature": "(self) -> Dict[str, List[str]]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.__init__"
-              ]
+              "signature": "(self) -> Dict[str, List[str]]"
             },
             "analyze_all_workspaces": {
               "calls": [
                 "_analyze_workspace_imports",
                 "_build_bidirectional_relationships",
                 "_build_dependency_graph",
-                "_circular_dep_to_dict",
                 "_detect_circular_dependencies",
-                "_extract_shared_types"
+                "_extract_shared_types",
+                "_prepare_comprehensive_data",
+                "_prepare_root_index_data"
               ],
-              "signature": "(self) -> Dict[str, Dict]",
-              "called_by": [
-                "build_cross_workspace_dependencies"
-              ]
+              "signature": "(self, for_root_index: bool = False) -> Dict[str, Dict]"
             },
             "_analyze_workspace_imports": {
-              "doc": "Analyze all imports in a workspace for cross-workspace dependencies.",
+              "doc": "Analyze all imports in a workspace for cross-workspace dependencies with caching.",
               "calls": [
                 "_analyze_file_imports",
-                "_analyze_package_dependencies"
+                "_analyze_package_dependencies",
+                "_get_cached_workspace_imports"
               ],
-              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]"
             },
             "_analyze_file_imports": {
               "doc": "Analyze imports in a single file.",
@@ -756,10 +747,7 @@
                 "_analyze_javascript_imports",
                 "_analyze_python_imports"
               ],
-              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_workspace_imports"
-              ]
+              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[ImportInfo]"
             },
             "_analyze_python_imports": {
               "doc": "Analyze Python imports for cross-workspace dependencies with AST parsing.",
@@ -769,11 +757,7 @@
                 "_filter_type_names",
                 "_resolve_python_import"
               ],
-              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_file_imports",
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]"
             },
             "_analyze_python_imports_regex": {
               "doc": "Fallback regex-based Python import analysis.",
@@ -781,10 +765,7 @@
                 "_filter_type_names",
                 "_resolve_python_import"
               ],
-              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_python_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]"
             },
             "_analyze_javascript_imports": {
               "doc": "Analyze JavaScript/TypeScript imports for cross-workspace dependencies.",
@@ -792,149 +773,114 @@
                 "_filter_type_names",
                 "_resolve_javascript_import"
               ],
-              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_file_imports",
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig, file_path: str) -> List[ImportInfo]"
             },
             "_resolve_python_import": {
               "doc": "Resolve a Python import to a workspace name.",
               "calls": [
                 "_resolve_relative_python_import"
               ],
-              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_python_imports",
-                "CrossWorkspaceAnalyzer._analyze_python_imports_regex"
-              ]
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]"
             },
             "_resolve_javascript_import": {
               "doc": "Resolve a JavaScript/TypeScript import to a workspace name and import type.",
               "calls": [
                 "_resolve_relative_javascript_import"
               ],
-              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_javascript_imports"
-              ]
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]"
             },
             "_resolve_relative_python_import": {
               "doc": "Resolve relative Python imports that might cross workspace boundaries.",
-              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._resolve_python_import"
-              ]
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Optional[str]"
             },
             "_resolve_relative_javascript_import": {
               "doc": "Resolve relative JavaScript/TypeScript imports that might cross workspace boundaries.",
-              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._resolve_javascript_import"
-              ]
+              "signature": "(self, import_path: str, workspace: WorkspaceConfig) -> Tuple[Optional[str], str]"
             },
             "_analyze_package_dependencies": {
               "doc": "Analyze package.json dependencies for cross-workspace references.",
-              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_workspace_imports"
-              ]
+              "signature": "(self, workspace: WorkspaceConfig) -> List[ImportInfo]"
             },
             "_build_dependency_graph": {
               "doc": "Build the cross-workspace dependency graph.",
-              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, Dict]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, Dict]"
             },
             "_detect_circular_dependencies": {
-              "doc": "Detect circular dependencies using DFS algorithm.",
+              "doc": "Detect circular dependencies using DFS algorithm with enhanced analysis.",
               "calls": [
-                "_determine_cycle_severity",
+                "_collect_cycle_imports",
+                "_determine_cycle_severity_enhanced",
                 "dfs"
               ],
-              "signature": "(self, dependency_graph: Dict[str, Dict]) -> List[CircularDependency]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "signature": "(self, dependency_graph: Dict[str, Dict]) -> List[CircularDependency]"
             },
             "dfs": {
               "calls": [
-                "_determine_cycle_severity",
+                "_collect_cycle_imports",
+                "_determine_cycle_severity_enhanced",
                 "dfs"
               ],
-              "signature": "(node: str, path: List[str]) -> None",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.dfs",
-                "CrossWorkspaceAnalyzer._detect_circular_dependencies"
-              ]
+              "signature": "(node: str, path: List[str]) -> None"
             },
-            "_determine_cycle_severity": {
-              "doc": "Determine the severity of a circular dependency.",
-              "signature": "(self, cycle: List[str]) -> str",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.dfs",
-                "CrossWorkspaceAnalyzer._detect_circular_dependencies"
-              ]
+            "_collect_cycle_imports": "(self, cycle: List[str]) -> List[ImportInfo]",
+            "_determine_cycle_severity_enhanced": {
+              "calls": [
+                "_get_workspace_dependents_cached"
+              ],
+              "signature": "(self, cycle: List[str], cycle_imports: List[ImportInfo]) -> str"
             },
             "_extract_shared_types": {
               "doc": "Extract shared types and interfaces from imports.",
-              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, List[str]]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "signature": "(self, imports: List[ImportInfo]) -> Dict[str, List[str]]"
             },
+            "_get_cached_workspace_imports": "(self, workspace: WorkspaceConfig) -> Optional[List[ImportInfo]]",
+            "_get_workspace_dependencies_cached": "(self, workspace_name: str) -> List[str]",
+            "_get_workspace_dependents_cached": "(self, workspace_name: str) -> List[str]",
             "_build_bidirectional_relationships": {
               "doc": "Build bidirectional relationship mapping for refactoring impact analysis.",
-              "signature": "(self, dependency_graph: Dict[str, Dict]) -> Dict[str, Dict]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "signature": "(self, dependency_graph: Dict[str, Dict]) -> Dict[str, Dict]"
             },
+            "_compress_data_safe": "(self, data: Dict, compression_type: str = \"workspace\") -> Dict",
             "_extract_python_types_from_import": {
               "doc": "Extract type names from Python imports.",
-              "signature": "(self, import_name: str, content: str) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_python_imports"
-              ]
+              "signature": "(self, import_name: str, content: str) -> List[str]"
             },
             "_filter_type_names": {
               "doc": "Filter a list of names to likely type/interface names.",
-              "signature": "(self, names: List[str]) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_python_imports",
-                "CrossWorkspaceAnalyzer._analyze_python_imports_regex",
-                "CrossWorkspaceAnalyzer._analyze_javascript_imports"
-              ]
+              "signature": "(self, names: List[str]) -> List[str]"
             },
             "_circular_dep_to_dict": {
-              "doc": "Convert CircularDependency to dictionary for serialization.",
-              "signature": "(self, circular_dep: CircularDependency) -> Dict",
-              "called_by": [
-                "CrossWorkspaceAnalyzer.analyze_all_workspaces"
-              ]
+              "doc": "Convert CircularDependency to dictionary for serialization with enhanced metadata.",
+              "signature": "(self, circular_dep: CircularDependency) -> Dict"
+            },
+            "_prepare_root_index_data": {
+              "calls": [
+                "_circular_dep_to_dict",
+                "_compress_data_safe"
+              ],
+              "signature": "(self, dependency_graph: Dict, circular_deps: List[CircularDependency], shared_types: Dict, bidirectional_deps: Dict, all_imports: List[ImportInfo]) -> Dict"
+            },
+            "_prepare_comprehensive_data": {
+              "calls": [
+                "_circular_dep_to_dict",
+                "_compress_data_safe"
+              ],
+              "signature": "(self, dependency_graph: Dict, circular_deps: List[CircularDependency], shared_types: Dict, bidirectional_deps: Dict, workspace_imports: Dict, all_imports: List[ImportInfo]) -> Dict"
             }
-          }
+          },
+          "properties": [
+            "for_root_index",
+            "data",
+            "compression_type"
+          ]
         }
       },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:41:21.157297"
     },
     "scripts/project_index.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "os",
-        "re",
-        "datetime",
-        "pathlib",
-        "typing",
-        "index_utils",
-        "workspace_config",
-        "workspace_indexer",
-        "cross_workspace_analyzer",
-        "sys"
-      ],
       "functions": {
         "generate_tree_structure": {
           "doc": "Generate a compact ASCII tree representation of the directory structure.",
@@ -942,17 +888,11 @@
             "add_tree_level",
             "should_include_dir"
           ],
-          "signature": "(root_path: Path, max_depth: int = MAX_TREE_DEPTH) -> List[str]",
-          "called_by": [
-            "build_index"
-          ]
+          "signature": "(root_path: Path, max_depth: int = MAX_TREE_DEPTH) -> List[str]"
         },
         "_generate_monorepo_tree": {
           "doc": "Generate a high-level tree view for monorepos showing workspaces.",
-          "signature": "(root_path: Path, registry) -> List[str]",
-          "called_by": [
-            "build_index"
-          ]
+          "signature": "(root_path: Path, registry) -> List[str]"
         },
         "build_index": {
           "doc": "Build the enhanced index with architectural awareness.",
@@ -960,39 +900,34 @@
             "_generate_monorepo_tree",
             "generate_tree_structure"
           ],
-          "signature": "(root_dir: str) -> Tuple[Dict, int]",
-          "called_by": [
-            "main"
-          ]
+          "signature": "(root_dir: str) -> Tuple[Dict, int]"
         },
         "compress_index_if_needed": {
           "doc": "Compress index if it exceeds size limit.",
-          "signature": "(index: Dict) -> Dict",
-          "called_by": [
-            "main"
-          ]
+          "signature": "(index: Dict) -> Dict"
         },
         "print_summary": {
           "doc": "Print a helpful summary of what was indexed.",
           "calls": [
             "print_monorepo_summary"
           ],
-          "signature": "(index: Dict, skipped_count: int)",
-          "called_by": [
-            "main"
-          ]
+          "signature": "(index: Dict, skipped_count: int)"
         },
         "print_monorepo_summary": {
           "doc": "Print a summary for monorepo indexing.",
-          "signature": "(index: Dict)",
-          "called_by": [
-            "print_summary"
-          ]
+          "signature": "(index: Dict)"
+        },
+        "build_index_with_workflow": {
+          "calls": [
+            "generate_tree_structure"
+          ],
+          "signature": "(root_dir: str = '.', target_workspaces: Optional[List[str]] = None, workflow_name: str = \"project_indexing\", max_workers: Optional[int] = None, show_progress: bool = True) -> Tuple[Dict, int]"
         },
         "main": {
-          "doc": "Run the enhanced indexer.",
+          "doc": "Run the enhanced indexer with hierarchical and workflow support.",
           "calls": [
             "build_index",
+            "build_index_with_workflow",
             "compress_index_if_needed",
             "print_summary"
           ],
@@ -1000,10 +935,297 @@
         }
       },
       "classes": {},
-      "constants": {
-        "MAX_FILES": "number",
-        "MAX_INDEX_SIZE": "value",
-        "MAX_TREE_DEPTH": "number"
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T09:58:22.743244"
+    },
+    "scripts/lazy_index_loader.py": {
+      "language": "python",
+      "parsed": true,
+      "imports": [
+        "json",
+        "os",
+        "threading",
+        "time",
+        "collections",
+        "datetime",
+        "pathlib",
+        "typing",
+        "weakref",
+        "hashlib",
+        "sys",
+        "pathlib",
+        "hierarchical_indexer",
+        "workspace_config",
+        "argparse"
+      ],
+      "functions": {
+        "get_global_loader": {
+          "doc": "Get or create the global loader instance.",
+          "signature": "(root_path: Union[str, Path]) -> LazyIndexLoader",
+          "called_by": [
+            "load_root_index",
+            "load_workspace_index"
+          ]
+        },
+        "load_root_index": {
+          "doc": "Load root index using global loader.",
+          "calls": [
+            "get_global_loader",
+            "load_root_index"
+          ],
+          "signature": "(root_path: Union[str, Path] = \".\") -> Dict",
+          "called_by": [
+            "load_root_index",
+            "LazyIndexLoader.get_workspace_dependencies",
+            "LazyIndexLoader.get_workspace_dependents",
+            "LazyIndexLoader._get_workspace_mapping"
+          ]
+        },
+        "load_workspace_index": {
+          "doc": "Load workspace index using global loader.",
+          "calls": [
+            "get_global_loader",
+            "load_workspace_index"
+          ],
+          "signature": "(workspace_name: str, root_path: Union[str, Path] = \".\") -> Optional[Dict]",
+          "called_by": [
+            "load_workspace_index"
+          ]
+        }
+      },
+      "classes": {
+        "CacheEntry": {
+          "methods": {
+            "__init__": "(self, data: Any, timestamp: float, size_bytes: int, access_count: int = 0)",
+            "access": {
+              "doc": "Mark this entry as accessed.",
+              "signature": "(self)",
+              "called_by": [
+                "LRUCache.get"
+              ]
+            },
+            "is_stale": {
+              "doc": "Check if this cache entry is stale.",
+              "signature": "(self, max_age_seconds: int = 3600) -> bool",
+              "called_by": [
+                "LRUCache.get"
+              ]
+            }
+          },
+          "doc": "Represents a single cache entry with metadata."
+        },
+        "LRUCache": {
+          "methods": {
+            "__init__": "(self, max_size_mb: int = 50, max_entries: int = 1000)",
+            "get": {
+              "doc": "Get item from cache if it exists and is not stale.",
+              "calls": [
+                "_remove_entry",
+                "access",
+                "is_stale"
+              ],
+              "signature": "(self, key: str, max_age_seconds: int = 3600) -> Optional[Any]",
+              "called_by": [
+                "LazyIndexLoader.load_workspace_index",
+                "LazyIndexLoader.get_workspace_dependents",
+                "LazyIndexLoader.load_root_index",
+                "LazyIndexLoader._is_file_stale",
+                "LazyIndexLoader.get_workspace_dependencies",
+                "LazyIndexLoader._get_workspace_mapping"
+              ]
+            },
+            "put": {
+              "doc": "Put item into cache, evicting old entries if necessary.",
+              "calls": [
+                "_estimate_size",
+                "_remove_entry"
+              ],
+              "signature": "(self, key: str, data: Any, size_bytes: Optional[int] = None) -> None",
+              "called_by": [
+                "LazyIndexLoader.load_workspace_index",
+                "LazyIndexLoader.get_workspace_dependents",
+                "LazyIndexLoader.load_root_index",
+                "LazyIndexLoader.get_workspace_dependencies",
+                "LazyIndexLoader._get_workspace_mapping"
+              ]
+            },
+            "invalidate": {
+              "doc": "Remove specific key from cache.",
+              "calls": [
+                "_remove_entry"
+              ],
+              "signature": "(self, key: str) -> bool",
+              "called_by": [
+                "LazyIndexLoader.invalidate_workspace"
+              ]
+            },
+            "invalidate_pattern": {
+              "doc": "Remove all keys matching pattern. Returns count of removed items.",
+              "calls": [
+                "_remove_entry"
+              ],
+              "signature": "(self, pattern: str) -> int"
+            },
+            "clear": {
+              "doc": "Clear all cache entries.",
+              "calls": [
+                "clear"
+              ],
+              "signature": "(self) -> None",
+              "called_by": [
+                "LRUCache.clear",
+                "LazyIndexLoader.invalidate_root_index"
+              ]
+            },
+            "get_stats": {
+              "doc": "Get cache statistics.",
+              "signature": "(self) -> Dict[str, Any]",
+              "called_by": [
+                "LazyIndexLoader.get_cache_stats"
+              ]
+            },
+            "_remove_entry": {
+              "doc": "Remove entry and update size tracking.",
+              "signature": "(self, key: str) -> None",
+              "called_by": [
+                "LRUCache.invalidate",
+                "LRUCache.get",
+                "LRUCache.invalidate_pattern",
+                "LRUCache.put"
+              ]
+            },
+            "_estimate_size": {
+              "doc": "Estimate the memory size of data.",
+              "signature": "(self, data: Any) -> int",
+              "called_by": [
+                "LRUCache.put"
+              ]
+            }
+          },
+          "doc": "Thread-safe LRU cache with size limits and staleness checking."
+        },
+        "LazyIndexLoader": {
+          "methods": {
+            "__init__": "(self, root_path: Union[str, Path], cache_size_mb: int = 100)",
+            "load_root_index": {
+              "calls": [
+                "_is_file_stale",
+                "_update_file_mtime",
+                "get",
+                "put"
+              ],
+              "signature": "(self, max_age_seconds: int = 3600, force_refresh: bool = False) -> Dict",
+              "called_by": [
+                "LazyIndexLoader.get_workspace_dependents",
+                "LazyIndexLoader.get_workspace_dependencies",
+                "load_root_index",
+                "LazyIndexLoader._get_workspace_mapping"
+              ]
+            },
+            "load_workspace_index": {
+              "calls": [
+                "_get_workspace_mapping",
+                "_is_file_stale",
+                "_update_file_mtime",
+                "get",
+                "put"
+              ],
+              "signature": "(self, workspace_name: str, max_age_seconds: int = 3600, force_refresh: bool = False) -> Optional[Dict]",
+              "called_by": [
+                "load_workspace_index"
+              ]
+            },
+            "get_workspace_dependencies": {
+              "calls": [
+                "get",
+                "load_root_index",
+                "put"
+              ],
+              "signature": "(self, workspace_name: str) -> List[str]",
+              "called_by": [
+                "WorkspaceIndexer.index_workspace"
+              ]
+            },
+            "get_workspace_dependents": {
+              "calls": [
+                "get",
+                "load_root_index",
+                "put"
+              ],
+              "signature": "(self, workspace_name: str) -> List[str]",
+              "called_by": [
+                "LazyIndexLoader.invalidate_workspace"
+              ]
+            },
+            "invalidate_workspace": {
+              "calls": [
+                "get_workspace_dependents",
+                "invalidate",
+                "invalidate_workspace"
+              ],
+              "signature": "(self, workspace_name: str, cascade: bool = True) -> None",
+              "called_by": [
+                "LazyIndexLoader.invalidate_workspace"
+              ]
+            },
+            "invalidate_root_index": {
+              "doc": "Invalidate the root index cache.",
+              "calls": [
+                "clear"
+              ],
+              "signature": "(self) -> None"
+            },
+            "get_cache_stats": {
+              "doc": "Get comprehensive cache statistics.",
+              "calls": [
+                "get_stats"
+              ],
+              "signature": "(self) -> Dict[str, Any]"
+            },
+            "_get_workspace_mapping": {
+              "doc": "Get workspace mapping with caching.",
+              "calls": [
+                "get",
+                "load_root_index",
+                "put"
+              ],
+              "signature": "(self, workspace_name: str) -> Optional[Dict]",
+              "called_by": [
+                "LazyIndexLoader.load_workspace_index"
+              ]
+            },
+            "_is_file_stale": {
+              "doc": "Check if a file has been modified since last cache.",
+              "calls": [
+                "get"
+              ],
+              "signature": "(self, file_path: Path) -> bool",
+              "called_by": [
+                "LazyIndexLoader.load_workspace_index",
+                "LazyIndexLoader.load_root_index"
+              ]
+            },
+            "_update_file_mtime": {
+              "doc": "Update the cached modification time for a file.",
+              "signature": "(self, file_path: Path) -> None",
+              "called_by": [
+                "LazyIndexLoader.load_workspace_index",
+                "LazyIndexLoader.load_root_index"
+              ]
+            }
+          },
+          "properties": [
+            "max_age_seconds",
+            "force_refresh",
+            "workspace_name",
+            "max_age_seconds",
+            "force_refresh",
+            "workspace_name",
+            "workspace_name",
+            "workspace_name",
+            "cascade"
+          ]
+        }
       },
       "call_graph": {}
     },
@@ -1295,72 +1517,40 @@
     "scripts/reindex_if_needed.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "sys",
-        "os",
-        "subprocess",
-        "time",
-        "pathlib",
-        "datetime",
-        "typing",
-        "workspace_config",
-        "workspace_indexer"
-      ],
       "functions": {
         "find_project_modules": {
           "doc": "Find project modules in project or system location.",
           "signature": "()"
         },
+        "get_workflow_orchestrator": {
+          "doc": "Get or create workflow orchestrator for the project.",
+          "signature": "(project_root: Path) -> Optional['TaskWorkflowOrchestrator']"
+        },
+        "enable_workflow_integration": {
+          "doc": "Enable workflow integration for the current reindexing session.",
+          "calls": [
+            "get_workflow_orchestrator"
+          ],
+          "signature": "(project_root: Path, context: Optional[Dict] = None) -> bool"
+        },
+        "trigger_workflow_hook": {
+          "doc": "Trigger a workflow integration hook if workflow is enabled.",
+          "calls": [
+            "trigger_workflow_hook"
+          ],
+          "signature": "(hook_name: str, **kwargs)"
+        },
         "get_workspace_config_cached": {
           "doc": "Get workspace configuration with caching.",
-          "signature": "(project_root: Path) -> Optional[Dict]",
-          "called_by": [
-            "check_workspace_staleness",
-            "check_workspace_configuration_changes",
-            "run_workspace_reindex",
-            "run_reindex",
-            "update_root_index_after_workspace_reindex",
-            "main",
-            "get_workspace_for_file",
-            "get_workspace_index_path",
-            "get_dependent_workspaces",
-            "update_root_index_workspace_registry",
-            "handle_file_update",
-            "check_workspace_staleness",
-            "check_workspace_configuration_changes",
-            "run_workspace_reindex",
-            "run_reindex",
-            "update_root_index_after_workspace_reindex",
-            "main",
-            "get_workspace_for_file",
-            "get_workspace_index_path",
-            "get_dependent_workspaces",
-            "handle_cross_workspace_dependencies",
-            "update_root_index_workspace_registry",
-            "detect_file_move",
-            "handle_file_update"
-          ]
+          "signature": "(project_root: Path) -> Optional[Dict]"
         },
         "check_index_features": {
           "doc": "Check if index has all required features.",
-          "signature": "(index_path: Path) -> Tuple[bool, Optional[str]]",
-          "called_by": [
-            "check_workspace_staleness",
-            "handle_single_repo_reindex",
-            "check_workspace_staleness",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(index_path: Path) -> Tuple[bool, Optional[str]]"
         },
         "check_index_staleness": {
           "doc": "Check if index is older than threshold.",
-          "signature": "(index_path: Path, threshold_hours: int = 24) -> bool",
-          "called_by": [
-            "check_workspace_staleness",
-            "handle_single_repo_reindex",
-            "check_workspace_staleness",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(index_path: Path, threshold_hours: int = 24) -> bool"
         },
         "check_workspace_staleness": {
           "doc": "Check if a specific workspace is stale.",
@@ -1372,63 +1562,33 @@
             "count_hook_updates",
             "get_workspace_config_cached"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> Tuple[bool, Optional[str]]",
-          "called_by": [
-            "handle_workspace_aware_reindex",
-            "handle_workspace_aware_reindex"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> Tuple[bool, Optional[str]]"
         },
         "check_missing_documentation": {
           "doc": "Check if important documentation files are missing from index.",
-          "signature": "(index_path: Path, workspace_root: Path) -> bool",
-          "called_by": [
-            "check_workspace_staleness",
-            "handle_single_repo_reindex",
-            "check_workspace_staleness",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(index_path: Path, workspace_root: Path) -> bool"
         },
         "check_structural_changes": {
           "doc": "Check if directory structure has significantly changed.",
-          "signature": "(index_path: Path, workspace_root: Path) -> bool",
-          "called_by": [
-            "check_workspace_staleness",
-            "handle_single_repo_reindex",
-            "check_workspace_staleness",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(index_path: Path, workspace_root: Path) -> bool"
         },
         "count_hook_updates": {
           "doc": "Count how many files were updated by hooks vs full index.",
-          "signature": "(index_path: Path) -> Tuple[int, int]",
-          "called_by": [
-            "check_workspace_staleness",
-            "handle_single_repo_reindex",
-            "check_workspace_staleness",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(index_path: Path) -> Tuple[int, int]"
         },
         "check_workspace_configuration_changes": {
           "doc": "Check if workspace configuration has changed.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(project_root: Path) -> Tuple[bool, List[str]]",
-          "called_by": [
-            "handle_workspace_aware_reindex",
-            "handle_workspace_aware_reindex"
-          ]
+          "signature": "(project_root: Path) -> Tuple[bool, List[str]]"
         },
         "run_workspace_reindex": {
           "doc": "Run reindex for a specific workspace.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> bool",
-          "called_by": [
-            "run_reindex",
-            "run_reindex"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> bool"
         },
         "run_reindex": {
           "doc": "Run reindexing with workspace awareness.",
@@ -1439,41 +1599,30 @@
             "run_workspace_reindex",
             "update_root_index_after_workspace_reindex"
           ],
-          "signature": "(project_root: Path, selective_workspaces: Optional[List[str]] = None) -> bool",
-          "called_by": [
-            "run_reindex",
-            "handle_workspace_aware_reindex",
-            "run_reindex",
-            "handle_workspace_aware_reindex"
-          ]
+          "signature": "(project_root: Path, selective_workspaces: Optional[List[str]] = None) -> bool"
         },
         "run_single_repo_reindex": {
           "doc": "Run traditional single-repo reindex.",
-          "signature": "(project_root: Path) -> bool",
-          "called_by": [
-            "run_reindex",
-            "handle_single_repo_reindex",
-            "run_reindex",
-            "handle_single_repo_reindex"
-          ]
+          "signature": "(project_root: Path) -> bool"
         },
         "update_root_index_after_workspace_reindex": {
           "doc": "Update root index after workspace reindexing.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(project_root: Path, reindexed_workspaces: List[str]) -> None",
-          "called_by": [
-            "run_reindex",
-            "run_reindex"
-          ]
+          "signature": "(project_root: Path, reindexed_workspaces: List[str]) -> None"
         },
         "main": {
-          "doc": "Main hook entry point with workspace awareness.",
+          "decorators": [
+            "performance_timing"
+          ],
+          "doc": "Main hook entry point with workspace awareness and workflow integration.",
           "calls": [
+            "enable_workflow_integration",
             "get_workspace_config_cached",
             "handle_single_repo_reindex",
-            "handle_workspace_aware_reindex"
+            "handle_workspace_aware_reindex",
+            "trigger_workflow_hook"
           ],
           "signature": "()"
         },
@@ -1487,11 +1636,7 @@
             "count_hook_updates",
             "run_single_repo_reindex"
           ],
-          "signature": "(root_index_path: Path, project_root: Path) -> None",
-          "called_by": [
-            "main",
-            "main"
-          ]
+          "signature": "(root_index_path: Path, project_root: Path) -> None"
         },
         "handle_workspace_aware_reindex": {
           "doc": "Handle workspace-aware reindexing logic.",
@@ -1500,18 +1645,12 @@
             "check_workspace_staleness",
             "run_reindex"
           ],
-          "signature": "(project_root: Path, workspace_config: Dict) -> None",
-          "called_by": [
-            "main",
-            "main"
-          ]
+          "signature": "(project_root: Path, workspace_config: Dict) -> None"
         }
       },
       "classes": {},
-      "constants": {
-        "CACHE_TTL": "number"
-      },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:01:42.744695"
     },
     "scripts/detect_external_changes.py": {
       "language": "python",
@@ -1543,17 +1682,217 @@
       "classes": {},
       "call_graph": {}
     },
-    "scripts/monorepo_detector.py": {
+    "scripts/smart_compressor.py": {
       "language": "python",
       "parsed": true,
       "imports": [
         "json",
-        "re",
-        "yaml",
-        "pathlib",
+        "time",
+        "gc",
         "typing",
-        "sys"
+        "collections",
+        "threading",
+        "weakref",
+        "argparse"
       ],
+      "functions": {
+        "compress_index_safe": {
+          "calls": [
+            "compress_root_index",
+            "compress_workspace_index"
+          ],
+          "signature": "(index: Dict, index_type: str = \"workspace\") -> Dict"
+        }
+      },
+      "classes": {
+        "CircularReferenceDetector": {
+          "methods": {
+            "__init__": "(self)",
+            "detect_cycles": {
+              "calls": [
+                "detect_cycles"
+              ],
+              "signature": "(self, obj: Any, path: str = \"root\") -> Tuple[bool, List[str]]",
+              "called_by": [
+                "SmartCompressor.compress_root_index",
+                "SmartCompressor.compress_workspace_index",
+                "CircularReferenceDetector.detect_cycles"
+              ]
+            },
+            "create_reference_marker": {
+              "doc": "Create a reference marker for an object to break cycles.",
+              "signature": "(self, obj: Any) -> str"
+            }
+          },
+          "doc": "Detects and handles circular references in data structures.",
+          "properties": [
+            "obj",
+            "path"
+          ]
+        },
+        "BatchProcessor": {
+          "methods": {
+            "__init__": "(self, batch_size: int = 100, progress_callback=None)",
+            "process_items": {
+              "signature": "(self, items: List[Any], processor_func, description: str = \"Processing\")",
+              "called_by": [
+                "BatchProcessor.process_dict_items"
+              ]
+            },
+            "process_dict_items": {
+              "doc": "Process dictionary items in batches.",
+              "calls": [
+                "dict_processor",
+                "process_items"
+              ],
+              "signature": "(self, data: Dict, processor_func, description: str = \"Processing\")",
+              "called_by": [
+                "SmartCompressor._compress_workspace_index_data"
+              ]
+            },
+            "dict_processor": {
+              "signature": "(item)",
+              "called_by": [
+                "BatchProcessor.process_dict_items"
+              ]
+            }
+          },
+          "doc": "Handles batch processing of large datasets with progress tracking.",
+          "properties": [
+            "items",
+            "processor_func",
+            "description"
+          ]
+        },
+        "SmartCompressor": {
+          "methods": {
+            "__init__": "(self, enable_progress: bool = True)",
+            "compress_root_index": {
+              "calls": [
+                "_aggressive_root_compression",
+                "_calculate_compression_ratio",
+                "_compress_root_index_data",
+                "detect_cycles"
+              ],
+              "signature": "(self, index: Dict) -> Dict",
+              "called_by": [
+                "compress_index_safe"
+              ]
+            },
+            "compress_workspace_index": {
+              "calls": [
+                "_calculate_compression_ratio",
+                "_compress_workspace_index_data",
+                "detect_cycles"
+              ],
+              "signature": "(self, index: Dict) -> Dict",
+              "called_by": [
+                "compress_index_safe"
+              ]
+            },
+            "_compress_root_index_data": {
+              "doc": "Apply lightweight compression to root index data.",
+              "calls": [
+                "_compress_dependencies",
+                "_compress_workspace_registry"
+              ],
+              "signature": "(self, index: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor.compress_root_index"
+              ]
+            },
+            "_compress_workspace_registry": {
+              "doc": "Compress workspace registry with cycle detection.",
+              "signature": "(self, registry: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor._compress_root_index_data"
+              ]
+            },
+            "_compress_dependencies": {
+              "doc": "Compress cross-workspace dependencies with cycle breaking.",
+              "signature": "(self, dependencies: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor._compress_root_index_data"
+              ]
+            },
+            "_compress_workspace_index_data": {
+              "doc": "Apply standard compression to workspace index data.",
+              "calls": [
+                "_compress_dependency_graph",
+                "_compress_file_entries",
+                "compress_field",
+                "process_dict_items"
+              ],
+              "signature": "(self, index: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor.compress_workspace_index"
+              ]
+            },
+            "compress_field": {
+              "calls": [
+                "_compress_dependency_graph",
+                "_compress_file_entries"
+              ],
+              "signature": "(key, value)",
+              "called_by": [
+                "SmartCompressor._compress_workspace_index_data"
+              ]
+            },
+            "_compress_file_entries": {
+              "doc": "Compress file entries removing redundant information.",
+              "signature": "(self, files: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor.compress_field",
+                "SmartCompressor._compress_workspace_index_data"
+              ]
+            },
+            "_compress_dependency_graph": {
+              "doc": "Compress dependency graph with cycle detection.",
+              "signature": "(self, dep_graph: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor.compress_field",
+                "SmartCompressor._compress_workspace_index_data"
+              ]
+            },
+            "_aggressive_root_compression": {
+              "doc": "Apply more aggressive compression if size limit exceeded.",
+              "signature": "(self, index: Dict, detector: CircularReferenceDetector) -> Dict",
+              "called_by": [
+                "SmartCompressor.compress_root_index"
+              ]
+            },
+            "_calculate_compression_ratio": {
+              "doc": "Calculate and update compression ratio statistics.",
+              "signature": "(self, original: Dict, compressed: Dict)",
+              "called_by": [
+                "SmartCompressor.compress_root_index",
+                "SmartCompressor.compress_workspace_index"
+              ]
+            },
+            "_progress_callback": {
+              "doc": "Default progress callback.",
+              "signature": "(self, processed: int, total: int, percent: float, description: str)"
+            },
+            "get_compression_stats": {
+              "doc": "Get compression statistics.",
+              "signature": "(self) -> Dict"
+            },
+            "reset_stats": {
+              "doc": "Reset compression statistics.",
+              "signature": "(self)"
+            }
+          },
+          "properties": [
+            "index",
+            "index"
+          ]
+        }
+      },
+      "call_graph": {}
+    },
+    "scripts/monorepo_detector.py": {
+      "language": "python",
+      "parsed": true,
       "functions": {
         "detect_monorepo": {
           "calls": [
@@ -1569,12 +1908,7 @@
             "__init__": "(self, monorepo: bool = False, tool: Optional[str] = None, workspace_registry: Optional[Dict[str, str]] = None, config_path: Optional[str] = None, detection_method: str = \"none\", errors: Optional[List[str]] = None)",
             "to_dict": {
               "doc": "Convert to dictionary for JSON serialization.",
-              "signature": "(self) -> Dict",
-              "called_by": [
-                "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Dict"
             }
           },
           "doc": "Standardized detection result structure."
@@ -1584,40 +1918,19 @@
             "__init__": "(self, root_path: Path)",
             "detect": {
               "doc": "Detect workspaces. Override in subclasses.",
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             },
             "_safe_read_json": {
               "doc": "Safely read and parse JSON file.",
-              "signature": "(self, file_path: Path) -> Optional[Dict]",
-              "called_by": [
-                "LernaDetector.detect",
-                "RushDetector.detect",
-                "ManualConfigDetector.detect",
-                "NxDetector.detect",
-                "YarnWorkspacesDetector.detect"
-              ]
+              "signature": "(self, file_path: Path) -> Optional[Dict]"
             },
             "_safe_read_yaml": {
               "doc": "Safely read and parse YAML file.",
-              "signature": "(self, file_path: Path) -> Optional[Dict]",
-              "called_by": [
-                "PnpmWorkspacesDetector.detect"
-              ]
+              "signature": "(self, file_path: Path) -> Optional[Dict]"
             },
             "_resolve_workspace_paths": {
               "doc": "Resolve workspace patterns to actual directories.",
-              "signature": "(self, patterns: List[str]) -> Dict[str, str]",
-              "called_by": [
-                "LernaDetector.detect",
-                "ManualConfigDetector.detect",
-                "NxDetector.detect",
-                "PnpmWorkspacesDetector.detect",
-                "YarnWorkspacesDetector.detect"
-              ]
+              "signature": "(self, patterns: List[str]) -> Dict[str, str]"
             }
           },
           "doc": "Base class for tool-specific detectors."
@@ -1629,11 +1942,7 @@
                 "_resolve_workspace_paths",
                 "_safe_read_json"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1648,11 +1957,7 @@
                 "_resolve_workspace_paths",
                 "_safe_read_json"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1667,11 +1972,7 @@
                 "_resolve_workspace_paths",
                 "_safe_read_json"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1686,11 +1987,7 @@
                 "_resolve_workspace_paths",
                 "_safe_read_yaml"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1704,11 +2001,7 @@
               "calls": [
                 "_safe_read_json"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1723,11 +2016,7 @@
                 "_resolve_workspace_paths",
                 "_safe_read_json"
               ],
-              "signature": "(self) -> Optional[DetectionResult]",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Optional[DetectionResult]"
             }
           },
           "inherits": [
@@ -1744,67 +2033,34 @@
                 "_heuristic_detection",
                 "detect"
               ],
-              "signature": "(self) -> DetectionResult",
-              "called_by": [
-                "MonorepoDetector.detect",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> DetectionResult"
             },
             "_heuristic_detection": {
               "doc": "Fallback heuristic analysis for edge cases.",
-              "signature": "(self) -> DetectionResult",
-              "called_by": [
-                "MonorepoDetector.detect"
-              ]
+              "signature": "(self) -> DetectionResult"
             }
           },
           "doc": "Main monorepo detection orchestrator."
         }
       },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T11:08:29.276157"
     },
     "scripts/parallel_workspace_processor.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "time",
-        "threading",
-        "concurrent.futures",
-        "dataclasses",
-        "datetime",
-        "pathlib",
-        "typing",
-        "queue",
-        "traceback",
-        "os",
-        "psutil",
-        "workspace_config",
-        "workspace_indexer",
-        "cross_workspace_analyzer",
-        "performance_monitor",
-        "sys",
-        "argparse"
-      ],
       "functions": {
         "process_workspaces_parallel": {
           "calls": [
             "process_workspaces_parallel"
           ],
-          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Dict]",
-          "called_by": [
-            "process_workspaces_parallel",
-            "ParallelWorkspaceProcessor.process_workspaces_with_analysis"
-          ]
+          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Dict]"
         },
         "process_workspaces_with_analysis": {
           "calls": [
             "process_workspaces_with_analysis"
           ],
-          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Any]",
-          "called_by": [
-            "process_workspaces_with_analysis"
-          ]
+          "signature": "(root_path: Union[str, Path], workspace_names: Optional[List[str]] = None, max_workers: Optional[int] = None, show_progress: bool = True) -> Dict[str, Any]"
         }
       },
       "classes": {
@@ -1869,24 +2125,15 @@
             },
             "cache_workspace_result": {
               "doc": "Thread-safe caching of workspace results.",
-              "signature": "(self, workspace_name: str, result: Dict)",
-              "called_by": [
-                "ParallelWorkspaceProcessor._index_single_workspace"
-              ]
+              "signature": "(self, workspace_name: str, result: Dict)"
             },
             "get_cached_workspace_result": {
               "doc": "Get cached workspace result if available.",
-              "signature": "(self, workspace_name: str) -> Optional[Dict]",
-              "called_by": [
-                "ParallelWorkspaceProcessor._index_single_workspace"
-              ]
+              "signature": "(self, workspace_name: str) -> Optional[Dict]"
             },
             "update_cross_workspace_results": {
               "doc": "Thread-safe update of cross-workspace analysis results.",
-              "signature": "(self, results: Dict)",
-              "called_by": [
-                "ParallelWorkspaceProcessor.analyze_cross_workspace_dependencies"
-              ]
+              "signature": "(self, results: Dict)"
             },
             "get_cross_workspace_results": {
               "doc": "Get current cross-workspace analysis results.",
@@ -1897,48 +2144,40 @@
         },
         "ParallelWorkspaceProcessor": {
           "methods": {
-            "__init__": "(self, registry: WorkspaceRegistry, max_workers: Optional[int] = None, memory_limit_mb: int = 100, enable_throttling: bool = True)",
+            "__init__": "(self, registry: WorkspaceRegistry, max_workers: Optional[int] = None, memory_limit_mb: int = 100, enable_throttling: bool = True, workflow_integration: bool = False)",
             "add_progress_callback": {
               "doc": "Add a callback function to receive progress updates.",
               "signature": "(self, callback: Callable[[ProcessingProgress], None])"
             },
+            "register_workflow_hook": "(self, hook_name: str, callback: Callable)",
+            "trigger_workflow_hook": "(self, hook_name: str, **kwargs)",
+            "set_task_context": "(self, context: Dict[str, Any])",
+            "get_task_context": {
+              "doc": "Get current task context.",
+              "signature": "(self) -> Dict[str, Any]"
+            },
             "_notify_progress": {
               "doc": "Notify all progress callbacks of updates.",
-              "signature": "(self, progress: ProcessingProgress)",
-              "called_by": [
-                "ParallelWorkspaceProcessor.process_workspaces_parallel"
-              ]
+              "signature": "(self, progress: ProcessingProgress)"
             },
             "_check_memory_usage": {
               "doc": "Check if memory usage is within limits.",
-              "signature": "(self) -> bool",
-              "called_by": [
-                "ParallelWorkspaceProcessor._wait_for_memory"
-              ]
+              "signature": "(self) -> bool"
             },
             "_wait_for_memory": {
               "doc": "Wait for memory usage to drop below limits.",
               "calls": [
                 "_check_memory_usage"
               ],
-              "signature": "(self, timeout: float = 5.0) -> bool",
-              "called_by": [
-                "ParallelWorkspaceProcessor._index_single_workspace"
-              ]
+              "signature": "(self, timeout: float = 5.0) -> bool"
             },
             "_create_workspace_indexer": {
               "doc": "Create a new WorkspaceIndexer for the current thread.",
-              "signature": "(self) -> WorkspaceIndexer",
-              "called_by": [
-                "ParallelWorkspaceProcessor._index_single_workspace"
-              ]
+              "signature": "(self) -> WorkspaceIndexer"
             },
             "_create_cross_workspace_analyzer": {
               "doc": "Create a new CrossWorkspaceAnalyzer for the current thread.",
-              "signature": "(self) -> CrossWorkspaceAnalyzer",
-              "called_by": [
-                "ParallelWorkspaceProcessor.analyze_cross_workspace_dependencies"
-              ]
+              "signature": "(self) -> CrossWorkspaceAnalyzer"
             },
             "_index_single_workspace": {
               "decorators": [
@@ -1948,26 +2187,19 @@
                 "_create_workspace_indexer",
                 "_wait_for_memory",
                 "cache_workspace_result",
-                "get_cached_workspace_result"
+                "get_cached_workspace_result",
+                "get_task_context",
+                "trigger_workflow_hook"
               ],
               "signature": "(self, workspace_name: str, progress: ProcessingProgress) -> Dict"
             },
-            "_sort_workspaces_by_dependencies": {
-              "signature": "(self, workspace_names: List[str]) -> List[WorkspaceTask]",
-              "called_by": [
-                "ParallelWorkspaceProcessor.process_workspaces_parallel"
-              ]
-            },
+            "_sort_workspaces_by_dependencies": "(self, workspace_names: List[str]) -> List[WorkspaceTask]",
             "process_workspaces_parallel": {
               "calls": [
                 "_notify_progress",
                 "_sort_workspaces_by_dependencies"
               ],
-              "signature": "(self, workspace_names: Optional[List[str]] = None, show_progress: bool = True) -> Dict[str, Dict]",
-              "called_by": [
-                "ParallelWorkspaceProcessor.process_workspaces_with_analysis",
-                "process_workspaces_parallel"
-              ]
+              "signature": "(self, workspace_names: Optional[List[str]] = None, show_progress: bool = True) -> Dict[str, Dict]"
             },
             "analyze_cross_workspace_dependencies": {
               "decorators": [
@@ -1975,22 +2207,18 @@
               ],
               "calls": [
                 "_create_cross_workspace_analyzer",
+                "get_task_context",
+                "trigger_workflow_hook",
                 "update_cross_workspace_results"
               ],
-              "signature": "(self, workspace_results: Dict[str, Dict]) -> Dict",
-              "called_by": [
-                "ParallelWorkspaceProcessor.process_workspaces_with_analysis"
-              ]
+              "signature": "(self, workspace_results: Dict[str, Dict]) -> Dict"
             },
             "process_workspaces_with_analysis": {
               "calls": [
                 "analyze_cross_workspace_dependencies",
                 "process_workspaces_parallel"
               ],
-              "signature": "(self, workspace_names: Optional[List[str]] = None, include_cross_analysis: bool = True, show_progress: bool = True) -> Dict[str, Any]",
-              "called_by": [
-                "process_workspaces_with_analysis"
-              ]
+              "signature": "(self, workspace_names: Optional[List[str]] = None, include_cross_analysis: bool = True, show_progress: bool = True) -> Dict[str, Any]"
             },
             "shutdown": {
               "doc": "Request graceful shutdown of the processor.",
@@ -2002,6 +2230,11 @@
             "max_workers",
             "memory_limit_mb",
             "enable_throttling",
+            "workflow_integration",
+            "hook_name",
+            "callback",
+            "hook_name",
+            "context",
             "workspace_name",
             "progress",
             "workspace_names",
@@ -2014,21 +2247,12 @@
           ]
         }
       },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T09:54:48.461345"
     },
     "scripts/workspace_config.py": {
       "language": "python",
       "parsed": true,
-      "purpose": "Configuration",
-      "imports": [
-        "json",
-        "re",
-        "pathlib",
-        "typing",
-        "datetime",
-        "monorepo_detector",
-        "sys"
-      ],
       "functions": {
         "load_workspace_config": {
           "calls": [
@@ -2049,18 +2273,11 @@
             },
             "_detect_package_manager": {
               "doc": "Detect the package manager used in this workspace.",
-              "signature": "(self) -> str",
-              "called_by": [
-                "WorkspaceConfig.__init__"
-              ]
+              "signature": "(self) -> str"
             },
             "_apply_performance_profile": {
               "doc": "Apply performance profile defaults if not explicitly set.",
-              "signature": "(self)",
-              "called_by": [
-                "WorkspaceConfigManager._apply_manual_overrides",
-                "WorkspaceConfig.__init__"
-              ]
+              "signature": "(self)"
             },
             "get_performance_profile": {
               "doc": "Get the current performance profile settings.",
@@ -2084,29 +2301,18 @@
             },
             "get_file_size_limit_mb": {
               "doc": "Get the file size limit in MB.",
-              "signature": "(self) -> float",
-              "called_by": [
-                "WorkspaceConfigManager.create_interactive_config"
-              ]
+              "signature": "(self) -> float"
             },
             "get_ignore_patterns": {
               "doc": "Get all ignore patterns for this workspace.",
-              "signature": "(self) -> Set[str]",
-              "called_by": [
-                "WorkspaceConfig.to_dict"
-              ]
+              "signature": "(self) -> Set[str]"
             },
             "to_dict": {
               "doc": "Convert to dictionary for serialization.",
               "calls": [
                 "get_ignore_patterns"
               ],
-              "signature": "(self) -> Dict",
-              "called_by": [
-                "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Dict"
             }
           },
           "doc": "Represents configuration for a single workspace."
@@ -2121,55 +2327,31 @@
             },
             "_load_workspaces": {
               "doc": "Load workspace configurations from detection result.",
-              "signature": "(self)",
-              "called_by": [
-                "WorkspaceRegistry.__init__"
-              ]
+              "signature": "(self)"
             },
             "get_workspace": {
               "doc": "Get workspace configuration by name.",
-              "signature": "(self, name: str) -> Optional[WorkspaceConfig]",
-              "called_by": [
-                "WorkspaceConfigManager._apply_manual_overrides",
-                "WorkspaceConfigManager.validate_config_file"
-              ]
+              "signature": "(self, name: str) -> Optional[WorkspaceConfig]"
             },
             "get_workspace_by_path": {
               "doc": "Determine which workspace a file belongs to.",
-              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]",
-              "called_by": [
-                "WorkspaceConfigManager.get_workspace_for_file"
-              ]
+              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]"
             },
             "get_all_workspaces": {
               "doc": "Get all workspace configurations.",
-              "signature": "(self) -> List[WorkspaceConfig]",
-              "called_by": [
-                "WorkspaceConfigManager.create_interactive_config",
-                "WorkspaceConfigManager.get_workspace_by_performance_profile"
-              ]
+              "signature": "(self) -> List[WorkspaceConfig]"
             },
             "get_workspace_names": {
               "doc": "Get all workspace names.",
-              "signature": "(self) -> List[str]",
-              "called_by": [
-                "WorkspaceConfigManager.get_monorepo_info"
-              ]
+              "signature": "(self) -> List[str]"
             },
             "set_dependencies": {
               "doc": "Set dependencies for a workspace.",
-              "signature": "(self, workspace_name: str, dependencies: List[str])",
-              "called_by": [
-                "WorkspaceConfigManager._apply_manual_overrides"
-              ]
+              "signature": "(self, workspace_name: str, dependencies: List[str])"
             },
             "get_dependencies": {
               "doc": "Get dependencies for a workspace.",
-              "signature": "(self, workspace_name: str) -> List[str]",
-              "called_by": [
-                "WorkspaceRegistry.validate",
-                "WorkspaceRegistry.check_circular"
-              ]
+              "signature": "(self, workspace_name: str) -> List[str]"
             },
             "get_dependents": {
               "doc": "Get workspaces that depend on this one.",
@@ -2181,33 +2363,21 @@
                 "check_circular",
                 "get_dependencies"
               ],
-              "signature": "(self) -> List[str]",
-              "called_by": [
-                "WorkspaceConfigManager.validate_configuration"
-              ]
+              "signature": "(self) -> List[str]"
             },
             "check_circular": {
               "calls": [
                 "check_circular",
                 "get_dependencies"
               ],
-              "signature": "(workspace_name: str, visited: Set[str], path: List[str]) -> bool",
-              "called_by": [
-                "WorkspaceRegistry.validate",
-                "WorkspaceRegistry.check_circular"
-              ]
+              "signature": "(workspace_name: str, visited: Set[str], path: List[str]) -> bool"
             },
             "to_dict": {
               "doc": "Convert to dictionary for serialization.",
               "calls": [
                 "to_dict"
               ],
-              "signature": "(self) -> Dict",
-              "called_by": [
-                "WorkspaceRegistry.to_dict",
-                "PerformanceMonitor._log_performance_data",
-                "detect_monorepo"
-              ]
+              "signature": "(self) -> Dict"
             }
           },
           "doc": "Registry of all workspaces in the monorepo."
@@ -2219,17 +2389,7 @@
               "calls": [
                 "_apply_manual_overrides"
               ],
-              "signature": "(self, force_refresh: bool = False) -> WorkspaceRegistry",
-              "called_by": [
-                "load_workspace_config",
-                "WorkspaceConfigManager.create_interactive_config",
-                "WorkspaceConfigManager.validate_config_file",
-                "WorkspaceConfigManager.is_monorepo",
-                "WorkspaceConfigManager.get_workspace_by_performance_profile",
-                "WorkspaceConfigManager.get_workspace_for_file",
-                "WorkspaceConfigManager.validate_configuration",
-                "WorkspaceConfigManager.get_monorepo_info"
-              ]
+              "signature": "(self, force_refresh: bool = False) -> WorkspaceRegistry"
             },
             "_apply_manual_overrides": {
               "doc": "Apply manual configuration overrides.",
@@ -2238,10 +2398,7 @@
                 "get_workspace",
                 "set_dependencies"
               ],
-              "signature": "(self, registry: WorkspaceRegistry) -> WorkspaceRegistry",
-              "called_by": [
-                "WorkspaceConfigManager.load_configuration"
-              ]
+              "signature": "(self, registry: WorkspaceRegistry) -> WorkspaceRegistry"
             },
             "get_workspace_for_file": {
               "doc": "Get the workspace that contains the given file.",
@@ -2249,11 +2406,7 @@
                 "get_workspace_by_path",
                 "load_configuration"
               ],
-              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]",
-              "called_by": [
-                "detect_file_move",
-                "handle_file_update"
-              ]
+              "signature": "(self, file_path: Union[str, Path]) -> Optional[WorkspaceConfig]"
             },
             "validate_configuration": {
               "doc": "Validate the current workspace configuration.",
@@ -2292,10 +2445,7 @@
             },
             "validate_performance_profile": {
               "doc": "Validate that a performance profile is valid.",
-              "signature": "(self, profile: str) -> bool",
-              "called_by": [
-                "WorkspaceConfigManager.validate_config_file"
-              ]
+              "signature": "(self, profile: str) -> bool"
             },
             "get_available_performance_profiles": {
               "doc": "Get all available performance profiles with their descriptions.",
@@ -2330,10 +2480,73 @@
           ]
         }
       },
-      "constants": {
-        "PERFORMANCE_PROFILES": "collection"
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:09:00.157829",
+      "purpose": "Configuration"
+    },
+    "scripts/hierarchical_indexer.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {
+        "generate_hierarchical_index": {
+          "calls": [
+            "generate_root_index"
+          ],
+          "signature": "(root_path: Union[str, Path], force_monorepo: bool = False) -> Dict"
+        }
       },
-      "call_graph": {}
+      "classes": {
+        "HierarchicalIndexManager": {
+          "methods": {
+            "__init__": "(self, root_path: Union[str, Path])",
+            "detect_project_type": "(self) -> Tuple[bool, str]",
+            "generate_root_index": {
+              "calls": [
+                "_generate_monorepo_root_index",
+                "_generate_single_repo_index",
+                "detect_project_type"
+              ],
+              "signature": "(self, force_monorepo: bool = False) -> Dict"
+            },
+            "_generate_monorepo_root_index": {
+              "doc": "Generate lightweight root index for monorepo.",
+              "calls": [
+                "_build_cross_workspace_dependencies_fallback",
+                "_generate_workspace_overview_tree",
+                "_validate_generation_constraints"
+              ],
+              "signature": "(self, detection_method: str) -> Dict"
+            },
+            "_generate_single_repo_index": {
+              "doc": "Generate basic single-repo index structure.",
+              "signature": "(self) -> Dict"
+            },
+            "_build_cross_workspace_dependencies_fallback": "(self, registry: WorkspaceRegistry) -> Dict[str, Dict]",
+            "_generate_workspace_overview_tree": {
+              "doc": "Generate high-level workspace tree for overview.",
+              "signature": "(self, registry: WorkspaceRegistry) -> Dict"
+            },
+            "_validate_generation_constraints": {
+              "doc": "Validate that the generated index meets performance constraints.",
+              "signature": "(self, index: Dict)"
+            },
+            "save_root_index": {
+              "doc": "Save the root index to disk.",
+              "signature": "(self, index: Dict, output_path: Optional[Path] = None) -> Path"
+            },
+            "get_workspace_registry": {
+              "doc": "Get the workspace registry for this project.",
+              "signature": "(self) -> WorkspaceRegistry"
+            }
+          },
+          "properties": [
+            "force_monorepo",
+            "Exception"
+          ]
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:38:52.831442"
     },
     "scripts/monorepo_commands.py": {
       "language": "python",
@@ -2373,16 +2586,16 @@
             "index_workspace": {
               "signature": "(self, workspace_name: Optional[str] = None, **kwargs) -> Dict",
               "called_by": [
-                "WorkspaceIndexer.index_all_workspaces",
+                "main",
                 "index_workspace",
-                "main"
+                "WorkspaceIndexer.index_all_workspaces"
               ]
             },
             "index_monorepo": {
               "signature": "(self, force: bool = False, selective: Optional[List[str]] = None, **kwargs) -> Dict",
               "called_by": [
-                "MonorepoCommands.migrate",
-                "main"
+                "main",
+                "MonorepoCommands.migrate"
               ]
             },
             "interactive_config": {
@@ -2612,8 +2825,8 @@
               "doc": "Record current resource usage.",
               "signature": "(self)",
               "called_by": [
-                "PerformanceMonitor.start_hook_timing",
-                "PerformanceMonitor.end_hook_timing"
+                "PerformanceMonitor.end_hook_timing",
+                "PerformanceMonitor.start_hook_timing"
               ]
             },
             "_check_performance_thresholds": {
@@ -2637,8 +2850,8 @@
               "doc": "Calculate percentile of values.",
               "signature": "(self, values: List[float], percentile: float) -> float",
               "called_by": [
-                "PerformanceMonitor._get_hook_breakdown",
-                "PerformanceMonitor.get_performance_summary"
+                "PerformanceMonitor.get_performance_summary",
+                "PerformanceMonitor._get_hook_breakdown"
               ]
             },
             "_get_hook_breakdown": {
@@ -2674,95 +2887,53 @@
     "scripts/update_index.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "sys",
-        "os",
-        "pathlib",
-        "datetime",
-        "typing",
-        "time",
-        "performance_monitor",
-        "index_utils",
-        "workspace_config",
-        "workspace_indexer",
-        "cross_workspace_analyzer"
-      ],
       "functions": {
         "find_project_modules": {
           "doc": "Find project modules (index_utils, workspace_config, etc.) in project or system location.",
           "signature": "()"
         },
+        "get_workflow_orchestrator": {
+          "doc": "Get or create workflow orchestrator for the project.",
+          "signature": "(project_root: Path) -> Optional['TaskWorkflowOrchestrator']"
+        },
+        "enable_workflow_integration": {
+          "doc": "Enable workflow integration for the current update session.",
+          "calls": [
+            "get_workflow_orchestrator"
+          ],
+          "signature": "(project_root: Path, context: Optional[Dict] = None) -> bool"
+        },
+        "trigger_workflow_hook": {
+          "doc": "Trigger a workflow integration hook if workflow is enabled.",
+          "calls": [
+            "trigger_workflow_hook"
+          ],
+          "signature": "(hook_name: str, **kwargs)"
+        },
         "get_workspace_config_cached": {
           "doc": "Get workspace configuration with caching.",
-          "signature": "(project_root: Path) -> Optional[Dict]",
-          "called_by": [
-            "check_workspace_staleness",
-            "check_workspace_configuration_changes",
-            "run_workspace_reindex",
-            "run_reindex",
-            "update_root_index_after_workspace_reindex",
-            "main",
-            "get_workspace_for_file",
-            "get_workspace_index_path",
-            "get_dependent_workspaces",
-            "update_root_index_workspace_registry",
-            "handle_file_update",
-            "check_workspace_staleness",
-            "check_workspace_configuration_changes",
-            "run_workspace_reindex",
-            "run_reindex",
-            "update_root_index_after_workspace_reindex",
-            "main",
-            "get_workspace_for_file",
-            "get_workspace_index_path",
-            "get_dependent_workspaces",
-            "handle_cross_workspace_dependencies",
-            "update_root_index_workspace_registry",
-            "detect_file_move",
-            "handle_file_update"
-          ]
+          "signature": "(project_root: Path) -> Optional[Dict]"
         },
         "get_workspace_for_file": {
           "doc": "Determine which workspace a file belongs to.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(file_path: Path, project_root: Path) -> Optional[str]",
-          "called_by": [
-            "handle_file_update",
-            "detect_file_move",
-            "handle_file_update"
-          ]
+          "signature": "(file_path: Path, project_root: Path) -> Optional[str]"
         },
         "get_workspace_index_path": {
           "doc": "Get the path to a workspace's index file.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> Optional[Path]",
-          "called_by": [
-            "update_workspace_index",
-            "handle_cross_workspace_dependencies",
-            "update_root_index_workspace_registry",
-            "update_workspace_index",
-            "handle_basic_cross_workspace_dependencies",
-            "update_workspace_dependencies",
-            "update_root_index_workspace_registry",
-            "detect_file_move",
-            "handle_cross_workspace_file_move"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> Optional[Path]"
         },
         "get_dependent_workspaces": {
           "doc": "Get list of workspaces that depend on the given workspace.",
           "calls": [
             "get_workspace_config_cached"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> List[str]",
-          "called_by": [
-            "handle_cross_workspace_dependencies",
-            "handle_basic_cross_workspace_dependencies"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> List[str]"
         },
         "update_workspace_index": {
           "doc": "Update a specific workspace index.",
@@ -2770,11 +2941,7 @@
             "get_workspace_index_path",
             "update_file_in_index"
           ],
-          "signature": "(workspace_name: str, file_path: Path, project_root: Path) -> bool",
-          "called_by": [
-            "handle_file_update",
-            "handle_file_update"
-          ]
+          "signature": "(workspace_name: str, file_path: Path, project_root: Path) -> bool"
         },
         "handle_cross_workspace_dependencies": {
           "doc": "Handle cascade updates for dependent workspaces with enhanced analysis.",
@@ -2784,12 +2951,7 @@
             "update_root_index_dependencies",
             "update_workspace_dependencies"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> None",
-          "called_by": [
-            "handle_file_update",
-            "handle_cross_workspace_file_move",
-            "handle_file_update"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> None"
         },
         "handle_basic_cross_workspace_dependencies": {
           "doc": "Basic cross-workspace dependency handling (fallback).",
@@ -2797,27 +2959,18 @@
             "get_dependent_workspaces",
             "get_workspace_index_path"
           ],
-          "signature": "(workspace_name: str, project_root: Path) -> None",
-          "called_by": [
-            "handle_cross_workspace_dependencies"
-          ]
+          "signature": "(workspace_name: str, project_root: Path) -> None"
         },
         "update_root_index_dependencies": {
           "doc": "Update the root index with enhanced cross-workspace dependency information.",
-          "signature": "(project_root: Path, cross_workspace_results: Dict) -> None",
-          "called_by": [
-            "handle_cross_workspace_dependencies"
-          ]
+          "signature": "(project_root: Path, cross_workspace_results: Dict) -> None"
         },
         "update_workspace_dependencies": {
           "doc": "Update a workspace index with enhanced dependency information.",
           "calls": [
             "get_workspace_index_path"
           ],
-          "signature": "(workspace_name: str, project_root: Path, workspace_deps: Dict) -> None",
-          "called_by": [
-            "handle_cross_workspace_dependencies"
-          ]
+          "signature": "(workspace_name: str, project_root: Path, workspace_deps: Dict) -> None"
         },
         "update_root_index_workspace_registry": {
           "doc": "Update the root index workspace registry when workspace relationships change.",
@@ -2825,22 +2978,11 @@
             "get_workspace_config_cached",
             "get_workspace_index_path"
           ],
-          "signature": "(project_root: Path) -> None",
-          "called_by": [
-            "handle_file_update",
-            "handle_cross_workspace_file_move",
-            "handle_file_update"
-          ]
+          "signature": "(project_root: Path) -> None"
         },
         "update_file_in_index": {
           "doc": "Update a single file's entry in the enhanced index.",
-          "signature": "(index_path: str, file_path: str, project_root: str) -> bool",
-          "called_by": [
-            "update_workspace_index",
-            "handle_file_update",
-            "update_workspace_index",
-            "handle_file_update"
-          ]
+          "signature": "(index_path: str, file_path: str, project_root: str) -> bool"
         },
         "detect_file_move": {
           "doc": "Detect if this is a cross-workspace file move by checking for stale entries.",
@@ -2849,10 +2991,7 @@
             "get_workspace_for_file",
             "get_workspace_index_path"
           ],
-          "signature": "(file_path: Path, project_root: Path) -> Optional[Dict]",
-          "called_by": [
-            "handle_file_update"
-          ]
+          "signature": "(file_path: Path, project_root: Path) -> Optional[Dict]"
         },
         "handle_cross_workspace_file_move": {
           "doc": "Handle a file that has moved between workspaces.",
@@ -2861,31 +3000,26 @@
             "handle_cross_workspace_dependencies",
             "update_root_index_workspace_registry"
           ],
-          "signature": "(move_info: Dict, project_root: Path) -> None",
-          "called_by": [
-            "handle_file_update"
-          ]
+          "signature": "(move_info: Dict, project_root: Path) -> None"
         },
         "handle_file_update": {
           "decorators": [
             "performance_timing"
           ],
-          "doc": "Handle a file update with workspace awareness.",
+          "doc": "Handle a file update with workspace awareness and workflow integration.",
           "calls": [
             "detect_file_move",
+            "enable_workflow_integration",
             "get_workspace_config_cached",
             "get_workspace_for_file",
             "handle_cross_workspace_dependencies",
             "handle_cross_workspace_file_move",
+            "trigger_workflow_hook",
             "update_file_in_index",
             "update_root_index_workspace_registry",
             "update_workspace_index"
           ],
-          "signature": "(file_path: Path, project_root: Path) -> None",
-          "called_by": [
-            "main",
-            "main"
-          ]
+          "signature": "(file_path: Path, project_root: Path) -> None"
         },
         "main": {
           "doc": "Process PostToolUse hook input and update index with workspace awareness.",
@@ -2896,10 +3030,8 @@
         }
       },
       "classes": {},
-      "constants": {
-        "CACHE_TTL": "number"
-      },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:00:31.627989"
     },
     "scripts/run_python.sh": {
       "language": "shell",
@@ -2916,38 +3048,18 @@
     "scripts/workspace_indexer.py": {
       "language": "python",
       "parsed": true,
-      "imports": [
-        "json",
-        "re",
-        "ast",
-        "pathlib",
-        "typing",
-        "datetime",
-        "workspace_config",
-        "index_utils",
-        "cross_workspace_analyzer",
-        "sys"
-      ],
       "functions": {
         "index_workspace": {
           "calls": [
             "index_workspace"
           ],
-          "signature": "(root_path: Union[str, Path], workspace_name: str) -> Optional[Dict]",
-          "called_by": [
-            "main",
-            "index_workspace",
-            "WorkspaceIndexer.index_all_workspaces"
-          ]
+          "signature": "(root_path: Union[str, Path], workspace_name: str) -> Optional[Dict]"
         },
         "index_all_workspaces": {
           "calls": [
             "index_all_workspaces"
           ],
-          "signature": "(root_path: Union[str, Path]) -> Dict[str, Dict]",
-          "called_by": [
-            "index_all_workspaces"
-          ]
+          "signature": "(root_path: Union[str, Path]) -> Dict[str, Dict]"
         }
       },
       "classes": {
@@ -2961,21 +3073,14 @@
             },
             "_load_workspace_packages": {
               "doc": "Load package.json from each workspace to understand package names.",
-              "signature": "(self) -> Dict[str, Dict]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.__init__",
-                "CrossWorkspaceAnalyzer.__init__"
-              ]
+              "signature": "(self) -> Dict[str, Dict]"
             },
             "get_workspace_dependencies": {
               "doc": "Get comprehensive dependency information for a workspace.",
               "calls": [
                 "analyze_file_imports"
               ],
-              "signature": "(self, workspace_name: str) -> Dict[str, List[str]]",
-              "called_by": [
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, workspace_name: str) -> Dict[str, List[str]]"
             },
             "analyze_file_imports": {
               "doc": "Analyze imports in a file to find cross-workspace dependencies.",
@@ -2984,60 +3089,46 @@
                 "_analyze_package_json_deps",
                 "_analyze_python_imports"
               ],
-              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.get_workspace_dependencies",
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, file_path: Path, workspace: WorkspaceConfig) -> List[str]"
             },
             "_analyze_python_imports": {
               "doc": "Analyze Python imports for cross-workspace dependencies.",
               "calls": [
                 "_resolve_python_import_to_workspace"
               ],
-              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_file_imports",
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]"
             },
             "_analyze_javascript_imports": {
               "doc": "Analyze JavaScript/TypeScript imports for cross-workspace dependencies.",
               "calls": [
                 "_resolve_javascript_import_to_workspace"
               ],
-              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceAnalyzer._analyze_file_imports",
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]"
             },
             "_analyze_package_json_deps": {
               "doc": "Analyze package.json dependencies for cross-workspace dependencies.",
-              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer.analyze_file_imports"
-              ]
+              "signature": "(self, content: str, workspace: WorkspaceConfig) -> List[str]"
             },
             "_resolve_python_import_to_workspace": {
               "doc": "Resolve a Python import to a workspace name.",
-              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer._analyze_python_imports"
-              ]
+              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]"
             },
             "_resolve_javascript_import_to_workspace": {
               "doc": "Resolve a JavaScript/TypeScript import to a workspace name.",
-              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]",
-              "called_by": [
-                "CrossWorkspaceDependencyAnalyzer._analyze_javascript_imports"
-              ]
+              "signature": "(self, import_path: str, current_workspace: WorkspaceConfig) -> Optional[str]"
             }
           }
         },
         "WorkspaceIndexer": {
           "methods": {
-            "__init__": "(self, registry: WorkspaceRegistry)",
+            "__init__": "(self, registry: WorkspaceRegistry, workflow_integration: bool = False)",
+            "register_workflow_hook": "(self, hook_name: str, callback: callable)",
+            "trigger_workflow_hook": "(self, hook_name: str, **kwargs)",
+            "set_task_context": "(self, context: Dict[str, any])",
+            "get_task_context": {
+              "doc": "Get current task context.",
+              "signature": "(self) -> Dict[str, any]"
+            },
             "index_workspace": {
               "calls": [
                 "_build_workspace_dependency_graph",
@@ -3045,75 +3136,57 @@
                 "_matches_ignore_patterns",
                 "_parse_file_content",
                 "analyze_file_imports",
-                "get_workspace_dependencies"
+                "get_task_context",
+                "get_workspace_dependencies",
+                "trigger_workflow_hook"
               ],
-              "signature": "(self, workspace_name: str) -> Optional[Dict]",
-              "called_by": [
-                "WorkspaceIndexer.index_all_workspaces",
-                "index_workspace",
-                "main"
-              ]
+              "signature": "(self, workspace_name: str) -> Optional[Dict]"
             },
             "_matches_ignore_patterns": {
               "doc": "Check if a file path matches any ignore pattern.",
-              "signature": "(self, file_path: str, patterns: Set[str]) -> bool",
-              "called_by": [
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, file_path: str, patterns: Set[str]) -> bool"
             },
             "_generate_workspace_tree": {
               "doc": "Generate ASCII tree structure for workspace.",
               "calls": [
                 "add_tree_level"
               ],
-              "signature": "(self, workspace_path: Path, workspace_root: str) -> List[str]",
-              "called_by": [
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, workspace_path: Path, workspace_root: str) -> List[str]"
             },
             "add_tree_level": {
               "calls": [
                 "add_tree_level"
               ],
-              "signature": "(path: Path, prefix: str = \"\", depth: int = 0, max_depth: int = 3)",
-              "called_by": [
-                "generate_tree_structure",
-                "WorkspaceIndexer.add_tree_level",
-                "WorkspaceIndexer._generate_workspace_tree"
-              ]
+              "signature": "(path: Path, prefix: str = \"\", depth: int = 0, max_depth: int = 3)"
             },
             "_parse_file_content": {
               "doc": "Parse file content based on its extension.",
-              "signature": "(self, content: str, file_extension: str) -> Optional[Dict]",
-              "called_by": [
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, content: str, file_extension: str) -> Optional[Dict]"
             },
             "_build_workspace_dependency_graph": {
               "doc": "Build dependency graph for the workspace.",
-              "signature": "(self, files: Dict) -> Dict",
-              "called_by": [
-                "WorkspaceIndexer.index_workspace"
-              ]
+              "signature": "(self, files: Dict) -> Dict"
             },
             "index_all_workspaces": {
               "doc": "Index all workspaces in the registry.",
               "calls": [
                 "index_workspace"
               ],
-              "signature": "(self) -> Dict[str, Dict]",
-              "called_by": [
-                "index_all_workspaces"
-              ]
+              "signature": "(self) -> Dict[str, Dict]"
             }
           },
-          "doc": "Indexes individual workspaces with cross-workspace awareness.",
+          "doc": "Indexes individual workspaces with cross-workspace awareness and workflow integration.",
           "properties": [
+            "hook_name",
+            "callback",
+            "hook_name",
+            "context",
             "workspace_name"
           ]
         }
       },
-      "call_graph": {}
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T09:56:34.376225"
     },
     "examples/nx_example/package.json": {
       "language": "json",
@@ -3337,6 +3410,1606 @@
     ".agent/logs/2025-08-18.json": {
       "language": "json",
       "parsed": false
+    },
+    ".agent/logs/2025-08-19.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "scripts/integration_worker_phase2.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {
+        "create_integration_orchestrator": "(root_path: Union[str, Path], max_workers: Optional[int] = None) -> TaskWorkflowOrchestrator",
+        "execute_integration_workflow": {
+          "calls": [
+            "create_integration_orchestrator",
+            "execute_workflow",
+            "shutdown"
+          ],
+          "signature": "(root_path: Union[str, Path], target_workspaces: Optional[List[str]] = None, workflow_name: str = \"integration\", max_workers: Optional[int] = None) -> Dict[str, Any]"
+        }
+      },
+      "classes": {
+        "IntegrationTask": {
+          "methods": {},
+          "decorators": [
+            "dataclass"
+          ],
+          "doc": "Enhanced task representation for the integration workflow system.",
+          "properties": [
+            "task_id",
+            "task_type",
+            "workspace_name",
+            "priority",
+            "dependencies",
+            "workspace_dependencies",
+            "estimated_duration",
+            "max_retries",
+            "retry_delay",
+            "timeout",
+            "metadata",
+            "status",
+            "created_at",
+            "started_at",
+            "completed_at",
+            "retry_count",
+            "error_message",
+            "result"
+          ]
+        },
+        "WorkflowProgress": {
+          "methods": {
+            "percentage_complete": {
+              "decorators": [
+                "property"
+              ],
+              "doc": "Calculate completion percentage.",
+              "signature": "(self) -> float"
+            },
+            "elapsed_time": {
+              "decorators": [
+                "property"
+              ],
+              "doc": "Calculate elapsed time.",
+              "signature": "(self) -> timedelta"
+            }
+          },
+          "doc": "Extended progress tracking for multi-stage workflows.",
+          "properties": [
+            "total_tasks",
+            "completed_tasks",
+            "failed_tasks",
+            "running_tasks",
+            "queued_tasks",
+            "task_results",
+            "start_time",
+            "stage"
+          ]
+        },
+        "TaskWorkflowOrchestrator": {
+          "methods": {
+            "__init__": "(self, registry: WorkspaceRegistry, max_workers: Optional[int] = None, memory_limit_mb: int = 200, enable_caching: bool = True)",
+            "add_workflow_callback": {
+              "doc": "Add a callback function to receive workflow progress updates.",
+              "signature": "(self, callback: Callable[[WorkflowProgress], None])"
+            },
+            "_notify_workflow_progress": {
+              "doc": "Notify all workflow callbacks of updates.",
+              "signature": "(self)"
+            },
+            "_estimate_task_duration": "(self, task: IntegrationTask) -> float",
+            "create_task": {
+              "calls": [
+                "_estimate_task_duration"
+              ],
+              "signature": "(self, task_type: Union[TaskType, str], workspace_name: Optional[str] = None, priority: int = 0, dependencies: Optional[Set[str]] = None, workspace_dependencies: Optional[Set[str]] = None, metadata: Optional[Dict[str, Any]] = None, **kwargs) -> str"
+            },
+            "_can_execute_task": "(self, task: IntegrationTask) -> bool",
+            "_queue_ready_tasks": {
+              "doc": "Queue tasks that are ready for execution.",
+              "calls": [
+                "_can_execute_task"
+              ],
+              "signature": "(self)"
+            },
+            "_execute_task": {
+              "decorators": [
+                "performance_timing"
+              ],
+              "calls": [
+                "_cleanup_caches",
+                "_validate_index_integrity"
+              ],
+              "signature": "(self, task: IntegrationTask) -> Any"
+            },
+            "_validate_index_integrity": {
+              "doc": "Validate the integrity of workspace indexes.",
+              "signature": "(self, workspace_name: Optional[str]) -> Dict[str, Any]"
+            },
+            "_cleanup_caches": {
+              "doc": "Clean up stale cache entries.",
+              "signature": "(self) -> Dict[str, Any]"
+            },
+            "execute_workflow": {
+              "decorators": [
+                "performance_timing"
+              ],
+              "calls": [
+                "_all_tasks_completed",
+                "_create_workflow_tasks",
+                "_execute_task",
+                "_notify_workflow_progress",
+                "_queue_ready_tasks"
+              ],
+              "signature": "(self, workflow_name: str = \"default\", target_workspaces: Optional[List[str]] = None, include_cross_analysis: bool = True) -> Dict[str, Any]"
+            },
+            "_create_workflow_tasks": {
+              "doc": "Create tasks for a complete workflow.",
+              "calls": [
+                "create_task"
+              ],
+              "signature": "(self, target_workspaces: Optional[List[str]], include_cross_analysis: bool) -> List[str]"
+            },
+            "_all_tasks_completed": {
+              "doc": "Check if all tasks have completed.",
+              "signature": "(self) -> bool"
+            },
+            "get_task_status": {
+              "doc": "Get detailed status of a specific task.",
+              "signature": "(self, task_id: str) -> Optional[Dict[str, Any]]"
+            },
+            "shutdown": {
+              "doc": "Request graceful shutdown of the orchestrator.",
+              "calls": [
+                "shutdown"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "properties": [
+            "registry",
+            "max_workers",
+            "memory_limit_mb",
+            "enable_caching",
+            "task",
+            "task_type",
+            "workspace_name",
+            "priority",
+            "dependencies",
+            "workspace_dependencies",
+            "metadata",
+            "task",
+            "task",
+            "workflow_name",
+            "target_workspaces",
+            "include_cross_analysis"
+          ]
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:06:18.374590"
+    },
+    "scripts/test_monorepo_integration.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {
+        "main": {
+          "doc": "Run the monorepo integration test suite.",
+          "calls": [
+            "run_all_tests"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {
+        "MonorepoIntegrationTester": {
+          "methods": {
+            "__init__": "(self, examples_dir: Path)",
+            "run_all_tests": {
+              "doc": "Run tests for all supported monorepo types.",
+              "calls": [
+                "print_summary",
+                "test_monorepo_type"
+              ],
+              "signature": "(self) -> Dict[str, Dict]"
+            },
+            "test_monorepo_type": {
+              "doc": "Test a specific monorepo type.",
+              "signature": "(self, monorepo_type: str, example_path: Path) -> Dict"
+            },
+            "print_summary": {
+              "doc": "Print test results summary.",
+              "signature": "(self)"
+            }
+          },
+          "doc": "Test suite for monorepo integration compatibility."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:04:29.817597",
+      "purpose": "Test file"
+    },
+    "scripts/performance_validator.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {
+        "main": {
+          "doc": "Main entry point for performance validation.",
+          "calls": [
+            "run_all_performance_tests"
+          ],
+          "signature": "()"
+        }
+      },
+      "classes": {
+        "PerformanceResult": {
+          "methods": {
+            "__init__": "(self, name: str, passed: bool, measured_value: float, threshold: float, unit: str = \"\", details: Optional[Dict] = None)",
+            "to_dict": "(self) -> Dict"
+          },
+          "doc": "Represents the result of a performance test."
+        },
+        "PerformanceValidator": {
+          "methods": {
+            "__init__": "(self, root_path: Path)",
+            "memory_monitor": {
+              "decorators": [
+                "contextmanager"
+              ],
+              "doc": "Context manager to monitor peak memory usage during operation.",
+              "calls": [
+                "monitor_memory"
+              ],
+              "signature": "(self, timeout: float = 60.0)"
+            },
+            "monitor_memory": "()",
+            "timeout_guard": {
+              "decorators": [
+                "contextmanager"
+              ],
+              "doc": "Context manager to prevent infinite loops by enforcing timeouts.",
+              "calls": [
+                "timeout_handler"
+              ],
+              "signature": "(self, timeout_seconds: float, operation_name: str)"
+            },
+            "timeout_handler": "()",
+            "test_root_index_generation_time": {
+              "doc": "Test: Root index generation must complete in <30 seconds.",
+              "calls": [
+                "timeout_guard"
+              ],
+              "signature": "(self) -> PerformanceResult"
+            },
+            "test_root_index_file_size": {
+              "doc": "Test: Root index file size must be <200KB.",
+              "signature": "(self) -> PerformanceResult"
+            },
+            "test_workspace_loading_time": {
+              "doc": "Test: Workspace loading must complete in <2 seconds per workspace.",
+              "signature": "(self) -> PerformanceResult"
+            },
+            "test_memory_usage_large_monorepo": {
+              "doc": "Test: Memory usage must stay <500MB for large operations.",
+              "calls": [
+                "memory_monitor",
+                "timeout_guard"
+              ],
+              "signature": "(self) -> PerformanceResult"
+            },
+            "test_no_infinite_loops": {
+              "doc": "Test: All operations must terminate (no infinite loops).",
+              "calls": [
+                "timeout_guard"
+              ],
+              "signature": "(self) -> PerformanceResult"
+            },
+            "run_all_performance_tests": {
+              "doc": "Run all performance validation tests and return comprehensive results.",
+              "calls": [
+                "test_memory_usage_large_monorepo",
+                "test_no_infinite_loops",
+                "test_root_index_file_size",
+                "test_root_index_generation_time",
+                "test_workspace_loading_time",
+                "to_dict"
+              ],
+              "signature": "(self) -> Dict"
+            }
+          },
+          "doc": "Validates performance requirements for the hierarchical indexing architecture."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:43:21.682084"
+    },
+    "tests/test_hierarchical_indexer.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {},
+      "classes": {
+        "TestHierarchicalIndexManager": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_manager_initialization": {
+              "doc": "Test HierarchicalIndexManager initialization.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_detect_project_type_single_repo": {
+              "doc": "Test project type detection for single repository.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_detect_project_type_monorepo_nx": {
+              "doc": "Test project type detection for Nx monorepo.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_detect_project_type_manual_config_enabled": {
+              "doc": "Test manual configuration override enabling monorepo.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_detect_project_type_manual_config_disabled": {
+              "doc": "Test manual configuration override disabling monorepo.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_single_repo_index": {
+              "doc": "Test single-repo index generation.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_monorepo_index_basic": {
+              "doc": "Test basic monorepo index generation.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_monorepo_index_with_workspace_indexes": {
+              "doc": "Test monorepo index generation with existing workspace indexes.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_monorepo_index_with_cross_dependencies": {
+              "doc": "Test monorepo index generation with cross-workspace dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_validate_generation_constraints_time_limit": {
+              "doc": "Test validation of generation time constraint.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_validate_generation_constraints_size_limit": {
+              "doc": "Test validation of index size constraint.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_validate_generation_constraints_success": {
+              "doc": "Test successful validation of generation constraints.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_save_root_index_default_path": {
+              "doc": "Test saving root index to default location.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_save_root_index_custom_path": {
+              "doc": "Test saving root index to custom location.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_force_monorepo_override": {
+              "doc": "Test force monorepo override for single-repo project.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_workspace_overview_tree_generation": {
+              "doc": "Test generation of workspace overview tree.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_error_handling_missing_dependencies": {
+              "doc": "Test graceful handling of missing dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_performance_with_large_workspace_count": {
+              "doc": "Test performance with many workspaces.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the HierarchicalIndexManager class."
+        },
+        "TestGenerateHierarchicalIndexFunction": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_generate_hierarchical_index_function_single_repo": {
+              "doc": "Test the main function with single repo.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_hierarchical_index_function_monorepo": {
+              "doc": "Test the main function with monorepo.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_generate_hierarchical_index_function_force_monorepo": {
+              "doc": "Test the main function with force_monorepo flag.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the main generate_hierarchical_index function."
+        },
+        "TestEdgeCasesAndErrorHandling": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_malformed_workspace_index_handling": {
+              "doc": "Test handling of malformed workspace index files.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_missing_workspace_directories": {
+              "doc": "Test handling of workspaces with missing directories.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_circular_workspace_dependencies_handling": {
+              "doc": "Test handling of circular workspace dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_empty_monorepo_configuration": {
+              "doc": "Test handling of empty monorepo configuration.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test edge cases and error handling scenarios."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:53:25.222955",
+      "purpose": "Test file"
+    },
+    "tests/test_lazy_index_loader.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {},
+      "classes": {
+        "TestCacheEntry": {
+          "methods": {
+            "test_cache_entry_creation": {
+              "doc": "Test CacheEntry initialization.",
+              "signature": "(self)"
+            },
+            "test_cache_entry_access": {
+              "doc": "Test cache entry access counting.",
+              "signature": "(self)"
+            },
+            "test_cache_entry_staleness_fresh": {
+              "doc": "Test staleness detection for fresh entries.",
+              "signature": "(self)"
+            },
+            "test_cache_entry_staleness_stale": {
+              "doc": "Test staleness detection for stale entries.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the CacheEntry class."
+        },
+        "TestLRUCache": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test cache.",
+              "signature": "(self)"
+            },
+            "test_cache_initialization": {
+              "doc": "Test cache initialization.",
+              "signature": "(self)"
+            },
+            "test_cache_put_and_get": {
+              "doc": "Test basic cache put and get operations.",
+              "signature": "(self)"
+            },
+            "test_cache_put_with_custom_size": {
+              "doc": "Test cache put with custom size estimation.",
+              "signature": "(self)"
+            },
+            "test_cache_eviction_by_count": {
+              "doc": "Test cache eviction when max entries exceeded.",
+              "signature": "(self)"
+            },
+            "test_cache_eviction_by_size": {
+              "doc": "Test cache eviction when max size exceeded.",
+              "signature": "(self)"
+            },
+            "test_cache_lru_ordering": {
+              "doc": "Test LRU (Least Recently Used) ordering.",
+              "signature": "(self)"
+            },
+            "test_cache_staleness_handling": {
+              "doc": "Test cache staleness detection and removal.",
+              "signature": "(self)"
+            },
+            "test_cache_invalidation": {
+              "doc": "Test explicit cache invalidation.",
+              "signature": "(self)"
+            },
+            "test_cache_invalidate_pattern": {
+              "doc": "Test pattern-based cache invalidation.",
+              "signature": "(self)"
+            },
+            "test_cache_clear": {
+              "doc": "Test cache clearing.",
+              "signature": "(self)"
+            },
+            "test_cache_stats": {
+              "doc": "Test cache statistics.",
+              "signature": "(self)"
+            },
+            "test_cache_thread_safety": {
+              "doc": "Test cache thread safety.",
+              "calls": [
+                "worker"
+              ],
+              "signature": "(self)"
+            },
+            "worker": "(thread_id)"
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the LRUCache class."
+        },
+        "TestLazyIndexLoader": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_loader_initialization": {
+              "doc": "Test LazyIndexLoader initialization.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_success": {
+              "doc": "Test successful root index loading.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_file_not_found": {
+              "doc": "Test root index loading when file doesn't exist.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_malformed_json": {
+              "doc": "Test root index loading with malformed JSON.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_caching": {
+              "doc": "Test root index caching behavior.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_force_refresh": {
+              "doc": "Test forcing root index refresh bypasses cache.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_success": {
+              "doc": "Test successful workspace index loading.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_not_found": {
+              "doc": "Test workspace index loading when workspace not found.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_file_missing": {
+              "doc": "Test workspace index loading when index file is missing.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_caching": {
+              "doc": "Test workspace index caching behavior.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_get_workspace_dependencies": {
+              "doc": "Test workspace dependency retrieval.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_get_workspace_dependents": {
+              "doc": "Test workspace dependents retrieval.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_invalidate_workspace": {
+              "doc": "Test workspace cache invalidation.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_invalidate_root_index": {
+              "doc": "Test root index cache invalidation.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_cache_stats": {
+              "doc": "Test cache statistics retrieval.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_file_staleness_detection": {
+              "doc": "Test file modification time tracking for staleness.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the LazyIndexLoader class."
+        },
+        "TestGlobalLoaderFunctions": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_get_global_loader_singleton": {
+              "doc": "Test that get_global_loader returns singleton instances.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_root_index_function": {
+              "doc": "Test the load_root_index convenience function.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_function": {
+              "doc": "Test the load_workspace_index convenience function.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_load_workspace_index_function_not_found": {
+              "doc": "Test workspace index function with non-existent workspace.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test global loader functions."
+        },
+        "TestPerformanceAndEdgeCases": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_large_index_loading_performance": {
+              "doc": "Test performance with large index files.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_memory_usage_with_many_workspaces": {
+              "doc": "Test memory behavior with many cached workspaces.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_concurrent_access_safety": {
+              "doc": "Test thread safety with concurrent access.",
+              "calls": [
+                "concurrent_loader",
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "concurrent_loader": "(thread_id)",
+            "test_error_recovery_corrupted_cache": {
+              "doc": "Test recovery from corrupted cache state.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test performance characteristics and edge cases."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:51:01.235753",
+      "purpose": "Test file"
+    },
+    "tests/test_smart_compressor.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {},
+      "classes": {
+        "TestCircularReferenceDetector": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test detector.",
+              "signature": "(self)"
+            },
+            "test_detector_initialization": {
+              "doc": "Test CircularReferenceDetector initialization.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_simple_object": {
+              "doc": "Test cycle detection with simple objects.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_nested_object": {
+              "doc": "Test cycle detection with nested objects.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_direct_circular_reference": {
+              "doc": "Test detection of direct circular references.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_indirect_circular_reference": {
+              "doc": "Test detection of indirect circular references.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_list_with_cycles": {
+              "doc": "Test cycle detection in lists.",
+              "signature": "(self)"
+            },
+            "test_detect_cycles_complex_structure": {
+              "doc": "Test cycle detection in complex nested structures.",
+              "signature": "(self)"
+            },
+            "test_create_reference_marker": {
+              "doc": "Test reference marker creation.",
+              "signature": "(self)"
+            },
+            "test_performance_with_large_structure": {
+              "doc": "Test performance with large data structures.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the CircularReferenceDetector class."
+        },
+        "TestBatchProcessor": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test processor.",
+              "signature": "(self)"
+            },
+            "test_processor_initialization": {
+              "doc": "Test BatchProcessor initialization.",
+              "signature": "(self)"
+            },
+            "test_process_items_basic": {
+              "doc": "Test basic item processing.",
+              "calls": [
+                "processor_func"
+              ],
+              "signature": "(self)"
+            },
+            "processor_func": "(key, value)",
+            "test_process_items_with_batching": {
+              "doc": "Test item processing with batching.",
+              "calls": [
+                "processor_func",
+                "progress_callback"
+              ],
+              "signature": "(self)"
+            },
+            "progress_callback": "(processed, total, percent, description)",
+            "test_process_dict_items": {
+              "doc": "Test dictionary item processing.",
+              "calls": [
+                "processor_func"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the BatchProcessor class."
+        },
+        "TestSmartCompressor": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test compressor.",
+              "signature": "(self)"
+            },
+            "test_compressor_initialization": {
+              "doc": "Test SmartCompressor initialization.",
+              "signature": "(self)"
+            },
+            "test_compress_root_index_basic": {
+              "doc": "Test basic root index compression.",
+              "signature": "(self)"
+            },
+            "test_compress_workspace_index_basic": {
+              "doc": "Test basic workspace index compression.",
+              "signature": "(self)"
+            },
+            "test_compress_root_index_with_circular_dependencies": {
+              "doc": "Test root index compression with circular dependencies.",
+              "signature": "(self)"
+            },
+            "test_compress_workspace_index_remove_redundant_data": {
+              "doc": "Test removal of redundant data in workspace compression.",
+              "signature": "(self)"
+            },
+            "test_aggressive_compression_when_oversized": {
+              "doc": "Test aggressive compression when size limits are exceeded.",
+              "signature": "(self)"
+            },
+            "test_compression_statistics": {
+              "doc": "Test compression statistics tracking.",
+              "signature": "(self)"
+            },
+            "test_reset_compression_statistics": {
+              "doc": "Test resetting compression statistics.",
+              "signature": "(self)"
+            },
+            "test_file_entries_compression": {
+              "doc": "Test specific file entries compression logic.",
+              "signature": "(self)"
+            },
+            "test_dependency_graph_compression": {
+              "doc": "Test dependency graph compression.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the SmartCompressor class."
+        },
+        "TestCompressIndexSafeFunction": {
+          "methods": {
+            "test_compress_index_safe_root_index": {
+              "doc": "Test safe compression for root index.",
+              "signature": "(self)"
+            },
+            "test_compress_index_safe_workspace_index": {
+              "doc": "Test safe compression for workspace index.",
+              "signature": "(self)"
+            },
+            "test_compress_index_safe_invalid_type": {
+              "doc": "Test safe compression with invalid index type.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the compress_index_safe function."
+        },
+        "TestPerformanceAndEdgeCases": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test compressor.",
+              "signature": "(self)"
+            },
+            "test_performance_large_workspace_index": {
+              "doc": "Test compression performance with large workspace index.",
+              "signature": "(self)"
+            },
+            "test_memory_efficiency_repeated_compression": {
+              "doc": "Test memory efficiency with repeated compressions.",
+              "signature": "(self)"
+            },
+            "test_thread_safety_concurrent_compression": {
+              "doc": "Test thread safety with concurrent compressions.",
+              "calls": [
+                "compress_worker"
+              ],
+              "signature": "(self)"
+            },
+            "compress_worker": "(thread_id)",
+            "test_error_handling_malformed_data": {
+              "doc": "Test error handling with malformed data.",
+              "signature": "(self)"
+            },
+            "test_compression_ratio_calculation": {
+              "doc": "Test compression ratio calculation accuracy.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test performance characteristics and edge cases."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:53:00.157760",
+      "purpose": "Test file"
+    },
+    "tests/test_hierarchical_indexer_simple.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {},
+      "classes": {
+        "TestHierarchicalIndexManagerBasic": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_manager_initialization_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test HierarchicalIndexManager initialization with mocked dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_detect_project_type_single_repo_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test project type detection for single repository with mocked dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager, mock_detect)"
+            },
+            "test_detect_project_type_monorepo_nx_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test project type detection for Nx monorepo with mocked dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager, mock_detect)"
+            },
+            "test_manual_config_override_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test manual configuration override with mocked dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_generate_single_repo_index_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test single-repo index generation with mocked dependencies.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_validate_generation_constraints_time_limit_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test validation of generation time constraint with mocked dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_validate_generation_constraints_size_limit_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test validation of index size constraint with mocked dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_save_root_index_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test saving root index with mocked dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            },
+            "test_workspace_overview_tree_generation_with_mocks": {
+              "decorators": [
+                "patch",
+                "patch",
+                "patch"
+              ],
+              "doc": "Test generation of workspace overview tree with mocked dependencies.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_compressor, mock_loader, mock_workspace_manager)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test HierarchicalIndexManager with mocked dependencies."
+        },
+        "TestGenerateHierarchicalIndexFunctionMocked": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "test_generate_hierarchical_index_function_with_mocks": {
+              "decorators": [
+                "patch"
+              ],
+              "doc": "Test the main function with mocked HierarchicalIndexManager.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self, mock_manager_class)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Test the main generate_hierarchical_index function with mocked dependencies."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T10:54:22.808065",
+      "purpose": "Test file"
+    },
+    "tests/test_monorepo_integration.py": {
+      "language": "python",
+      "parsed": true,
+      "functions": {},
+      "classes": {
+        "TestMonorepoIntegrationBase": {
+          "methods": {
+            "setUp": {
+              "doc": "Set up test environment.",
+              "signature": "(self)"
+            },
+            "tearDown": {
+              "doc": "Clean up test environment.",
+              "signature": "(self)"
+            },
+            "create_temp_dir": {
+              "doc": "Create a temporary directory for testing.",
+              "signature": "(self)"
+            },
+            "create_file": {
+              "doc": "Create a file with the given content.",
+              "signature": "(self, path: Path, content: str)"
+            },
+            "create_workspace_package_json": {
+              "doc": "Create a standard package.json for a workspace.",
+              "calls": [
+                "create_file"
+              ],
+              "signature": "(self, workspace_dir: Path, name: str, dependencies: dict = None)"
+            },
+            "validate_monorepo_detection": {
+              "doc": "Validate that monorepo detection works correctly.",
+              "signature": "(self, temp_dir: Path, expected_tool: str, min_workspaces: int = 1)"
+            }
+          },
+          "inherits": [
+            "unittest.TestCase"
+          ],
+          "doc": "Base class for monorepo integration tests."
+        },
+        "TestNxMonorepoIntegration": {
+          "methods": {
+            "test_nx_monorepo_basic_detection": {
+              "doc": "Test basic Nx monorepo detection and indexing.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            },
+            "test_nx_monorepo_with_legacy_workspace_json": {
+              "doc": "Test Nx with legacy workspace.json configuration.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test Nx monorepo integration."
+        },
+        "TestLernaMonorepoIntegration": {
+          "methods": {
+            "test_lerna_monorepo_basic_detection": {
+              "doc": "Test basic Lerna monorepo detection and indexing.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            },
+            "test_lerna_monorepo_with_scoped_packages": {
+              "doc": "Test Lerna with scoped package names.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test Lerna monorepo integration."
+        },
+        "TestPnpmMonorepoIntegration": {
+          "methods": {
+            "test_pnpm_monorepo_basic_detection": {
+              "doc": "Test basic PNPM monorepo detection and indexing.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_pnpm_monorepo_with_catalog": {
+              "doc": "Test PNPM with dependency catalog.",
+              "calls": [
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test PNPM monorepo integration."
+        },
+        "TestYarnMonorepoIntegration": {
+          "methods": {
+            "test_yarn_workspaces_basic_detection": {
+              "doc": "Test basic Yarn Workspaces detection and indexing.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            },
+            "test_yarn_workspaces_object_syntax": {
+              "doc": "Test Yarn Workspaces with object syntax.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test Yarn Workspaces integration."
+        },
+        "TestRushMonorepoIntegration": {
+          "methods": {
+            "test_rush_monorepo_basic_detection": {
+              "doc": "Test basic Rush monorepo detection and indexing.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            },
+            "test_rush_monorepo_with_pnpm": {
+              "doc": "Test Rush monorepo with PNPM package manager.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test Rush monorepo integration."
+        },
+        "TestManualConfigurationIntegration": {
+          "methods": {
+            "test_manual_config_override_detection": {
+              "doc": "Test manual configuration overriding automatic detection.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json"
+              ],
+              "signature": "(self)"
+            },
+            "test_manual_config_pattern_based": {
+              "doc": "Test manual configuration with pattern-based workspace discovery.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test manual configuration override integration."
+        },
+        "TestMonorepoFixtureIntegration": {
+          "methods": {
+            "test_nx_fixture_integration": {
+              "doc": "Test integration with Nx fixture if available.",
+              "signature": "(self)"
+            },
+            "test_lerna_fixture_integration": {
+              "doc": "Test integration with Lerna fixture if available.",
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test integration with existing fixture files."
+        },
+        "TestCrossToolCompatibility": {
+          "methods": {
+            "test_priority_handling_multiple_configs": {
+              "doc": "Test priority handling when multiple monorepo configurations exist.",
+              "calls": [
+                "create_file",
+                "create_temp_dir"
+              ],
+              "signature": "(self)"
+            },
+            "test_fallback_when_manual_disabled": {
+              "doc": "Test fallback to automatic detection when manual config disabled.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test compatibility when multiple tool configurations exist."
+        },
+        "TestPerformanceWithLargeMonorepos": {
+          "methods": {
+            "test_performance_many_workspaces": {
+              "doc": "Test detection performance with many workspaces.",
+              "calls": [
+                "create_file",
+                "create_temp_dir",
+                "create_workspace_package_json",
+                "validate_monorepo_detection"
+              ],
+              "signature": "(self)"
+            }
+          },
+          "inherits": [
+            "TestMonorepoIntegrationBase"
+          ],
+          "doc": "Test performance with large monorepo configurations."
+        }
+      },
+      "updated_by_hook": true,
+      "updated_at": "2025-08-19T11:08:40.337082",
+      "purpose": "Test file"
     }
   },
   "dependency_graph": {
@@ -3382,7 +5055,29 @@
       "workspace_config",
       "workspace_indexer",
       "cross_workspace_analyzer",
+      "hierarchical_indexer",
+      "smart_compressor",
+      "workspace_config",
+      "workspace_indexer",
+      "cross_workspace_analyzer",
       "sys"
+    ],
+    "scripts/lazy_index_loader.py": [
+      "json",
+      "os",
+      "threading",
+      "time",
+      "collections",
+      "datetime",
+      "pathlib",
+      "typing",
+      "weakref",
+      "hashlib",
+      "sys",
+      "pathlib",
+      "hierarchical_indexer",
+      "workspace_config",
+      "argparse"
     ],
     "scripts/index_utils.py": [
       "re",
@@ -3422,6 +5117,16 @@
       "datetime",
       "sys"
     ],
+    "scripts/smart_compressor.py": [
+      "json",
+      "time",
+      "gc",
+      "typing",
+      "collections",
+      "threading",
+      "weakref",
+      "argparse"
+    ],
     "scripts/monorepo_detector.py": [
       "json",
       "re",
@@ -3458,6 +5163,20 @@
       "datetime",
       "monorepo_detector",
       "sys"
+    ],
+    "scripts/hierarchical_indexer.py": [
+      "json",
+      "os",
+      "time",
+      "datetime",
+      "pathlib",
+      "typing",
+      "sys",
+      "pathlib",
+      "workspace_config",
+      "monorepo_detector",
+      "smart_compressor",
+      "argparse"
     ],
     "scripts/monorepo_commands.py": [
       "json",
@@ -3515,5 +5234,5 @@
       "lodash"
     ]
   },
-  "staleness_check": 1754934601.743771
+  "staleness_check": 1755006182.036487
 }

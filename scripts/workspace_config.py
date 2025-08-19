@@ -373,16 +373,33 @@ class WorkspaceConfigManager:
         if "monorepo" not in config_data:
             return registry
         
-        monorepo_config = config_data["monorepo"]
+        monorepo_setting = config_data["monorepo"]
+        
+        # Handle both boolean and dictionary formats for monorepo setting
+        if isinstance(monorepo_setting, bool):
+            if not monorepo_setting:
+                return registry
+            # If monorepo is true, look for settings at root level
+            monorepo_config = {}
+        elif isinstance(monorepo_setting, dict):
+            monorepo_config = monorepo_setting
+        else:
+            return registry
         
         # Apply global settings
         if "global_settings" in monorepo_config:
             global_settings = monorepo_config["global_settings"]
             # Global settings are handled by the parallel processor and CLI
         
-        # Apply workspace-specific overrides
+        # Apply workspace-specific overrides (check both locations)
+        workspace_settings = None
         if "workspace_settings" in monorepo_config:
             workspace_settings = monorepo_config["workspace_settings"]
+        elif "workspaces" in config_data and isinstance(config_data["workspaces"], dict):
+            # Handle direct workspaces format (like our config file)
+            workspace_settings = config_data["workspaces"]
+        
+        if workspace_settings:
             
             for workspace_name, settings in workspace_settings.items():
                 workspace = registry.get_workspace(workspace_name)

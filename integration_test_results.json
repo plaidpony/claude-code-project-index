@@ -1,0 +1,104 @@
+{
+  "Nx": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "nx",
+      "config_path": "nx.json",
+      "workspace_count": 5
+    }
+  },
+  "Lerna": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "yarn",
+      "config_path": "package.json",
+      "workspace_count": 5
+    }
+  },
+  "PNPM": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "pnpm",
+      "config_path": "pnpm-workspace.yaml",
+      "workspace_count": 7
+    }
+  },
+  "Manual Config": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "manual",
+      "config_path": ".project-index-config.json",
+      "workspace_count": 8
+    }
+  },
+  "Rush": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "rush",
+      "config_path": "rush.json",
+      "workspace_count": 4
+    }
+  },
+  "Yarn": {
+    "status": "success",
+    "tests_passed": [
+      "monorepo_detection",
+      "workspace_config",
+      "workspace_indexing",
+      "parallel_processing",
+      "integration_orchestrator",
+      "task_creation"
+    ],
+    "tests_failed": [],
+    "monorepo_info": {
+      "tool": "yarn",
+      "config_path": "package.json",
+      "workspace_count": 5
+    }
+  }
+}

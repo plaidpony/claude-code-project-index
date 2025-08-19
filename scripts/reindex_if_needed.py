@@ -21,10 +21,35 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Set, Tuple
 
+# Import performance monitoring and workflow integration (if available)
+try:
+    from performance_monitor import get_performance_monitor, performance_timing
+    PERFORMANCE_MONITORING = True
+except ImportError:
+    PERFORMANCE_MONITORING = False
+    
+    # Fallback no-op decorator
+    def performance_timing(hook_name: str, operation: str = "unknown"):
+        def decorator(func):
+            return func
+        return decorator
+
+# Import workflow integration (if available)
+try:
+    from integration_worker_phase2 import TaskWorkflowOrchestrator, create_integration_orchestrator
+    WORKFLOW_INTEGRATION = True
+except ImportError:
+    WORKFLOW_INTEGRATION = False
+
 # Workspace management cache
 _workspace_cache = {}
 _cache_timestamp = 0
 CACHE_TTL = 300  # 5 minutes
+
+# Workflow integration cache and context
+_workflow_orchestrator = None
+_workflow_context = {}
+_workflow_enabled = False
 
 def find_project_modules():
     """Find project modules in project or system location."""
@@ -65,6 +90,64 @@ if find_project_modules():
 else:
     WORKSPACE_SUPPORT = False
     print("Warning: Project modules not found. Using single-repo functionality.", file=sys.stderr)
+
+
+def get_workflow_orchestrator(project_root: Path) -> Optional['TaskWorkflowOrchestrator']:
+    """Get or create workflow orchestrator for the project."""
+    global _workflow_orchestrator, _workflow_enabled
+    
+    if not WORKFLOW_INTEGRATION or not _workflow_enabled:
+        return None
+    
+    if not _workflow_orchestrator:
+        try:
+            _workflow_orchestrator = create_integration_orchestrator(
+                root_path=project_root,
+                max_workers=4  # Can use more workers for reindexing
+            )
+            _workflow_orchestrator.parallel_processor.workflow_integration = True
+            print("Workflow orchestrator initialized for reindexing operations", file=sys.stderr)
+        except Exception as e:
+            print(f"Failed to initialize workflow orchestrator: {e}", file=sys.stderr)
+            _workflow_enabled = False
+            return None
+    
+    return _workflow_orchestrator
+
+
+def enable_workflow_integration(project_root: Path, context: Optional[Dict] = None) -> bool:
+    """Enable workflow integration for the current reindexing session."""
+    global _workflow_enabled, _workflow_context
+    
+    if not WORKFLOW_INTEGRATION:
+        return False
+    
+    _workflow_enabled = True
+    _workflow_context = context or {}
+    _workflow_context.update({
+        'session_start': datetime.now().isoformat(),
+        'hook_type': 'Stop',
+        'project_root': str(project_root)
+    })
+    
+    orchestrator = get_workflow_orchestrator(project_root)
+    if orchestrator:
+        orchestrator.parallel_processor.set_task_context(_workflow_context)
+        return True
+    
+    return False
+
+
+def trigger_workflow_hook(hook_name: str, **kwargs):
+    """Trigger a workflow integration hook if workflow is enabled."""
+    if not _workflow_enabled or not _workflow_orchestrator:
+        return
+    
+    try:
+        kwargs.update({'context': _workflow_context})
+        _workflow_orchestrator.parallel_processor.trigger_workflow_hook(hook_name, **kwargs)
+    except Exception as e:
+        print(f"Warning: Workflow hook '{hook_name}' failed: {e}", file=sys.stderr)
 
 
 def get_workspace_config_cached(project_root: Path) -> Optional[Dict]:
@@ -466,8 +549,9 @@ def update_root_index_after_workspace_reindex(project_root: Path, reindexed_work
         print(f"Error updating root index after workspace reindex: {e}", file=sys.stderr)
 
 
+@performance_timing("reindex_if_needed", "main_hook")
 def main():
-    """Main hook entry point with workspace awareness."""
+    """Main hook entry point with workspace awareness and workflow integration."""
     # Find project root
     current_dir = Path.cwd()
     project_root = None
@@ -493,18 +577,45 @@ def main():
     
     root_index_path = project_root / 'PROJECT_INDEX.json'
     
+    # Enable workflow integration if available
+    workflow_enabled = False
+    if WORKFLOW_INTEGRATION:
+        workflow_enabled = enable_workflow_integration(
+            project_root, 
+            {'operation': 'reindex_check'}
+        )
+    
+    # Trigger workflow hook for reindex check start
+    trigger_workflow_hook('reindex_check_started', 
+                         project_root=str(project_root))
+    
     try:
         workspace_config = get_workspace_config_cached(project_root)
         
         if not workspace_config or not workspace_config['is_monorepo']:
             # Single-repo mode: use traditional logic
+            trigger_workflow_hook('single_repo_reindex_started', 
+                                 project_root=str(project_root))
             handle_single_repo_reindex(root_index_path, project_root)
+            trigger_workflow_hook('reindex_check_completed', 
+                                 project_root=str(project_root),
+                                 mode='single_repo')
             return
         
         # Monorepo mode: workspace-aware reindexing
+        trigger_workflow_hook('workspace_reindex_started', 
+                             project_root=str(project_root),
+                             workspace_count=len(workspace_config['workspaces']))
         handle_workspace_aware_reindex(project_root, workspace_config)
+        trigger_workflow_hook('reindex_check_completed', 
+                             project_root=str(project_root),
+                             mode='workspace_aware')
         
     except Exception as e:
+        # Trigger workflow hook for failure
+        trigger_workflow_hook('reindex_check_failed', 
+                             project_root=str(project_root),
+                             error=str(e))
         print(f"Error in main hook: {e}", file=sys.stderr)
 
 

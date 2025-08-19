@@ -343,19 +343,35 @@ class ManualConfigDetector(BaseDetector):
         if "monorepo" not in config_data:
             return None
         
-        monorepo_config = config_data["monorepo"]
+        monorepo_setting = config_data["monorepo"]
         
-        # If explicitly disabled, return disabled result
-        if "enabled" in monorepo_config and not monorepo_config["enabled"]:
-            return DetectionResult(
-                monorepo=False,
-                detection_method="manual",
-                config_path=str(config_file.relative_to(self.root_path))
-            )
+        # Handle both boolean and dictionary formats for monorepo setting
+        if isinstance(monorepo_setting, bool):
+            if not monorepo_setting:
+                return DetectionResult(
+                    monorepo=False,
+                    detection_method="manual",
+                    config_path=str(config_file.relative_to(self.root_path))
+                )
+            # If monorepo is true, look for workspaces at root level
+            monorepo_config = {}
+            tool_name = config_data.get("tool", "manual")
+        elif isinstance(monorepo_setting, dict):
+            monorepo_config = monorepo_setting
+            # If explicitly disabled, return disabled result
+            if "enabled" in monorepo_config and not monorepo_config["enabled"]:
+                return DetectionResult(
+                    monorepo=False,
+                    detection_method="manual",
+                    config_path=str(config_file.relative_to(self.root_path))
+                )
+            tool_name = monorepo_config.get("tool", "manual")
+        else:
+            return None
         
         workspaces = {}
         
-        # Handle explicit workspace mapping
+        # Handle explicit workspace mapping within monorepo config
         if "workspaces" in monorepo_config:
             ws_config = monorepo_config["workspaces"]
             
@@ -365,13 +381,27 @@ class ManualConfigDetector(BaseDetector):
                 patterns = [ws_config["pattern"]] if isinstance(ws_config["pattern"], str) else ws_config["pattern"]
                 workspaces = self._resolve_workspace_paths(patterns)
         
-        # Also check for direct workspace_registry (simpler format)
+        # Also check for direct workspace_registry within monorepo config
         elif "workspace_registry" in monorepo_config:
             workspaces = monorepo_config["workspace_registry"]
         
+        # Check for workspaces at root level (for boolean monorepo format)
+        elif "workspaces" in config_data:
+            workspaces_config = config_data["workspaces"]
+            if isinstance(workspaces_config, dict):
+                # Handle object format where each key is a workspace name
+                for name, workspace_info in workspaces_config.items():
+                    if isinstance(workspace_info, dict) and "path" in workspace_info:
+                        workspaces[name] = workspace_info["path"]
+                    elif isinstance(workspace_info, str):
+                        workspaces[name] = workspace_info
+            elif isinstance(workspaces_config, list):
+                # Handle array format
+                workspaces = self._resolve_workspace_paths(workspaces_config)
+        
         return DetectionResult(
             monorepo=True,
-            tool=monorepo_config.get("tool", "manual"),
+            tool=tool_name,
             workspace_registry=workspaces,
             config_path=str(config_file.relative_to(self.root_path)),
             detection_method="manual"
@@ -403,6 +433,9 @@ class MonorepoDetector:
             try:
                 result = detector.detect()
                 if result is not None:
+                    # Manual config detector takes precedence regardless of result
+                    if isinstance(detector, ManualConfigDetector):
+                        return result
                     # If we found a monorepo, return immediately
                     if result.monorepo:
                         return result

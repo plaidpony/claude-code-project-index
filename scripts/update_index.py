@@ -32,10 +32,22 @@ except ImportError:
             return func
         return decorator
 
+# Import workflow integration (if available)
+try:
+    from integration_worker_phase2 import TaskWorkflowOrchestrator, create_integration_orchestrator
+    WORKFLOW_INTEGRATION = True
+except ImportError:
+    WORKFLOW_INTEGRATION = False
+
 # Workspace management cache for performance
 _workspace_cache = {}
 _cache_timestamp = 0
 CACHE_TTL = 300  # 5 minutes
+
+# Workflow integration cache and context
+_workflow_orchestrator = None
+_workflow_context = {}
+_workflow_enabled = False
 
 # Try to find and import utilities from the project or system location
 def find_project_modules():
@@ -109,6 +121,65 @@ else:
     MARKDOWN_EXTENSIONS = {'.md', '.markdown', '.rst'}
     
     print("Warning: Project modules not found. Using minimal single-repo functionality.", file=sys.stderr)
+
+
+def get_workflow_orchestrator(project_root: Path) -> Optional['TaskWorkflowOrchestrator']:
+    """Get or create workflow orchestrator for the project."""
+    global _workflow_orchestrator, _workflow_enabled
+    
+    if not WORKFLOW_INTEGRATION or not _workflow_enabled:
+        return None
+    
+    if not _workflow_orchestrator:
+        try:
+            _workflow_orchestrator = create_integration_orchestrator(
+                root_path=project_root,
+                max_workers=2  # Conservative for hook operations
+            )
+            # Register workflow hooks for update operations
+            _workflow_orchestrator.parallel_processor.workflow_integration = True
+            print("Workflow orchestrator initialized for update operations", file=sys.stderr)
+        except Exception as e:
+            print(f"Failed to initialize workflow orchestrator: {e}", file=sys.stderr)
+            _workflow_enabled = False
+            return None
+    
+    return _workflow_orchestrator
+
+
+def enable_workflow_integration(project_root: Path, context: Optional[Dict] = None) -> bool:
+    """Enable workflow integration for the current update session."""
+    global _workflow_enabled, _workflow_context
+    
+    if not WORKFLOW_INTEGRATION:
+        return False
+    
+    _workflow_enabled = True
+    _workflow_context = context or {}
+    _workflow_context.update({
+        'session_start': datetime.now().isoformat(),
+        'hook_type': 'PostToolUse',
+        'project_root': str(project_root)
+    })
+    
+    orchestrator = get_workflow_orchestrator(project_root)
+    if orchestrator:
+        orchestrator.parallel_processor.set_task_context(_workflow_context)
+        return True
+    
+    return False
+
+
+def trigger_workflow_hook(hook_name: str, **kwargs):
+    """Trigger a workflow integration hook if workflow is enabled."""
+    if not _workflow_enabled or not _workflow_orchestrator:
+        return
+    
+    try:
+        kwargs.update({'context': _workflow_context})
+        _workflow_orchestrator.parallel_processor.trigger_workflow_hook(hook_name, **kwargs)
+    except Exception as e:
+        print(f"Warning: Workflow hook '{hook_name}' failed: {e}", file=sys.stderr)
 
 
 def get_workspace_config_cached(project_root: Path) -> Optional[Dict]:
@@ -619,13 +690,26 @@ def handle_cross_workspace_file_move(move_info: Dict, project_root: Path) -> Non
 
 @performance_timing("update_index", "file_update")
 def handle_file_update(file_path: Path, project_root: Path) -> None:
-    """Handle a file update with workspace awareness."""
+    """Handle a file update with workspace awareness and workflow integration."""
     start_time = time.time()
+    
+    # Enable workflow integration if available
+    workflow_enabled = False
+    if WORKFLOW_INTEGRATION:
+        workflow_enabled = enable_workflow_integration(
+            project_root, 
+            {'operation': 'file_update', 'file_path': str(file_path)}
+        )
     
     # Set up performance monitoring
     if PERFORMANCE_MONITORING:
         monitor = get_performance_monitor()
         monitor.set_performance_log_path(project_root)
+    
+    # Trigger workflow hook for update start
+    trigger_workflow_hook('file_update_started', 
+                         file_path=str(file_path),
+                         project_root=str(project_root))
     
     try:
         # Check for cross-workspace file moves first
@@ -668,12 +752,27 @@ def handle_file_update(file_path: Path, project_root: Path) -> None:
             update_root_index_workspace_registry(project_root)
         
         elapsed_time = time.time() - start_time
+        
+        # Trigger workflow hook for successful completion
+        trigger_workflow_hook('file_update_completed', 
+                             file_path=str(file_path),
+                             workspace_name=workspace_name if 'workspace_name' in locals() else None,
+                             elapsed_time=elapsed_time,
+                             project_root=str(project_root))
+        
         if elapsed_time > 2.0:
             print(f"Warning: Update took {elapsed_time:.2f}s (target <2s)", file=sys.stderr)
             if PERFORMANCE_MONITORING:
                 get_performance_monitor().record_error('performance_threshold_violation')
         
     except Exception as e:
+        # Trigger workflow hook for failure
+        trigger_workflow_hook('file_update_failed', 
+                             file_path=str(file_path),
+                             error=str(e),
+                             elapsed_time=time.time() - start_time,
+                             project_root=str(project_root))
+        
         if PERFORMANCE_MONITORING:
             get_performance_monitor().record_error('file_update_error')
         print(f"Error handling file update: {e}", file=sys.stderr)

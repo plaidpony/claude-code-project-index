@@ -36,9 +36,30 @@ try:
     from workspace_config import WorkspaceConfigManager
     from workspace_indexer import WorkspaceIndexer
     from cross_workspace_analyzer import build_cross_workspace_dependencies
+    from hierarchical_indexer import HierarchicalIndexManager, generate_hierarchical_index
+    from smart_compressor import SmartCompressor
     MONOREPO_SUPPORT = True
+    HIERARCHICAL_SUPPORT = True
 except ImportError:
-    MONOREPO_SUPPORT = False
+    try:
+        from workspace_config import WorkspaceConfigManager
+        from workspace_indexer import WorkspaceIndexer
+        from cross_workspace_analyzer import build_cross_workspace_dependencies
+        MONOREPO_SUPPORT = True
+        HIERARCHICAL_SUPPORT = False
+    except ImportError:
+        MONOREPO_SUPPORT = False
+        HIERARCHICAL_SUPPORT = False
+
+# Import workflow integration (optional)
+try:
+    from integration_worker_phase2 import (
+        TaskWorkflowOrchestrator, execute_integration_workflow, 
+        create_integration_orchestrator
+    )
+    WORKFLOW_INTEGRATION = True
+except ImportError:
+    WORKFLOW_INTEGRATION = False
 
 # Limits to keep it fast and simple
 MAX_FILES = 10000
@@ -560,6 +581,24 @@ def compress_index_if_needed(index: Dict) -> Dict:
     
     print(f"⚠️  Index too large ({len(index_json)} bytes), compressing...")
     
+    # Use SmartCompressor if available (prevents infinite loops)
+    if HIERARCHICAL_SUPPORT:
+        try:
+            compressor = SmartCompressor()
+            
+            # Determine index type for appropriate compression strategy
+            index_type = "workspace"  # Default to workspace compression
+            if index.get("index_type") == "hierarchical_root":
+                index_type = "root"
+            
+            if index_type == "root":
+                return compressor.compress_root_index(index)
+            else:
+                return compressor.compress_workspace_index(index)
+        except Exception as e:
+            print(f"⚠️  SmartCompressor failed: {e}, falling back to legacy compression")
+    
+    # Legacy compression fallback
     # First, reduce tree depth
     if len(index['project_structure']['tree']) > 100:
         index['project_structure']['tree'] = index['project_structure']['tree'][:100]
@@ -694,12 +733,201 @@ def print_monorepo_summary(index: Dict):
     print(f"   • Individual workspace context preservation")
 
 
+def build_index_with_workflow(root_dir: str = '.', 
+                            target_workspaces: Optional[List[str]] = None,
+                            workflow_name: str = "project_indexing",
+                            max_workers: Optional[int] = None,
+                            show_progress: bool = True) -> Tuple[Dict, int]:
+    """
+    Build project index using the integration workflow orchestrator.
+    
+    Args:
+        root_dir: Root directory to index
+        target_workspaces: Specific workspaces to process (None = all)
+        workflow_name: Name for the workflow
+        max_workers: Maximum number of worker threads
+        show_progress: Whether to show progress updates
+        
+    Returns:
+        Tuple of (index_dict, skipped_count)
+    """
+    if not WORKFLOW_INTEGRATION:
+        raise RuntimeError("Workflow integration not available. Please install integration_worker_phase2.py")
+    
+    print(f"🔄 Using workflow orchestrator for project indexing...")
+    
+    # Execute the integration workflow
+    workflow_results = execute_integration_workflow(
+        root_path=root_dir,
+        target_workspaces=target_workspaces,
+        workflow_name=workflow_name,
+        max_workers=max_workers
+    )
+    
+    # Extract results from workflow
+    workspace_results = workflow_results.get("results", {})
+    progress_stats = workflow_results.get("progress", {})
+    
+    # Build consolidated index from workflow results
+    root_path = Path(root_dir)
+    consolidated_index = {
+        'indexed_at': datetime.now().isoformat(),
+        'root': str(root_path),
+        'index_type': 'workflow_integrated',
+        'workflow_stats': {
+            'workflow_name': workflow_name,
+            'total_tasks': progress_stats.get('total_tasks', 0),
+            'completed_tasks': progress_stats.get('completed', 0),
+            'failed_tasks': progress_stats.get('failed', 0),
+            'elapsed_time': progress_stats.get('elapsed_time', 'N/A')
+        }
+    }
+    
+    # Try to load hierarchical index if available
+    if HIERARCHICAL_SUPPORT:
+        try:
+            hierarchical_index = generate_hierarchical_index(root_dir)
+            consolidated_index.update(hierarchical_index)
+            consolidated_index['index_type'] = 'workflow_hierarchical'
+        except Exception as e:
+            print(f"⚠️ Hierarchical indexing failed, using workflow results: {e}")
+    
+    # If hierarchical indexing is not available, build from workflow results
+    if 'project_structure' not in consolidated_index:
+        # Build basic structure from workspace results
+        consolidated_index.update({
+            'project_structure': {
+                'type': 'workflow_generated',
+                'root': '.',
+                'tree': generate_tree_structure(root_path)
+            },
+            'documentation_map': {},
+            'directory_purposes': {},
+            'stats': {
+                'total_files': 0,
+                'total_directories': 0,
+                'fully_parsed': {},
+                'listed_only': {},
+                'markdown_files': 0
+            },
+            'files': {},
+            'dependency_graph': {}
+        })
+        
+        # Aggregate stats from workspace results
+        for task_id, result in workspace_results.items():
+            if result and isinstance(result, dict) and 'stats' in result:
+                stats = result['stats']
+                consolidated_index['stats']['total_files'] += stats.get('total_files', 0)
+                consolidated_index['stats']['total_directories'] += stats.get('total_directories', 0)
+    
+    return consolidated_index, progress_stats.get('failed', 0)
+
+
 def main():
-    """Run the enhanced indexer."""
+    """Run the enhanced indexer with hierarchical and workflow support."""
+    import sys
+    
+    # Parse command line arguments for workflow integration
+    use_workflow = '--workflow' in sys.argv
+    workflow_name = "project_indexing"
+    max_workers = None
+    target_workspaces = None
+    
+    # Simple argument parsing
+    for i, arg in enumerate(sys.argv):
+        if arg == '--workflow-name' and i + 1 < len(sys.argv):
+            workflow_name = sys.argv[i + 1]
+        elif arg == '--max-workers' and i + 1 < len(sys.argv):
+            try:
+                max_workers = int(sys.argv[i + 1])
+            except ValueError:
+                print(f"Warning: Invalid max-workers value: {sys.argv[i + 1]}")
+        elif arg == '--workspaces' and i + 1 < len(sys.argv):
+            target_workspaces = sys.argv[i + 1].split(',')
+    
     print("🚀 Building Project Index...")
+    
+    # Show available integration features
+    if WORKFLOW_INTEGRATION:
+        if use_workflow:
+            print("   🔄 Using workflow orchestrator for enhanced task management...")
+        else:
+            print("   💡 Tip: Use --workflow for advanced task management and parallel processing")
+    
     print("   Analyzing project structure and documentation...")
     
-    # Build index for current directory
+    # Try workflow integration first if requested and available
+    if use_workflow and WORKFLOW_INTEGRATION:
+        try:
+            print("   🏗️ Using workflow-integrated indexing...")
+            index, skipped_count = build_index_with_workflow(
+                root_dir='.',
+                target_workspaces=target_workspaces,
+                workflow_name=workflow_name,
+                max_workers=max_workers
+            )
+            
+            # Save to PROJECT_INDEX.json
+            output_path = Path('PROJECT_INDEX.json')
+            with open(output_path, 'w') as f:
+                json.dump(index, f, indent=2)
+            
+            # Print summary
+            print_summary(index, skipped_count)
+            
+            print(f"\n💾 Saved to: {output_path}")
+            print(f"📊 Index type: {index.get('index_type', 'workflow_integrated')}")
+            
+            # Show workflow statistics
+            workflow_stats = index.get('workflow_stats', {})
+            if workflow_stats:
+                print(f"🔄 Workflow: {workflow_stats.get('workflow_name', 'N/A')}")
+                print(f"📋 Tasks: {workflow_stats.get('completed_tasks', 0)}/{workflow_stats.get('total_tasks', 0)} completed")
+                print(f"⏱️ Time: {workflow_stats.get('elapsed_time', 'N/A')}")
+            
+            if index.get('monorepo', {}).get('enabled'):
+                stats = index.get('global_stats', {})
+                print(f"📦 Workspaces: {stats.get('total_workspaces', 0)}")
+                print(f"📄 Total files: {stats.get('total_files', 0)}")
+            
+            return
+            
+        except Exception as e:
+            print(f"⚠️ Workflow integration failed: {e}")
+            print("   Falling back to hierarchical indexing...")
+    
+    # Try hierarchical indexing first if available
+    if HIERARCHICAL_SUPPORT:
+        try:
+            print("   🏗️  Using hierarchical indexing architecture...")
+            index = generate_hierarchical_index('.')
+            skipped_count = 0  # Hierarchical indexer handles this internally
+            
+            # Save to PROJECT_INDEX.json
+            output_path = Path('PROJECT_INDEX.json')
+            with open(output_path, 'w') as f:
+                json.dump(index, f, indent=2)
+            
+            # Print summary
+            print_summary(index, skipped_count)
+            
+            print(f"\n💾 Saved to: {output_path}")
+            print(f"📊 Index type: {index.get('index_type', 'hierarchical')}")
+            
+            if index.get('monorepo', {}).get('enabled'):
+                stats = index.get('global_stats', {})
+                print(f"📦 Workspaces: {stats.get('total_workspaces', 0)}")
+                print(f"📄 Total files: {stats.get('total_files', 0)}")
+            
+            return
+            
+        except Exception as e:
+            print(f"⚠️  Hierarchical indexing failed: {e}")
+            print("   Falling back to legacy indexing...")
+    
+    # Legacy indexing fallback
+    print("   📁 Using legacy single-file indexing...")
     index, skipped_count = build_index('.')
     
     # Compress if needed
@@ -725,7 +953,31 @@ def main():
 
 if __name__ == '__main__':
     import sys
+    
+    # Show help information
+    if len(sys.argv) > 1 and sys.argv[1] in ['--help', '-h']:
+        print(f"PROJECT_INDEX v{__version__}")
+        print("\nUsage: python project_index.py [OPTIONS]")
+        print("\nOptions:")
+        print("  --version              Show version information")
+        print("  --help, -h             Show this help message")
+        print("  --workflow             Use workflow orchestrator for enhanced task management")
+        print("  --workflow-name NAME   Name for the workflow (default: project_indexing)")
+        print("  --max-workers N        Maximum number of worker threads")
+        print("  --workspaces LIST      Comma-separated list of specific workspaces to process")
+        print("\nExamples:")
+        print("  python project_index.py")
+        print("  python project_index.py --workflow")
+        print("  python project_index.py --workflow --max-workers 4 --workflow-name my_indexing")
+        print("  python project_index.py --workspaces frontend,backend,shared")
+        print("\nFeatures:")
+        print(f"  • Monorepo support: {'✓' if MONOREPO_SUPPORT else '✗'}")
+        print(f"  • Hierarchical indexing: {'✓' if HIERARCHICAL_SUPPORT else '✗'}")
+        print(f"  • Workflow integration: {'✓' if WORKFLOW_INTEGRATION else '✗'}")
+        sys.exit(0)
+    
     if len(sys.argv) > 1 and sys.argv[1] == '--version':
         print(f"PROJECT_INDEX v{__version__}")
         sys.exit(0)
+        
     main()

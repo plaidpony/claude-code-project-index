@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
+  "rushVersion": "5.82.0",
+  "pnpmVersion": "7.30.0",
+  "projects": [
+    {
+      "packageName": "@rush-example/website",
+      "projectFolder": "apps/website",
+      "reviewCategory": "application"
+    },
+    {
+      "packageName": "@rush-example/admin",
+      "projectFolder": "apps/admin",
+      "reviewCategory": "application"
+    },
+    {
+      "packageName": "@rush-example/shared-utils",
+      "projectFolder": "libraries/shared-utils",
+      "reviewCategory": "library"
+    },
+    {
+      "packageName": "@rush-example/ui-components",
+      "projectFolder": "libraries/ui-components",
+      "reviewCategory": "library"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/example/rush-monorepo"
+  }
+}
